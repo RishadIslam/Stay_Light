@@ -6,6 +6,14 @@
     <string name="password">Password</string>
     <string name="login">LOGIN</string>
     <string name="show_pwd">Show Password</string>
+    <string name="input_error_name">name required</string>
+    <string name="input_error_email">email required</string>
+    <string name="input_error_password">password required</string>
+    <string name="input_error_phone">phone required</string>
+    <string name="input_error_password_length">password should be atleast 6 characters long</string>
+    <string name="input_error_phone_invalid">enter a valid phone number</string>
+    <string name="input_error_email_invalid">enter a valid email</string>
+    <string name="input_error_password_unmatched">please confirm your password</string>
     <string name="hide_pwd">Hide Password</string>
     <string name="forgot">Forgot password?</string>
     <string name="closebutton">Close Button for Activity</string>
