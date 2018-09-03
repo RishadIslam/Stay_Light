@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/login_username"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Username"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/login_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="98dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="189dp"
+        android:padding="3dp"
+        android:text="Login"
+        android:textColor="#009688"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/signupBtn"
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="3dp"
+        android:text="Signup"
+        android:textColor="#009688"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
