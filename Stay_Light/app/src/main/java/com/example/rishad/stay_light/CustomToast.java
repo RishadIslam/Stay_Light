@@ -29,6 +29,5 @@ public class CustomToast extends AppCompatActivity{
         toast.setDuration(Toast.LENGTH_SHORT);
 
         toast.show();
-
     }
 }
