@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/email"
+            android:drawableLeft="@mipmap/email"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:hint="@string/email"
@@ -46,7 +46,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/password"
+            android:drawableLeft="@mipmap/password"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:hint="@string/password"
@@ -113,7 +113,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        app:srcCompat="@drawable/app_logo" />
+        app:srcCompat="@mipmap/app_logo" />
 
 
 </RelativeLayout>

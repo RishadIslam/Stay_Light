@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,48 +27,17 @@ import java.util.regex.Pattern;
 public class LoginActivity extends AppCompatActivity implements AppLoginActivity {
 
 
-    private static EditText emailid, password;
-    private static Button loginButton;
-    private static TextView forgotPassword, signUp;
-    private static CheckBox show_hide_password;
-    private static LinearLayout loginLayout;
+    private  EditText emailid, password;
+    private  Button loginButton;
+    private  TextView forgotPassword, signUp;
+    private  CheckBox show_hide_password;
+    private  LinearLayout loginLayout;
     private static Animation shakeAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initViews();
-        setListeners();
-    }
-
-    private void setListeners() {
-        loginButton.setOnClickListener((View.OnClickListener) this);
-        forgotPassword.setOnClickListener((View.OnClickListener) this);
-        signUp.setOnClickListener((View.OnClickListener) this);
-
-        // Set check listener over checkbox for showing and hiding password
-        show_hide_password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton button, boolean isChecked) {
-                // If it is checked then show password else hide password
-                if(isChecked) {
-                    show_hide_password.setText(R.string.hide_pwd); //change checkbox text
-                    password.setInputType(InputType.TYPE_CLASS_TEXT);
-                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance()); //show password
-                }
-                else {
-                    show_hide_password.setText(R.string.show_pwd); //change checkbox text
-                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-            }
-        }
-        );
-
-    }
-
-    private void initViews() {
         emailid = findViewById(R.id.login_emailid);
         password = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.loginBtn);
@@ -90,35 +60,59 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
             signUp.setTextColor(csl);
         } catch (Exception e) {
         }
-
-    }
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.loginBtn:
+        //login button pressed
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 checkValidation();
-                break;
-            case R.id.forgot_password:
+            }
+        });
+
+        //new User button pressed
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(LoginActivity.this, SignupActivity.class);
+                overridePendingTransition(R.anim.right_enter, R.anim.left_exit);
+                startActivity(intent1);
+            }
+        });
+
+        //forgot password
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 //replace forgot password activity with animation
                 Intent intent = new Intent(LoginActivity.this, ForgetActivity.class);
                 overridePendingTransition(R.anim.right_enter, R.anim.left_exit);
                 startActivity(intent);
-                break;
-            case R.id.createAccount:
-                // Replace signup frgament with animation
-                Intent intent1 = new Intent(LoginActivity.this, SignupActivity.class);
-                overridePendingTransition(R.anim.right_enter, R.anim.left_exit);
-                startActivity(intent1);
-                break;
-        }
+            }
+        });
+
+        // Set check listener over checkbox for showing and hiding password
+        show_hide_password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                // If it is checked then show password else hide password
+                if(isChecked) {
+                    show_hide_password.setText("Hide Password"); //change check box text
+                    password.setInputType(InputType.TYPE_CLASS_TEXT);
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance()); //show password
+                }
+                else {
+                    show_hide_password.setText(R.string.show_pwd); //change checkbox text
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
     }
+
     private void checkValidation() {
         //Get Email Id and password
         String getEmailId = emailid.getText().toString();
         String getPassword = password.getText().toString();
-
-        //check pattern for email Id
-        Pattern p = Pattern.compile(Utils.regEx);
-        Matcher m = p.matcher(getEmailId);
 
         //check for both fields are empty or not
         if(getEmailId.equals("") || getEmailId.length() == 0 || getPassword.equals("") || getPassword.length() == 0) {
@@ -126,7 +120,7 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
             new CustomToast().Show_Toast(getApplicationContext(),  "Enter both credentials.");
         }
         //check if email id is valid or not
-        else if(!m.find()) {
+        else if(!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches()) {
             new CustomToast().Show_Toast(getApplicationContext(),  "Your Email Id is invalid");
         }
         //else do login and do your stuff

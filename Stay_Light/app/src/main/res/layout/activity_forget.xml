@@ -21,7 +21,7 @@
         android:layout_marginTop="5dp"
         android:singleLine="true"
         android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/email"
+        android:drawableLeft="@mipmap/email"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
         android:hint="@string/email"

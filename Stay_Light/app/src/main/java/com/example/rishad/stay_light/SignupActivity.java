@@ -1,7 +1,6 @@
 package com.example.rishad.stay_light;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
@@ -23,15 +22,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class SignupActivity extends AppCompatActivity {
 
-    private  static EditText fullName, emailId, mobileNumber, password, confirmPassword;
-    private static TextView login;
-    private static Button signUpButton;
-    private static CheckBox terms_conditions;
+    private EditText fullName, emailId, mobileNumber, password, confirmPassword;
+    private TextView login;
+    private Button signUpButton;
+    protected CheckBox terms_conditions;
     private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
@@ -51,7 +47,7 @@ public class SignupActivity extends AppCompatActivity {
         signUpButton = findViewById(R.id.signUpBtn);
         login = findViewById(R.id.already_user);
         terms_conditions = findViewById(R.id.terms_conditions);
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
 
         @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
@@ -63,7 +59,20 @@ public class SignupActivity extends AppCompatActivity {
             terms_conditions.setTextColor(csl);
         } catch (Exception e) {
         }
-        setListeners();
+       signUpButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               checkValidation();
+           }
+       });
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                overridePendingTransition(R.anim.left_enter, R.anim.right_exit);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -76,23 +85,6 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private void setListeners() {
-        signUpButton.setOnClickListener((View.OnClickListener) this);
-        login.setOnClickListener((View.OnClickListener) this);
-    }
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.signUpBtn:
-                //call checkValidation method
-                checkValidation();
-                break;
-            case R.id.already_user:
-                //replace login fragment
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
 
     private void checkValidation() {
         //get all edittext texts

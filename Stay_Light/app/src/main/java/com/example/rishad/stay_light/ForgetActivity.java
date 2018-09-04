@@ -23,31 +23,38 @@ public class ForgetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget);
-        initViews();
-        setListeners();
-    }
-    // Set Listeners over buttons
-    private void setListeners() {
-        back.setOnClickListener((View.OnClickListener) this);
-        submit.setOnClickListener((View.OnClickListener) this);
-    }
+        emailId = findViewById(R.id.registered_emailid);
+        submit = findViewById(R.id.forgot_button);
+        back = findViewById(R.id.backToLoginBtn);
 
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.backToLoginBtn:
+        // Setting text selector over textviews
+        @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
+        try {
+            ColorStateList csl = ColorStateList.createFromXml(getResources(),
+                    xrp);
 
-                // Replace Login Fragment on Back Presses
-                Intent intent = new Intent(ForgetActivity.this, LoginActivity.class);
-                startActivity(intent);
-                break;
+            back.setTextColor(csl);
+            submit.setTextColor(csl);
 
-            case R.id.forgot_button:
-
-                // Call Submit button task
-                submitButtonTask();
-                break;
-
+        } catch (Exception e) {
         }
+
+        // Set Listeners over buttons
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ForgetActivity.this, LoginActivity.class);
+                overridePendingTransition(R.anim.left_enter, R.anim.right_exit);
+                startActivity(intent);
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitButtonTask();
+            }
+        });
     }
 
     private void submitButtonTask() {
@@ -73,21 +80,4 @@ public class ForgetActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Get Forgot Password.", Toast.LENGTH_SHORT).show();
     }
 
-    private void initViews() {
-        emailId = findViewById(R.id.registered_emailid);
-        submit = findViewById(R.id.forgot_button);
-        back = findViewById(R.id.backToLoginBtn);
-
-        // Setting text selector over textviews
-        @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
-        try {
-            ColorStateList csl = ColorStateList.createFromXml(getResources(),
-                    xrp);
-
-            back.setTextColor(csl);
-            submit.setTextColor(csl);
-
-        } catch (Exception e) {
-        }
-    }
 }
