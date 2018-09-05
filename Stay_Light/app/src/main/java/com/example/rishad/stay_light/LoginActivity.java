@@ -1,9 +1,11 @@
 package com.example.rishad.stay_light;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -24,6 +26,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +44,10 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
     private  CheckBox show_hide_password;
     private  LinearLayout loginLayout;
     private static Animation shakeAnimation;
-    public static final String regEx = "\\b^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$\\b";
+    private FirebaseAuth mAuth;
+    private ProgressDialog progressDialog;
+    private String email;
+    private String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +60,9 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
         signUp = findViewById(R.id.createAccount);
         show_hide_password = findViewById(R.id.show_hide_password);
         loginLayout = findViewById(R.id.login_layout);
+
+        mAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
 
         // Load ShakeAnimation
         shakeAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
@@ -64,7 +78,6 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
             signUp.setTextColor(csl);
         } catch (Exception e) {
         }
-
         //login button pressed
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,22 +135,43 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
         //check for both fields are empty or not
         if(getEmailId.trim().equals("") || getPassword.trim().equals("")) {
             loginLayout.startAnimation(shakeAnimation);
-            customToast();
+            ShowToast("Enter both credentials.");
         }
         //check if email id is valid or not
-        else if(!getEmailId.matches(regEx)) {
-            customToast();
+        else if(!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches()) {
+            ShowToast("Your Email Id is invalid");
         }
         //else do login and do your stuff
         else {
-//            Toast.makeText(getApplicationContext(), "Do Login", Toast.LENGTH_SHORT).show();
-            Intent home = new Intent(LoginActivity.this,HomePage.class);
-            startActivity(home);
+            signIn();
         }
     }
 
-    private void customToast() {
-        // Get TextView id and set error
+    private void signIn() {
+        email = emailid.getText().toString().trim();
+        pass = password.getText().toString().trim();
+
+        progressDialog.setMessage("Logging In...");
+
+        mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+//                    Toast.makeText(getApplicationContext(), "Log In Success! Proceeded to homepage.", Toast.LENGTH_SHORT).show();
+
+                    Intent home = new Intent(LoginActivity.this,HomePage.class);
+                    startActivity(home);
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, "Login Failure!!!", Toast.LENGTH_SHORT).show();
+                }
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void ShowToast(String s) {
         LayoutInflater inflater = getLayoutInflater();
 
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_root));
@@ -145,7 +179,7 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
 // set a message
         TextView text;
         text = layout.findViewById(R.id.toast_error);
-        text.setText("Invalid Email ID");
+        text.setText(s);
 
 // Toast...
         Toast toast = new Toast(getApplicationContext());
@@ -154,4 +188,5 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
         toast.setView(layout);
         toast.show();
     }
+
 }

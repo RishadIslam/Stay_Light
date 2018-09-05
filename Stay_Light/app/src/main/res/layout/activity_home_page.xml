@@ -14,13 +14,14 @@
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         app:headerLayout="@layout/header"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/white"
         app:itemTextColor="@color/background_color"
         app:itemIconTint="@color/background_color"
-        app:menu="@menu/drawermenu"
+        app:menu="@menu/activity_drawer_home"
         android:layout_gravity="start">
 
 

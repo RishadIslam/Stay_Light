@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
@@ -59,12 +61,14 @@ public class SignupActivity extends AppCompatActivity {
             terms_conditions.setTextColor(csl);
         } catch (Exception e) {
         }
+        //sign up button
        signUpButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                checkValidation();
            }
        });
+        //user already exists
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,49 +101,41 @@ public class SignupActivity extends AppCompatActivity {
         if(getFullName.isEmpty()) {
             fullName.setError(getString(R.string.input_error_name));
             fullName.requestFocus();
-            return;
         }
 
         if (getEmailId.isEmpty()) {
             emailId.setError(getString(R.string.input_error_email));
             emailId.requestFocus();
-            return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches()) {
             emailId.setError(getString(R.string.input_error_email_invalid));
             emailId.requestFocus();
-            return;
         }
 
         if (getPassword.isEmpty()) {
             password.setError(getString(R.string.input_error_password));
             password.requestFocus();
-            return;
         }
 
         if (getPassword.length() < 6) {
             password.setError(getString(R.string.input_error_password_length));
             password.requestFocus();
-            return;
         }
 
         if (getMobileNumber.isEmpty()) {
             mobileNumber.setError(getString(R.string.input_error_phone));
             mobileNumber.requestFocus();
-            return;
         }
 
         if (getMobileNumber.length() != 11) {
             mobileNumber.setError(getString(R.string.input_error_phone_invalid));
             mobileNumber.requestFocus();
-            return;
         }
 
         if (!getConfirmPassword.equals(getPassword)) {
             confirmPassword.setError(getString(R.string.input_error_password_unmatched));
             confirmPassword.requestFocus();
-            return;
         }
 
         //insert data into firebase
@@ -155,12 +151,13 @@ public class SignupActivity extends AppCompatActivity {
                             getMobileNumber
                     );
 
-                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser()
+                            .getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             progressBar.setVisibility(View.GONE);
                             if (task.isSuccessful()) {
-                                Toast.makeText(SignupActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                                sendEmailVerification();//Will redirect to a browser page
                             }
                             else {
                                 Toast.makeText(SignupActivity.this, "Registration not Successful", Toast.LENGTH_SHORT).show();
@@ -168,8 +165,40 @@ public class SignupActivity extends AppCompatActivity {
                         }
                     });
                 }
+                else {
+                    Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            private void sendEmailVerification() {
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (firebaseUser != null) {
+                    firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                showCustomToast("Check Your Email To Verify");
+                                FirebaseAuth.getInstance().signOut();
+                            }
+                        }
+                    });
+                }
+            }
+
+            private void showCustomToast(String s) {
+                View toastview = getLayoutInflater().inflate(R.layout.email_custom_toast, null);
+
+                Toast toast = new Toast(getApplicationContext());
+                TextView textView = findViewById(R.id.customToastText);
+
+                toast.setView(toastview);
+                textView.setText(s);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+                toast.show();
             }
         });
+
 
 
 
