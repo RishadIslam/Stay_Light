@@ -10,12 +10,12 @@
         android:id="@+id/toast_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:drawableLeft="@mipmap/error"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:padding="5dp"
         android:textColor="#c0392b"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:drawableStart="@mipmap/error" />
 
 </RelativeLayout>
