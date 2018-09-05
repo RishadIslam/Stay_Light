@@ -4,12 +4,19 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +25,7 @@ public class ForgetActivity extends AppCompatActivity {
 
     private static EditText emailId;
     private static TextView submit, back;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,8 @@ public class ForgetActivity extends AppCompatActivity {
         emailId = findViewById(R.id.registered_emailid);
         submit = findViewById(R.id.forgot_button);
         back = findViewById(R.id.backToLoginBtn);
+
+        mAuth = FirebaseAuth.getInstance();
 
         // Setting text selector over textviews
         @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
@@ -60,24 +70,43 @@ public class ForgetActivity extends AppCompatActivity {
     private void submitButtonTask() {
         String getEmailId = emailId.getText().toString();
 
-        // Pattern for email id validation
-        Pattern p = Pattern.compile(Utils.regEx);
-
-        // Match the pattern
-        Matcher m = p.matcher(getEmailId);
-
         // First check if email id is not null else show error toast
         if (getEmailId.equals("") || getEmailId.length() == 0)
 
-            new CustomToast().Show_Toast(getApplicationContext(), "Please enter your Email Id.");
+            ShowToast("Please enter your Email Id.");
 
             // Check if email id is valid or not
-        else if (!m.find())
-            new CustomToast().Show_Toast(getApplicationContext(), "Your Email Id is Invalid.");
+        else if (!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches())
+            ShowToast("Your Email Id is Invalid.");
 
             // Else submit email id and fetch passwod or do your stuff
-        else
-            Toast.makeText(getApplicationContext(), "Get Forgot Password.", Toast.LENGTH_SHORT).show();
+        else {
+            mAuth.sendPasswordResetEmail(getEmailId).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                   if (task.isSuccessful()) {
+                       ShowToast("Check Your Email to Reset Password");
+                   }
+                   else {
+                       Toast.makeText(ForgetActivity.this, "Fail to send reset Password to your Email", Toast.LENGTH_SHORT).show();
+                   }
+                }
+            });
+        }
+
+    }
+
+    private void ShowToast(String s) {
+        View toastview = getLayoutInflater().inflate(R.layout.email_custom_toast, null);
+
+        Toast toast = new Toast(getApplicationContext());
+        TextView textView = findViewById(R.id.customToastText);
+
+        toast.setView(toastview);
+        textView.setText(s);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+        toast.show();
     }
 
 }
