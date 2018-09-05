@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "937065562241",
+    "firebase_url": "https://staylight-24db0.firebaseio.com",
+    "project_id": "staylight-24db0",
+    "storage_bucket": "staylight-24db0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937065562241:android:6c0a06b7fe774bc3",
+        "android_client_info": {
+          "package_name": "com.example.rishad.stay_light"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937065562241-js31d5g72f16oamce6jphrugt88iq4j1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeshKoG2_LEbpiufn-BSgW_n-WJLXgNvQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
