@@ -17,17 +17,24 @@ public class CustomToast extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_toast);
     }
+
     //custom toast method
-    public void Show_Toast(Context context, String error) {
+    public void Show_Toast(String error) {
         // Get TextView id and set error
-        TextView text = findViewById(R.id.toast_error);
+        LayoutInflater inflater = getLayoutInflater();
+
+        View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_root));
+
+// set a message
+        TextView text;
+        text = layout.findViewById(R.id.toast_error);
         text.setText(error);
 
-        Toast toast = new Toast(context); //Get Toast Context
-        toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0); //set toast gravity and fill horizontal
-
-        toast.setDuration(Toast.LENGTH_SHORT);
-
+// Toast...
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
         toast.show();
     }
 }

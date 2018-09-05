@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1071106872794",
+    "firebase_url": "https://stay-light.firebaseio.com",
+    "project_id": "stay-light",
+    "storage_bucket": "stay-light.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071106872794:android:6c0a06b7fe774bc3",
+        "android_client_info": {
+          "package_name": "com.example.rishad.stay_light"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071106872794-0mopf5dk2vr11ribkg6nd65j7scrpqt3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rishad.stay_light",
+            "certificate_hash": "f7856804e1e0ccf3103cf1882ee52a646b2217c3"
+          }
+        },
+        {
+          "client_id": "1071106872794-0s3hudpaoq5f7gsbms4ngshotlrj120k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqWWNfLfwaaMDL9_Kh7auDnvq9jBXhRt8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071106872794-0s3hudpaoq5f7gsbms4ngshotlrj120k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

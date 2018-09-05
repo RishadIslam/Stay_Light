@@ -6,7 +6,10 @@ import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,17 +70,47 @@ public class ForgetActivity extends AppCompatActivity {
         Matcher m = p.matcher(getEmailId);
 
         // First check if email id is not null else show error toast
-        if (getEmailId.equals("") || getEmailId.length() == 0)
+        if (getEmailId.trim().equals(""))
+        {
+            LayoutInflater inflater = getLayoutInflater();
 
-            new CustomToast().Show_Toast(getApplicationContext(), "Please enter your Email Id.");
+            View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_root));
+
+// set a message
+            TextView text;
+            text = layout.findViewById(R.id.toast_error);
+            text.setText("Please Enter Email ID");
+
+// Toast...
+            Toast toast = new Toast(getApplicationContext());
+            toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(layout);
+            toast.show();
+        }
 
             // Check if email id is valid or not
         else if (!m.find())
-            new CustomToast().Show_Toast(getApplicationContext(), "Your Email Id is Invalid.");
+        {
+            LayoutInflater inflater = getLayoutInflater();
+
+            View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_root));
+
+// set a message
+            TextView text;
+            text = layout.findViewById(R.id.toast_error);
+            text.setText("Invalid Email ID");
+
+// Toast...
+            Toast toast = new Toast(getApplicationContext());
+            toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(layout);
+            toast.show();
+        }
 
             // Else submit email id and fetch passwod or do your stuff
         else
             Toast.makeText(getApplicationContext(), "Get Forgot Password.", Toast.LENGTH_SHORT).show();
     }
-
 }

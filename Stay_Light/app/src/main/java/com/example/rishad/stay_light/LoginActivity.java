@@ -10,7 +10,10 @@ import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -33,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
     private  CheckBox show_hide_password;
     private  LinearLayout loginLayout;
     private static Animation shakeAnimation;
+    public static final String regEx = "\\b^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$\\b";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
             signUp.setTextColor(csl);
         } catch (Exception e) {
         }
+
         //login button pressed
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,20 +120,38 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
         String getPassword = password.getText().toString();
 
         //check for both fields are empty or not
-        if(getEmailId.equals("") || getEmailId.length() == 0 || getPassword.equals("") || getPassword.length() == 0) {
+        if(getEmailId.trim().equals("") || getPassword.trim().equals("")) {
             loginLayout.startAnimation(shakeAnimation);
-            new CustomToast().Show_Toast(getApplicationContext(),  "Enter both credentials.");
+            customToast();
         }
         //check if email id is valid or not
-        else if(!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches()) {
-            new CustomToast().Show_Toast(getApplicationContext(),  "Your Email Id is invalid");
+        else if(!getEmailId.matches(regEx)) {
+            customToast();
         }
         //else do login and do your stuff
         else {
-            Toast.makeText(getApplicationContext(), "Do Login", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "Do Login", Toast.LENGTH_SHORT).show();
+            Intent home = new Intent(LoginActivity.this,HomePage.class);
+            startActivity(home);
         }
-
-
     }
 
+    private void customToast() {
+        // Get TextView id and set error
+        LayoutInflater inflater = getLayoutInflater();
+
+        View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_root));
+
+// set a message
+        TextView text;
+        text = layout.findViewById(R.id.toast_error);
+        text.setText("Invalid Email ID");
+
+// Toast...
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+    }
 }
