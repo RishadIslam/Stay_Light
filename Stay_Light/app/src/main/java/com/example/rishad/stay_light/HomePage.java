@@ -80,6 +80,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         {
             mAuth.signOut();
             startActivity(new Intent(HomePage.this,LoginActivity.class));
+        } else if(id == R.id.rent_nav) {
+            startActivity(new Intent(HomePage.this, homelist_1.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_page);
         drawer.closeDrawer(GravityCompat.START);

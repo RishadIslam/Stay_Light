@@ -21,7 +21,9 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".ForgetActivity" />
         <activity android:name=".CustomToast" />
-        <activity android:name=".HomePage"></activity>
+        <activity android:name=".HomePage" />
+        <activity android:name=".homelist_1" />
+        <activity android:name=".homelist_2"></activity>
     </application>
 
 </manifest>
