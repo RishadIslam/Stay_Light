@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
 
+    int check_error = 0;
     private EditText fullName, emailId, mobileNumber, password, confirmPassword;
     private TextView login;
     private Button signUpButton;
@@ -98,110 +99,115 @@ public class SignupActivity extends AppCompatActivity {
         final String getPassword = password.getText().toString().trim();
         String getConfirmPassword = confirmPassword.getText().toString().trim();
 
-        if(getFullName.isEmpty()) {
+        if (getFullName.isEmpty()) {
             fullName.setError(getString(R.string.input_error_name));
             fullName.requestFocus();
+            check_error = 1;
         }
 
         if (getEmailId.isEmpty()) {
             emailId.setError(getString(R.string.input_error_email));
             emailId.requestFocus();
+            check_error = 1;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches()) {
             emailId.setError(getString(R.string.input_error_email_invalid));
             emailId.requestFocus();
+            check_error = 1;
         }
 
         if (getPassword.isEmpty()) {
             password.setError(getString(R.string.input_error_password));
             password.requestFocus();
+            check_error = 1;
         }
 
         if (getPassword.length() < 6) {
             password.setError(getString(R.string.input_error_password_length));
             password.requestFocus();
+            check_error = 1;
         }
 
         if (getMobileNumber.isEmpty()) {
             mobileNumber.setError(getString(R.string.input_error_phone));
             mobileNumber.requestFocus();
+            check_error = 1;
         }
 
         if (getMobileNumber.length() != 11) {
             mobileNumber.setError(getString(R.string.input_error_phone_invalid));
             mobileNumber.requestFocus();
+            check_error = 1;
         }
 
         if (!getConfirmPassword.equals(getPassword)) {
             confirmPassword.setError(getString(R.string.input_error_password_unmatched));
             confirmPassword.requestFocus();
+            check_error = 1;
         }
 
-        //insert data into firebase
-        progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(getEmailId,getPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    User user = new User(
-                            getFullName,
-                            getEmailId,
-                            getPassword,
-                            getMobileNumber
-                    );
 
-                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser()
-                            .getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            progressBar.setVisibility(View.GONE);
-                            if (task.isSuccessful()) {
-                                sendEmailVerification();//Will redirect to a browser page
+        if (check_error == 0) {
+            //insert data into firebase
+            progressBar.setVisibility(View.VISIBLE);
+            mAuth.createUserWithEmailAndPassword(getEmailId, getPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        User user = new User(
+                                getFullName,
+                                getEmailId,
+                                getPassword,
+                                getMobileNumber
+                        );
+
+                        FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser()
+                                .getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                progressBar.setVisibility(View.GONE);
+                                if (task.isSuccessful()) {
+                                    sendEmailVerification();//Will redirect to a browser page
+                                } else {
+                                    Toast.makeText(SignupActivity.this, "Registration not Successful", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                            else {
-                                Toast.makeText(SignupActivity.this, "Registration not Successful", Toast.LENGTH_SHORT).show();
+                        });
+                    } else {
+                        Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                private void sendEmailVerification() {
+                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (firebaseUser != null) {
+                        firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    showCustomToast("Check Your Email To Verify");
+                                    FirebaseAuth.getInstance().signOut();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
-                else {
-                    Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
+            });
+        }
+    }
 
-            private void sendEmailVerification() {
-                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                if (firebaseUser != null) {
-                    firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                showCustomToast("Check Your Email To Verify");
-                                FirebaseAuth.getInstance().signOut();
-                            }
-                        }
-                    });
-                }
-            }
+    private void showCustomToast(String s) {
+        View toastview = getLayoutInflater().inflate(R.layout.email_custom_toast, null);
 
-            private void showCustomToast(String s) {
-                View toastview = getLayoutInflater().inflate(R.layout.email_custom_toast, null);
+        Toast toast = new Toast(getApplicationContext());
+        TextView textView = findViewById(R.id.customToastText);
 
-                Toast toast = new Toast(getApplicationContext());
-                TextView textView = findViewById(R.id.customToastText);
-
-                toast.setView(toastview);
-                textView.setText(s);
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
-                toast.show();
-            }
-        });
-
-
-
-
+        toast.setView(toastview);
+        textView.setText(s);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+        toast.show();
     }
 
 }
