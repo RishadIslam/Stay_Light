@@ -20,7 +20,7 @@
     <string name="newUser">Not a Member yet? Sign Up here.</string>
     <string name="fullName">Full Name</string>
     <string name="mobileNumber">Mobile Number</string>
-    <string name="location">Location</string>
+
     <string name="confirmPassword">Confirm Password</string>
     <string name="terms_conditions">By clicking SignUp you agree all the Terms and Conditions.</string>
     <string name="signUp">SIGN UP</string>
@@ -66,12 +66,12 @@
     <string name="is_the_bathroom_private">Is the bathroom private?</string>
     <string name="step_2_start_with_the_basic">STEP 2 : Start with the basic</string>
     <string name="what_kind_of_place_are_you_listing">What kind of place are you listing?</string>
-    <string name="types_of_accomodation">Types of Accomodation</string>
+    <string name="types_of_accomodation">Types of Accommodation</string>
     <string name="what_will_guest_have">What will guest have?</string>
     <string name="no_of_bedroom">No. of Bedroom</string>
-    <string name="next">Next</string>
+
     <string name="step_1">STEP 1</string>
     <string name="what_kind_of_place_do_you_have">What Kind of Place Do You Have?</string>
     <string name="location">Location</string>
-    <string name="next">Next</string>
+
 </resources>
