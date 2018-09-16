@@ -52,34 +52,53 @@
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true" />
 
-    <Spinner
-        android:id="@+id/noofguest"
-        android:layout_width="162dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:layout_alignRight="@+id/textView2" />
-
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/location"
         android:layout_width="344dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="240dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="146dp"
         android:ems="10"
+        android:hint="@string/location"
         android:inputType="textPersonName"
-        android:hint="@string/location" />
+        android:layout_alignParentLeft="true" />
 
     <Button
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView2"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="187dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="29dp"
         android:text="@string/next"
-        android:layout_alignRight="@+id/textView2" />
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="226dp"
+        android:text="@string/how_many_guest_can_you_accomodate"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/noOfguest"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/textView8"
+        android:layout_marginTop="-226dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="@string/no_of_guest"
+        android:layout_alignLeft="@+id/textView"
+        />
 
 
 </RelativeLayout>

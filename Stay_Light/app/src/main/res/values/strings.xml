@@ -73,5 +73,8 @@
     <string name="step_1">STEP 1</string>
     <string name="what_kind_of_place_do_you_have">What Kind of Place Do You Have?</string>
     <string name="location">Location</string>
+    <string name="how_many_guest_can_you_accomodated">HOW MANY GUEST CAN YOU ACCOMODATED?</string>
+    <string name="how_many_guest_can_you_accomodate">HOW MANY GUEST CAN YOU ACCOMODATE?</string>
+    <string name="no_of_guest">No of guest</string>
 
 </resources>
