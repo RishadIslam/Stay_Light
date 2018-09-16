@@ -10,15 +10,7 @@ import android.widget.Spinner;
 
 public class homelist_1 extends AppCompatActivity {
 
-    Spinner dropdown = findViewById(R.id.typeofhouse);
-    String[] items = new String[]{"Entire Place", "Private Room", "Shared Room"};
-    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
     private Button nextButton;
-
-    public void setDropdown(Spinner dropdown) {
-        this.dropdown = dropdown;
-        dropdown.setAdapter(adapter);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

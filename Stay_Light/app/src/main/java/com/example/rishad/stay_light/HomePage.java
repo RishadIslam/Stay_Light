@@ -76,13 +76,17 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         if (id == R.id.profile_nav) {
             // Handle the camera action
             Toast.makeText(getApplicationContext(), "profile", Toast.LENGTH_LONG).show();
-        }else if (id == R.id.nav_logout)
+        }
+        else if (id == R.id.nav_logout)
         {
             mAuth.signOut();
             startActivity(new Intent(HomePage.this,LoginActivity.class));
-        } else if(id == R.id.rent_nav) {
-            startActivity(new Intent(HomePage.this, homelist_1.class));
         }
+        else if(id == R.id.rent_nav) {
+            Intent rent = new Intent(HomePage.this,homelist_1.class);
+            startActivity(rent);
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_page);
         drawer.closeDrawer(GravityCompat.START);
         return true;
