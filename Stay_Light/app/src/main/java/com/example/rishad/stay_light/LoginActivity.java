@@ -35,7 +35,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LoginActivity extends AppCompatActivity implements AppLoginActivity {
+public class LoginActivity extends AppCompatActivity {
 
 
     private  EditText emailid, password;
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
         shakeAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.shake);
 
-        @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
+        /*@SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
         try {
             ColorStateList csl = ColorStateList.createFromXml(getResources(),
                     xrp);
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
             show_hide_password.setTextColor(csl);
             signUp.setTextColor(csl);
         } catch (Exception e) {
-        }
+        }*/
         //login button pressed
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +184,7 @@ public class LoginActivity extends AppCompatActivity implements AppLoginActivity
 // Toast...
         Toast toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
     }

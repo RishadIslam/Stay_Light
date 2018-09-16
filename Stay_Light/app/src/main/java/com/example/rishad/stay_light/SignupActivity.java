@@ -53,7 +53,7 @@ public class SignupActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
 
-        @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
+        /*@SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
         try {
             ColorStateList csl = ColorStateList.createFromXml(getResources(),
                     xrp);
@@ -61,7 +61,7 @@ public class SignupActivity extends AppCompatActivity {
             login.setTextColor(csl);
             terms_conditions.setTextColor(csl);
         } catch (Exception e) {
-        }
+        }*/
         //sign up button
        signUpButton.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -81,14 +81,14 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser() != null) {
             Toast.makeText(SignupActivity.this, "User already registered", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(SignupActivity.this, LoginActivity.class));
         }
-    }
+    }*/
 
 
     private void checkValidation() {
@@ -205,7 +205,7 @@ public class SignupActivity extends AppCompatActivity {
 
         toast.setView(toastview);
         textView.setText(s);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
         toast.show();
     }

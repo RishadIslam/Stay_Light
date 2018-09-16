@@ -57,12 +57,11 @@
         android:layout_width="344dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="146dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="118dp"
         android:ems="10"
         android:hint="@string/location"
-        android:inputType="textPersonName"
-        android:layout_alignParentLeft="true" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/next"
@@ -78,9 +77,8 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/noOfguest"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="226dp"
         android:text="@string/how_many_guest_can_you_accomodate"
         android:textAllCaps="true"
         android:textColor="@android:color/black"
@@ -91,14 +89,12 @@
         android:id="@+id/noOfguest"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/location"
         android:layout_alignStart="@+id/textView"
-        android:layout_below="@+id/textView8"
-        android:layout_marginTop="-226dp"
         android:ems="10"
-        android:inputType="numberDecimal"
         android:hint="@string/no_of_guest"
-        android:layout_alignLeft="@+id/textView"
-        />
+        android:inputType="numberDecimal"
+        android:layout_alignLeft="@+id/textView" />
 
 
 </RelativeLayout>
