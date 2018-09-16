@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".homelist_1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="20dp"
+    android:background="@color/background_color">
+
+
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/imageView3"
+        android:layout_width="182dp"
+        android:layout_height="98dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@mipmap/app_logo" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="364dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="151dp"
+        android:text="@string/what_amenities_do_you_offer"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="94dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/textView8"
+        android:text="@string/pets"
+        android:layout_alignLeft="@+id/textView8" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/checkBox"
+        android:text="@string/lift"
+        android:layout_alignLeft="@+id/textView8" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkBox4"
+        android:layout_below="@+id/textView8"
+        android:text="@string/kitchen"
+        android:layout_alignLeft="@+id/checkBox4" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/checkBox"
+        android:layout_marginEnd="86dp"
+        android:text="@string/ac"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="86dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkBox4"
+        android:layout_below="@+id/checkBox3"
+        android:text="@string/toiletries"
+        android:layout_alignLeft="@+id/checkBox4" />
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/checkBox3"
+        android:text="@string/wifi"
+        android:layout_alignLeft="@+id/textView8" />
+
+    <CheckBox
+        android:id="@+id/checkBox6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/checkBox5"
+        android:text="@string/parking"
+        android:layout_alignLeft="@+id/textView8" />
+
+    <CheckBox
+        android:id="@+id/checkBox7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/checkBox6"
+        android:text="@string/laundry"
+        android:layout_alignLeft="@+id/textView8" />
+
+    <CheckBox
+        android:id="@+id/checkBox8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/checkBox7"
+        android:text="@string/breakfast"
+        android:layout_alignLeft="@+id/textView8" />
+
+    <CheckBox
+        android:id="@+id/checkBox9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/checkBox8"
+        android:text="@string/tv"
+        android:layout_alignLeft="@+id/textView8" />
+
+    <CheckBox
+        android:id="@+id/checkBox11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkBox4"
+        android:layout_below="@+id/checkBox5"
+        android:text="@string/hairdryer"
+        android:layout_alignLeft="@+id/checkBox4" />
+
+    <CheckBox
+        android:id="@+id/checkBox12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkBox4"
+        android:layout_below="@+id/checkBox6"
+        android:text="@string/gym"
+        android:layout_alignLeft="@+id/checkBox4" />
+
+    <CheckBox
+        android:id="@+id/checkBox13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkBox4"
+        android:layout_below="@+id/checkBox7"
+        android:text="@string/desk_workspace"
+        android:layout_alignLeft="@+id/checkBox4" />
+
+    <CheckBox
+        android:id="@+id/checkBox14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkBox4"
+        android:layout_below="@+id/checkBox8"
+        android:text="@string/first_aid_kit"
+        android:layout_alignLeft="@+id/checkBox4" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="22dp"
+        android:text="@string/finish"
+        android:layout_alignParentRight="true" />
+
+    <CheckBox
+        android:id="@+id/checkBox15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/checkBox9"
+        android:text="@string/fire_extinguisher"
+        android:layout_alignLeft="@+id/textView8"
+        tools:ignore="RtlCompat" />
+
+</RelativeLayout>

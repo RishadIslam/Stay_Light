@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".homelist_3"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="20dp"
+    android:background="@color/background_color">
+
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="136dp"
+        android:layout_height="59dp"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/editText5"
+        android:layout_marginTop="6dp"
+        android:text="@string/street_address"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="182dp"
+        android:layout_height="98dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@mipmap/app_logo"
+        android:contentDescription="@string/todo" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="364dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="151dp"
+        android:text="@string/where_s_your_place_located"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="172dp"
+        android:layout_height="63dp"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/editText"
+        android:text="@string/house_holding_no"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="232dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/textView8"
+        android:text="@string/apartment_no"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="95dp"
+        android:layout_height="47dp"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/textView10"
+        android:text="@string/city"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="116dp"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView10"
+        android:layout_marginBottom="66dp"
+        android:text="@string/zip_code"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_alignLeft="@+id/textView10" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="64dp"
+        android:layout_height="38dp"
+        android:layout_alignEnd="@+id/textView8"
+        android:layout_alignParentBottom="true"
+        android:text="@string/next"
+        android:textStyle="bold"
+        android:layout_alignRight="@+id/textView8" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="345dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/textView11"
+        android:ems="10"
+        android:hint="@string/apt_no"
+        android:inputType="textPersonName"
+        android:textStyle="bold"
+        android:layout_alignLeft="@+id/textView8" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="177dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView8"
+        android:layout_alignTop="@+id/textView9"
+        android:ems="10"
+        android:hint="@string/house_no"
+        android:inputType="text"
+        android:layout_alignRight="@+id/textView8" />
+
+    <EditText
+        android:id="@+id/editText6"
+        android:layout_width="317dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView12"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/textView12"
+        android:ems="10"
+        android:hint="@string/ex_dhaka_chittagong"
+        android:inputType="text"
+        android:layout_toRightOf="@+id/textView12" />
+
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView8"
+        android:layout_alignTop="@+id/textView13"
+        android:ems="10"
+        android:hint="@string/ex_1216_2020_5400"
+        android:inputType="number"
+        android:layout_alignRight="@+id/textView8" />
+
+    <EditText
+        android:id="@+id/editText8"
+        android:layout_width="244dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/editText5"
+        android:layout_marginLeft="-36dp"
+        android:layout_marginStart="-36dp"
+        android:layout_toEndOf="@+id/textView10"
+        android:layout_toRightOf="@+id/textView10"
+        android:ems="10"
+        android:hint="@string/road_no"
+        android:inputType="text" />
+
+</RelativeLayout>
