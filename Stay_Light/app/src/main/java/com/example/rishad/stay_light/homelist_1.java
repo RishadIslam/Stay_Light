@@ -16,7 +16,7 @@ public class homelist_1 extends AppCompatActivity  {
 
     private Button nextButton;
     Spinner dropdown;
-    private String[] houseType = new String[]{"Entire Place", "Private Room", "Shared Room"};
+    private String[] houseType = new String[]{"","Entire Place", "Private Room", "Shared Room"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
