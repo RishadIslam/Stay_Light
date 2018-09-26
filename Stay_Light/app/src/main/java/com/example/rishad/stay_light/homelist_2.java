@@ -1,5 +1,6 @@
 package com.example.rishad.stay_light;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,7 @@ public class homelist_2 extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(homelist_2.this, "Proceeded to next page", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(homelist_2.this,homelist_3.class));
             }
         });
     }

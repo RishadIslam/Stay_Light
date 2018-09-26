@@ -40,7 +40,7 @@ public class ForgetActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // Setting text selector over textviews
-        @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
+        /*@SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
         try {
             ColorStateList csl = ColorStateList.createFromXml(getResources(),
                     xrp);
@@ -49,7 +49,7 @@ public class ForgetActivity extends AppCompatActivity {
             submit.setTextColor(csl);
 
         } catch (Exception e) {
-        }
+        }*/
 
         // Set Listeners over buttons
         back.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +111,7 @@ public class ForgetActivity extends AppCompatActivity {
 // Toast...
         Toast toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
     }

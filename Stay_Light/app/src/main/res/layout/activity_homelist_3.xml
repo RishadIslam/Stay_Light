@@ -15,7 +15,7 @@
         android:layout_height="59dp"
         android:layout_alignLeft="@+id/textView8"
         android:layout_alignStart="@+id/textView8"
-        android:layout_below="@+id/editText5"
+        android:layout_below="@+id/houseNo"
         android:layout_marginTop="6dp"
         android:text="@string/street_address"
         android:textSize="24sp" />
@@ -49,7 +49,7 @@
         android:layout_height="63dp"
         android:layout_alignLeft="@+id/textView8"
         android:layout_alignStart="@+id/textView8"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/apartment"
         android:text="@string/house_holding_no"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -89,7 +89,7 @@
         android:layout_alignLeft="@+id/textView10" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/nextPage"
         android:layout_width="64dp"
         android:layout_height="38dp"
         android:layout_alignEnd="@+id/textView8"
@@ -99,7 +99,7 @@
         android:layout_alignRight="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/apartment"
         android:layout_width="345dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView8"
@@ -111,7 +111,7 @@
         android:layout_alignLeft="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/houseNo"
         android:layout_width="177dp"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/textView8"
@@ -122,7 +122,7 @@
         android:layout_alignRight="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/cityName"
         android:layout_width="317dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView12"
@@ -134,7 +134,7 @@
         android:layout_toRightOf="@+id/textView12" />
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/zipCode"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/textView8"
@@ -145,10 +145,10 @@
         android:layout_alignRight="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editText8"
+        android:id="@+id/roadNo"
         android:layout_width="244dp"
         android:layout_height="70dp"
-        android:layout_below="@+id/editText5"
+        android:layout_below="@+id/houseNo"
         android:layout_marginLeft="-36dp"
         android:layout_marginStart="-36dp"
         android:layout_toEndOf="@+id/textView10"
