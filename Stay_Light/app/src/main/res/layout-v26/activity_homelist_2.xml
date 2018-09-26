@@ -20,7 +20,8 @@
         android:textAllCaps="true"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_alignLeft="@+id/title2" />
+        android:layout_alignLeft="@+id/title2"
+        tools:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/title2"
@@ -53,9 +54,10 @@
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/title1"
+        android:layout_alignStart="@+id/title"
         android:layout_marginTop="170dp"
-        android:layout_alignLeft="@+id/title1" />
+        android:layout_alignLeft="@+id/title"
+        tools:ignore="RtlHardcoded,UnknownIdInLayout" />
 
     <TextView
         android:id="@+id/title4"
@@ -69,7 +71,8 @@
         android:textAllCaps="true"
         android:textColor="@android:color/darker_gray"
         android:textSize="22sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="RtlHardcoded" />
 
     <EditText
         android:id="@+id/noofguest"
@@ -80,7 +83,8 @@
         android:ems="10"
         android:inputType="number"
         android:layout_alignRight="@+id/title2"
-        android:autofillHints="" />
+        android:autofillHints=""
+        tools:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/title5"
@@ -94,7 +98,8 @@
         android:textAllCaps="true"
         android:textColor="@android:color/darker_gray"
         android:textSize="22sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="RtlHardcoded,UnknownIdInLayout" />
 
     <RadioButton
         android:id="@+id/yes"
@@ -112,7 +117,7 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/title5"
+        android:layout_alignStart="@+id/title"
         android:layout_marginBottom="165dp"
         android:text="@string/no"
         android:textSize="22sp"
@@ -134,21 +139,19 @@
 
     <EditText
         android:id="@+id/noofbedroom"
-        android:layout_width="152dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/title6"
         android:layout_alignLeft="@+id/title6"
         android:layout_alignEnd="@+id/title6"
-        android:layout_alignRight="@+id/title6"
         android:layout_alignBottom="@+id/title6"
         android:layout_marginStart="194dp"
         android:layout_marginLeft="194dp"
-        android:layout_marginEnd="-137dp"
-        android:layout_marginRight="-137dp"
         android:layout_marginBottom="0dp"
-        android:autofillHints=""
         android:ems="10"
-        android:inputType="number" />
+        android:inputType="number"
+        android:autofillHints=""
+        android:layout_alignRight="@+id/title6" />
 
     <Button
         android:id="@+id/next2"
