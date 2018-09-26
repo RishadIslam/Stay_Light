@@ -63,12 +63,12 @@ public class SignupActivity extends AppCompatActivity {
         } catch (Exception e) {
         }*/
         //sign up button
-       signUpButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               checkValidation();
-           }
-       });
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkValidation();
+            }
+        });
         //user already exists
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,6 +176,7 @@ public class SignupActivity extends AppCompatActivity {
                         });
                     } else {
                         Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(SignupActivity.this, SignupActivity.class));
                     }
                 }
 
