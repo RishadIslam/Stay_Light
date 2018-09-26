@@ -13,15 +13,20 @@
         android:id="@+id/textView7"
         android:layout_width="209dp"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_alignStart="@+id/textView"
         android:layout_below="@+id/noOfBedroom"
         android:layout_marginTop="-161dp"
+=======
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_marginBottom="229dp"
+>>>>>>> dbd947d16fc5aac6c056f21e31b5a66c1574aeee
         android:text="@string/no_of_bathroom"
         android:textAllCaps="true"
         android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_alignLeft="@+id/textView" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView6"
@@ -29,13 +34,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textView"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="137dp"
         android:text="@string/is_the_bathroom_private"
         android:textAllCaps="true"
         android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
+<<<<<<< HEAD
         android:textStyle="bold"
         android:layout_alignLeft="@+id/textView" />
+=======
+        android:textStyle="bold" />
+>>>>>>> dbd947d16fc5aac6c056f21e31b5a66c1574aeee
 
     <TextView
         android:id="@+id/textView"
@@ -66,6 +75,7 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/textView3"
         android:layout_width="341dp"
@@ -81,12 +91,14 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
         android:textStyle="bold" />
+=======
+>>>>>>> dbd947d16fc5aac6c056f21e31b5a66c1574aeee
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="357dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/typeofproperty"
+        android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:text="@string/what_will_guest_have"
         android:textAllCaps="true"
@@ -98,32 +110,20 @@
         android:id="@+id/textView5"
         android:layout_width="209dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView"
-        android:layout_below="@+id/guestaccomodation"
-        android:layout_marginTop="-198dp"
+        android:layout_alignStart="@+id/textView7"
+        android:layout_alignTop="@+id/editText3"
         android:text="@string/no_of_bedroom"
         android:textAllCaps="true"
         android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_alignLeft="@+id/textView" />
-
-    <Spinner
-        android:id="@+id/typeofproperty"
-        android:layout_width="212dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/textView" />
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/guestaccomodation"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/textView"
-        android:layout_marginBottom="198dp"
-        android:layout_alignLeft="@+id/textView" />
+        android:layout_alignStart="@+id/textView7"
+        android:layout_centerVertical="true" />
 
     <Button
         android:id="@+id/next"
@@ -140,13 +140,13 @@
     <EditText
         android:id="@+id/noOfBedroom"
         android:layout_width="120dp"
-        android:layout_height="23dp"
+        android:layout_height="25dp"
         android:layout_alignEnd="@+id/textView2"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="169dp"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_marginBottom="187dp"
         android:ems="10"
-        android:inputType="number"
-        android:layout_alignRight="@+id/textView2" />
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/noOfBathroom"
@@ -162,23 +162,27 @@
         android:id="@+id/YES"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/next"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="47dp"
-        android:text="@string/yes"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="47dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="113dp"
+        android:layout_toStartOf="@+id/imageView3"
+        android:text="@string/yes" />
 
     <RadioButton
         android:id="@+id/NO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_below="@+id/YES"
         android:layout_alignStart="@+id/YES"
         android:layout_alignLeft="@+id/YES"
         android:layout_marginStart="-5dp"
         android:layout_marginLeft="-5dp"
         android:layout_marginTop="4dp"
+=======
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/radioButton"
+        android:layout_marginBottom="90dp"
+>>>>>>> dbd947d16fc5aac6c056f21e31b5a66c1574aeee
         android:text="@string/no" />
 
 
