@@ -86,9 +86,9 @@
         android:id="@+id/title5"
         android:layout_width="342dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/title"
+        android:layout_alignLeft="@+id/title4"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/title"
+        android:layout_alignStart="@+id/title4"
         android:layout_marginBottom="243dp"
         android:text="@string/is_the_bathroom_private"
         android:textAllCaps="true"
@@ -116,7 +116,7 @@
         android:layout_marginBottom="165dp"
         android:text="@string/no"
         android:textSize="22sp"
-        android:layout_alignLeft="@+id/title" />
+        android:layout_alignLeft="@+id/title5" />
 
     <TextView
         android:id="@+id/title6"
@@ -155,9 +155,11 @@
         android:layout_width="128dp"
         android:layout_height="69dp"
         android:layout_alignEnd="@+id/title6"
+        android:layout_alignRight="@+id/title6"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="49dp"
-        android:text="@string/next"
-        android:layout_alignRight="@+id/title6" />
+        android:layout_marginEnd="-141dp"
+        android:layout_marginRight="-141dp"
+        android:layout_marginBottom="43dp"
+        android:text="@string/next" />
 
 </RelativeLayout>
