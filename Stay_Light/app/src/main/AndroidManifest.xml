@@ -25,7 +25,8 @@
         <activity android:name=".homelist_1" />
         <activity android:name=".homelist_2" />
         <activity android:name=".homelist_3" />
-        <activity android:name=".homelist_4"></activity>
+        <activity android:name=".homelist_4" />
+        <activity android:name=".rentlistsuccess"></activity>
     </application>
 
 </manifest>

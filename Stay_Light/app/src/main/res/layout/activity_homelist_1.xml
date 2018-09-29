@@ -16,7 +16,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        app:srcCompat="@mipmap/app_logo" />
+        app:srcCompat="@mipmap/app_logo"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/textView"
@@ -46,10 +47,10 @@
 
     <Spinner
         android:id="@+id/typeofhouse"
-        android:layout_width="168dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_width="344dp"
+        android:layout_height="48dp"
         android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true" />
 
     <EditText
@@ -61,7 +62,8 @@
         android:layout_marginBottom="118dp"
         android:ems="10"
         android:hint="@string/location"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        tools:ignore="Autofill" />
 
     <Button
         android:id="@+id/next"
@@ -71,7 +73,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="29dp"
         android:text="@string/next"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        tools:ignore="RelativeOverlap" />
 
     <TextView
         android:id="@+id/textView8"
@@ -87,14 +90,16 @@
 
     <EditText
         android:id="@+id/noOfguest"
-        android:layout_width="120dp"
+        android:layout_width="353dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/location"
         android:layout_alignStart="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_marginBottom="0dp"
         android:ems="10"
         android:hint="@string/no_of_guest"
         android:inputType="numberDecimal"
-        android:layout_alignLeft="@+id/textView" />
+        tools:ignore="Autofill" />
 
 
 </RelativeLayout>
