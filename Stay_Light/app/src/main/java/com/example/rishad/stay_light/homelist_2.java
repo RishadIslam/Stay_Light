@@ -23,7 +23,7 @@ public class homelist_2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homelist_2);
 
-        dropdownAccomodation = findViewById(R.id.typeofproperty);
+        //dropdownAccomodation = findViewById(R.id.typeofproperty);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, accoTypeList);
         dropdownAccomodation.setAdapter(adapter);
         dropdownAccomodation.setOnItemSelectedListener(AcooType);

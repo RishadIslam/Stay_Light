@@ -20,7 +20,7 @@ public class homelist_4 extends AppCompatActivity {
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(homelist_4.this,HomePage.class));
+                startActivity(new Intent(homelist_4.this,rentlistsuccess.class));
             }
         });
     }
