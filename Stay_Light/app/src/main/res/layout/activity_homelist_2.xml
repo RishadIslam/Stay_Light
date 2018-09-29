@@ -72,7 +72,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/noofguest"
+        android:id="@+id/noofbath"
         android:layout_width="125dp"
         android:layout_height="36dp"
         android:layout_alignEnd="@+id/title2"
@@ -96,41 +96,21 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <RadioButton
-        android:id="@+id/yes"
-        android:layout_width="162dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/title5"
-        android:layout_marginBottom="200dp"
-        android:text="@string/yes"
-        android:textSize="22sp"
-        android:layout_alignLeft="@+id/title5" />
-
-    <RadioButton
-        android:id="@+id/no"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/title5"
-        android:layout_marginBottom="165dp"
-        android:text="@string/no"
-        android:textSize="22sp"
-        android:layout_alignLeft="@+id/title5" />
-
     <TextView
         android:id="@+id/title6"
         android:layout_width="209dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/title5"
-        android:layout_marginBottom="130dp"
+        android:layout_alignLeft="@+id/title5"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-5dp"
+        android:layout_marginLeft="-5dp"
+        android:layout_marginBottom="87dp"
         android:text="@string/no_of_bedroom"
         android:textAllCaps="true"
         android:textColor="@android:color/darker_gray"
         android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_alignLeft="@+id/title5" />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/noofbedroom"
@@ -141,11 +121,11 @@
         android:layout_alignEnd="@+id/title6"
         android:layout_alignRight="@+id/title6"
         android:layout_alignBottom="@+id/title6"
-        android:layout_marginStart="194dp"
-        android:layout_marginLeft="194dp"
-        android:layout_marginEnd="-137dp"
-        android:layout_marginRight="-137dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginLeft="216dp"
+        android:layout_marginEnd="-159dp"
+        android:layout_marginRight="-159dp"
+        android:layout_marginBottom="-12dp"
         android:autofillHints=""
         android:ems="10"
         android:inputType="number" />
@@ -157,9 +137,35 @@
         android:layout_alignEnd="@+id/title6"
         android:layout_alignRight="@+id/title6"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="-141dp"
-        android:layout_marginRight="-141dp"
-        android:layout_marginBottom="43dp"
+        android:layout_marginEnd="-154dp"
+        android:layout_marginRight="-154dp"
+        android:layout_marginBottom="0dp"
         android:text="@string/next" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="91dp"
+        android:layout_height="84dp"
+        android:layout_alignStart="@+id/title1"
+        android:layout_alignLeft="@+id/title1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginLeft="-2dp"
+        android:layout_marginBottom="153dp"
+        android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="YES" />
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/radioGroup1"
+            android:text="NO"
+            android:layout_alignRight="@+id/radioGroup1" />
+    </RadioGroup>
 
 </RelativeLayout>

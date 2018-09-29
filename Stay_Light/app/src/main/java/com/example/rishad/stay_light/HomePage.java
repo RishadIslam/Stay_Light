@@ -70,11 +70,9 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 //      navigation menu handling
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.profile_nav) {
-            // Handle the camera action
             Toast.makeText(getApplicationContext(), "profile", Toast.LENGTH_LONG).show();
         }
         else if (id == R.id.nav_logout)

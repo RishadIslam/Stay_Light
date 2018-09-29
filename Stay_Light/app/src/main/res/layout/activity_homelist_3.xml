@@ -11,37 +11,31 @@
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="136dp"
-        android:layout_height="59dp"
-        android:layout_alignLeft="@+id/textView8"
-        android:layout_alignStart="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
         android:layout_below="@+id/houseNo"
-        android:layout_marginTop="6dp"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"
         android:text="@string/street_address"
-        android:textSize="24sp" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="182dp"
-        android:layout_height="98dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        app:srcCompat="@mipmap/app_logo"
-        android:contentDescription="@string/todo" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="364dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="151dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="24dp"
         android:text="@string/where_s_your_place_located"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_alignParentLeft="true" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView9"
@@ -51,8 +45,7 @@
         android:layout_alignStart="@+id/textView8"
         android:layout_below="@+id/apartment"
         android:text="@string/house_holding_no"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/textView11"
@@ -62,31 +55,33 @@
         android:layout_alignStart="@+id/textView8"
         android:layout_below="@+id/textView8"
         android:text="@string/apartment_no"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="95dp"
         android:layout_height="47dp"
-        android:layout_alignLeft="@+id/textView8"
-        android:layout_alignStart="@+id/textView8"
         android:layout_below="@+id/textView10"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="39dp"
         android:text="@string/city"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="116dp"
         android:layout_height="46dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textView10"
-        android:layout_marginBottom="66dp"
+        android:layout_alignLeft="@+id/textView10"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="106dp"
         android:text="@string/zip_code"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_alignLeft="@+id/textView10" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/nextPage"
@@ -100,57 +95,67 @@
 
     <EditText
         android:id="@+id/apartment"
-        android:layout_width="345dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView8"
         android:layout_below="@+id/textView11"
         android:ems="10"
         android:hint="@string/apt_no"
         android:inputType="textPersonName"
-        android:textStyle="bold"
         android:layout_alignLeft="@+id/textView8" />
 
     <EditText
         android:id="@+id/houseNo"
         android:layout_width="177dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView8"
         android:layout_alignTop="@+id/textView9"
+        android:layout_alignEnd="@+id/textView8"
+        android:layout_alignRight="@+id/textView8"
+        android:layout_alignLeft="@+id/textView9"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="135dp"
+        android:layout_marginRight="135dp"
         android:ems="10"
         android:hint="@string/house_no"
-        android:inputType="text"
-        android:layout_alignRight="@+id/textView8" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/cityName"
         android:layout_width="317dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView12"
-        android:layout_marginTop="0dp"
+        android:layout_marginStart="-97dp"
+        android:layout_marginLeft="-97dp"
+        android:layout_marginTop="29dp"
         android:layout_toEndOf="@+id/textView12"
+        android:layout_toRightOf="@+id/textView12"
         android:ems="10"
         android:hint="@string/ex_dhaka_chittagong"
-        android:inputType="text"
-        android:layout_toRightOf="@+id/textView12" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/zipCode"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView8"
         android:layout_alignTop="@+id/textView13"
+        android:layout_alignEnd="@+id/textView8"
+        android:layout_alignRight="@+id/textView8"
+        android:layout_alignLeft="@+id/textView13"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="62dp"
+        android:layout_marginRight="62dp"
         android:ems="10"
         android:hint="@string/ex_1216_2020_5400"
-        android:inputType="number"
-        android:layout_alignRight="@+id/textView8" />
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/roadNo"
-        android:layout_width="244dp"
-        android:layout_height="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/houseNo"
-        android:layout_marginLeft="-36dp"
-        android:layout_marginStart="-36dp"
+        android:layout_marginStart="-120dp"
+        android:layout_marginLeft="-120dp"
+        android:layout_marginTop="44dp"
         android:layout_toEndOf="@+id/textView10"
         android:layout_toRightOf="@+id/textView10"
         android:ems="10"
