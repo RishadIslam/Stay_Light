@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,7 @@ public class homelist_1 extends AppCompatActivity  {
     Spinner dropdown;
     private String[] houseType = new String[]{"","Apartment", "Duplex", "Bread And Breakfast"};
     public String guestNumber,location,houseTypeItem;
+    int check_error = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +44,31 @@ public class homelist_1 extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
 
-                //        data send
+                guestNumber = (String)noOfGuest.getText().toString().trim();
+                location = houseLocation.getText().toString().trim();
 
-                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send",MODE_PRIVATE);
-                //now get Editor
-                SharedPreferences.Editor editor = sharedPref.edit();
-                //put your value
-                editor.putString("guestNumber",(String)noOfGuest.getText().toString().trim());
-                editor.putString("houseType", houseTypeItem);
-                editor.putString("location", houseLocation.getText().toString().trim());
+                if (guestNumber.isEmpty() || location.isEmpty())
+                {
+                    Toast.makeText(getApplicationContext(),"Enter all field",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    //        data send
 
-                //commits your edits
-                editor.apply();
+                    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send",MODE_PRIVATE);
+                    //now get Editor
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    //put your value
+                    editor.putString("guestNumber",(String)noOfGuest.getText().toString().trim());
+                    editor.putString("houseType", houseTypeItem);
+                    editor.putString("location", houseLocation.getText().toString().trim());
+
+                    //commits your edits
+                    editor.apply();
 
 //        data send
-
-                startActivity(new Intent(homelist_1.this, homelist_2.class));
+                    startActivity(new Intent(homelist_1.this, homelist_2.class));
+                }
             }
         });
     }

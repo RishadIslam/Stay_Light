@@ -19,12 +19,14 @@ import android.widget.Toast;
 
 public class homelist_2 extends AppCompatActivity {
 
+    int check_error = 0;
     private Button button;
     Spinner dropdownAccomodation;
-    private EditText textBath,textBed;
+    private EditText textBath, textBed;
     private RadioGroup radioGroup;
-    private String[] accoTypeList = new String[]{"","Entire Place", "Private Room", "Shared Room"};
-    public String accoType,privateBath,noOfbed,noOfBath;
+    private String[] accoTypeList = new String[]{"", "Entire Place", "Private Room", "Shared Room"};
+    public String accoType, privateBath, noOfbed, noOfBath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +52,14 @@ public class homelist_2 extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton radioButton = (RadioButton) radioGroup.findViewById(i);
 
-                if (radioButton != null && i > -1)
-                {
+                if (radioButton != null && i > -1) {
                     privateBath = (String) radioButton.getText();
-                    Toast.makeText(getApplicationContext(),privateBath,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), privateBath, Toast.LENGTH_LONG).show();
+                }
+                if (radioButton == null) {
+                    radioButton.setError("Check one options");
+                    radioButton.requestFocus();
+                    check_error = 1;
                 }
             }
         });
@@ -64,23 +70,25 @@ public class homelist_2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //        data send
+                if (((String) textBath.getText().toString().trim()).isEmpty()
+                        || ((String) textBed.getText().toString().trim()).isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Enter all field", Toast.LENGTH_LONG).show();
+                } else {
 
-                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send",MODE_PRIVATE);
-                //now get Editor
-                SharedPreferences.Editor editor = sharedPref.edit();
-                //put your value
-                editor.putString("noOfBath",(String)textBath.getText().toString().trim());
-                editor.putString("privateBath", privateBath);
-                editor.putString("accoType", accoType);
-                editor.putString("noOfbed", (String) textBed.getText().toString().trim());
-
-                //commits your edits
-                editor.apply();
-
+//                            data send
+                    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
+                    //now get Editor
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    //put your value
+                    editor.putString("noOfBath", (String) textBath.getText().toString().trim());
+                    editor.putString("privateBath", privateBath);
+                    editor.putString("accoType", accoType);
+                    editor.putString("noOfbed", (String) textBed.getText().toString().trim());
+                    //commits your edits
+                    editor.apply();
 //        data send
-
-                startActivity(new Intent(homelist_2.this,homelist_3.class));
+                    startActivity(new Intent(homelist_2.this, homelist_3.class));
+                }
             }
         });
     }
@@ -89,7 +97,6 @@ public class homelist_2 extends AppCompatActivity {
     AdapterView.OnItemSelectedListener AcooType = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
-            ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
             accoType = parent.getItemAtPosition(pos).toString();
             Toast.makeText(homelist_2.this, accoType, Toast.LENGTH_SHORT).show();
         }

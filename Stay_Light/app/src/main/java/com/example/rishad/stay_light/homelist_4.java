@@ -118,7 +118,7 @@ public class homelist_4 extends AppCompatActivity {
 
                         databaseReference.child(refId).setValue(hostPlaceInfo);
                         Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(homelist_4.this,HomePage.class));
+                        startActivity(new Intent(homelist_4.this,rentlistsuccess.class));
                     }
                 }).setNegativeButton("Cancel",null).setCancelable(false);
 
@@ -145,9 +145,5 @@ public class homelist_4 extends AppCompatActivity {
          szipCode = sharedPref.getString("szipCode", "");
 
 //        data receive
-
-        viewOputPut.setText(guestNumber + "\n" + houseType + "\n" + location + "\n" + noOfBath + "\n" + privateBath + "\n" + accoType
-                            + "\n" + noOfbed + "\n" + apartmentNo + "\n" + shouseNo + "\n"
-                            + sroadNo + "\n" + scityName + "\n" + szipCode);
     }
 }

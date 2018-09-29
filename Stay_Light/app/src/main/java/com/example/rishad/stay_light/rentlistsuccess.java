@@ -12,13 +12,20 @@ public class rentlistsuccess extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rentlistsuccess);
-        success=(ImageButton) findViewById(R.id.success);
+        success= (ImageButton) findViewById(R.id.success);
+
+        success.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentLoadNewActivity = new Intent(rentlistsuccess.this, HomePage.class);
+                startActivity(intentLoadNewActivity);
+            }
+        });
 
     }
 
     @Override
-    public void onClick(View v) {
-        Intent intentLoadNewActivity = new Intent(rentlistsuccess.this, HomePage.class);
-        startActivity(intentLoadNewActivity);
+    public void onClick(View view) {
+
     }
 }
