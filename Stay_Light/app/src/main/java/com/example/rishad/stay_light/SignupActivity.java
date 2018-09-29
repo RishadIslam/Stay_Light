@@ -7,6 +7,7 @@ import android.content.res.XmlResourceParser;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
@@ -168,6 +170,7 @@ public class SignupActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
+                                    userProfile();
                                     sendEmailVerification();//Will redirect to a browser page
                                 } else {
                                     Toast.makeText(SignupActivity.this, "Registration not Successful", Toast.LENGTH_SHORT).show();
@@ -198,11 +201,33 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
+    private void userProfile()
+    {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user!= null)
+        {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(fullName.getText().toString().trim())
+                    //.setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))  // here you can set image link also.
+                    .build();
+
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("TESTING", "User profile updated.");
+                            }
+                        }
+                    });
+        }
+    }
+
     private void showCustomToast(String s) {
         View toastview = getLayoutInflater().inflate(R.layout.email_custom_toast, null);
 
         Toast toast = new Toast(getApplicationContext());
-        TextView textView = findViewById(R.id.customToastText);
+        TextView textView = toastview.findViewById(R.id.customToastText);
 
         toast.setView(toastview);
         textView.setText(s);
