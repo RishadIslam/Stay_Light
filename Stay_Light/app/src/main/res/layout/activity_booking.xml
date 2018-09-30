@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".booking"
+    tools:layout_editor_absoluteY="25dp">
+
+    <EditText
+        android:id="@+id/editText9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Booking"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true"
+        android:background="@android:color/holo_red_light"
+        android:textAlignment="center"
+        tools:ignore="Autofill,HardcodedText,LabelFor" />
+
+    <EditText
+        android:id="@+id/checkin"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="47dp"
+        android:ems="10"
+        android:hint="Check In"
+        android:inputType="date"
+        android:textAlignment="center"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <EditText
+        android:id="@+id/checkout"
+        android:layout_width="169dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="205dp"
+        android:layout_marginLeft="205dp"
+        android:layout_marginTop="45dp"
+        android:ems="10"
+        android:hint="Check Out"
+        android:inputType="date"
+        android:textAlignment="center"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <EditText
+        android:id="@+id/noofrooms"
+        android:layout_width="107dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="102dp"
+        android:ems="10"
+        android:hint="No of Rooms"
+        android:inputType="number"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <EditText
+        android:id="@+id/adults"
+        android:layout_width="98dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/noofrooms"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="134dp"
+        android:layout_marginRight="134dp"
+        android:layout_marginBottom="0dp"
+        android:ems="10"
+        android:hint="Adult"
+        android:inputType="number"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <EditText
+        android:id="@+id/children"
+        android:layout_width="99dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/noofrooms"
+        android:layout_marginStart="96dp"
+        android:layout_marginLeft="96dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/checkin"
+        android:layout_toRightOf="@+id/checkin"
+        android:ems="10"
+        android:hint="Children"
+        android:inputType="number"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginBottom="359dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <EditText
+        android:id="@+id/mobile"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginBottom="303dp"
+        android:ems="10"
+        android:hint="Mobile No"
+        android:inputType="phone"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginBottom="245dp"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="textPersonName"
+        tools:ignore="Autofill,HardcodedText"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="23dp" />
+
+    <EditText
+        android:id="@+id/zip"
+        android:layout_width="344dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="188dp"
+        android:ems="10"
+        android:hint="Zip Code"
+        android:inputType="textPostalAddress"
+        tools:ignore="Autofill,HardcodedText"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="24dp" />
+
+    <EditText
+        android:id="@+id/country"
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/city"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="129dp"
+        android:ems="10"
+        android:hint="Country"
+        android:inputType="textPersonName"
+        tools:ignore="Autofill,HardcodedText"
+        android:layout_alignLeft="@+id/city"
+        android:layout_marginLeft="1dp" />
+
+    <Button
+        android:id="@+id/booking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="58dp"
+        android:background="@android:color/holo_red_dark"
+        android:text="Book"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>
