@@ -9,28 +9,20 @@
     android:background="@color/background_color">
 
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="182dp"
-        android:layout_height="98dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        app:srcCompat="@mipmap/app_logo"
-        tools:ignore="ContentDescription" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="133dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="126dp"
         android:text="@string/step_1"
         android:textAllCaps="true"
-        android:textStyle="bold"
         android:textSize="22sp"
-        android:layout_alignParentLeft="true" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView2"
@@ -49,17 +41,24 @@
         android:id="@+id/typeofhouse"
         android:layout_width="344dp"
         android:layout_height="48dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignStart="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp" />
 
     <EditText
         android:id="@+id/location"
-        android:layout_width="344dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView2"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="118dp"
+        android:layout_marginBottom="130dp"
         android:ems="10"
         android:hint="@string/location"
         android:inputType="textPersonName"
@@ -69,11 +68,13 @@
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="29dp"
-        android:text="@string/next"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/next"
         tools:ignore="RelativeOverlap" />
 
     <TextView
@@ -81,7 +82,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/noOfguest"
-        android:layout_centerHorizontal="true"
+        android:layout_alignStart="@+id/typeofhouse"
+        android:layout_alignLeft="@+id/typeofhouse"
+        android:layout_alignEnd="@+id/typeofhouse"
+        android:layout_alignRight="@+id/typeofhouse"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
         android:text="@string/how_many_guest_can_you_accomodate"
         android:textAllCaps="true"
         android:textColor="@android:color/black"
@@ -93,13 +101,27 @@
         android:layout_width="353dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/location"
-        android:layout_alignStart="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_marginBottom="0dp"
+        android:layout_alignStart="@+id/typeofhouse"
+        android:layout_alignLeft="@+id/typeofhouse"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginBottom="-4dp"
         android:ems="10"
         android:hint="@string/no_of_guest"
         android:inputType="numberDecimal"
         tools:ignore="Autofill" />
+
+    <EditText
+        android:id="@+id/housePriceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/next"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="25dp"
+        android:ems="10"
+        android:hint="Price Per Day"
+        android:inputType="number" />
 
 
 </RelativeLayout>

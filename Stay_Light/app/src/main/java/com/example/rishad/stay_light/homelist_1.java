@@ -18,11 +18,11 @@ import android.widget.Toast;
 
 public class homelist_1 extends AppCompatActivity  {
 
-    private EditText noOfGuest,houseLocation;
+    private EditText noOfGuest,houseLocation,textHousePrice;
     private Button nextButton;
     Spinner dropdown;
     private String[] houseType = new String[]{"","Apartment", "Duplex", "Bread And Breakfast"};
-    public String guestNumber,location,houseTypeItem;
+    public String guestNumber,location,houseTypeItem,housePrice;
     int check_error = 0;
 
     @Override
@@ -34,6 +34,7 @@ public class homelist_1 extends AppCompatActivity  {
         noOfGuest = findViewById(R.id.noOfguest);
         nextButton = findViewById(R.id.next);
         dropdown = findViewById(R.id.typeofhouse);
+        textHousePrice = findViewById(R.id.housePriceText);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, houseType);
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(typesOfhouse);
@@ -46,8 +47,9 @@ public class homelist_1 extends AppCompatActivity  {
 
                 guestNumber = (String)noOfGuest.getText().toString().trim();
                 location = houseLocation.getText().toString().trim();
+                housePrice = (String) textHousePrice.getText().toString().trim();
 
-                if (guestNumber.isEmpty() || location.isEmpty())
+                if (guestNumber.isEmpty() || location.isEmpty() || housePrice.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(),"Enter all field",Toast.LENGTH_LONG).show();
                 }
@@ -60,6 +62,7 @@ public class homelist_1 extends AppCompatActivity  {
                     SharedPreferences.Editor editor = sharedPref.edit();
                     //put your value
                     editor.putString("guestNumber",(String)noOfGuest.getText().toString().trim());
+                    editor.putString("housePrice",(String)textHousePrice.getText().toString().trim());
                     editor.putString("houseType", houseTypeItem);
                     editor.putString("location", houseLocation.getText().toString().trim());
 

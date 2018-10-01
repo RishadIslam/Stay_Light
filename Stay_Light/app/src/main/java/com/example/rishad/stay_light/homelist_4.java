@@ -23,14 +23,9 @@ public class homelist_4 extends AppCompatActivity {
     private TextView viewOputPut;
     private Button finishBtn;
     public String amenities = "";
-    public String pets,lift,wifi,Parking,laundry,brakfast,tv,kitchen,ac,toilet,fire,desk,firstAid;
-    private CheckBox boxPets,boxLift,boxWifi,boxParking,boxLaundry,boxBreakfast,boxTv,boxKitchen,boxAc,boxToilet,
-                        boxFire,boxDesk,boxFirstAid;
-    private FirebaseAuth mAuth;
-    private String guestNumber,houseType,location,noOfBath,privateBath,accoType,noOfbed,shouseNo,apartmentNo,sroadNo,scityName,
-                    szipCode;
-    private FirebaseUser user;
-    public HostPlaceInfo hostPlaceInfo;
+    public String pets, lift, wifi, Parking, laundry, brakfast, tv, kitchen, ac, toilet, fire, desk, firstAid;
+    private CheckBox boxPets, boxLift, boxWifi, boxParking, boxLaundry, boxBreakfast, boxTv, boxKitchen, boxAc, boxToilet,
+            boxFire, boxDesk, boxFirstAid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +49,8 @@ public class homelist_4 extends AppCompatActivity {
         viewOputPut = findViewById(R.id.output);
 
         finishBtn = findViewById(R.id.finish);
+
+        viewOputPut.setText("Proceed to next page for placing your page in maps.");
 
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,49 +98,19 @@ public class homelist_4 extends AppCompatActivity {
 
 //                Toast.makeText(getApplicationContext(),amenities,Toast.LENGTH_LONG).show();
 
-//                data send to db
-                user = mAuth.getInstance().getCurrentUser();
-                String id = user.getUid().trim();
-                hostPlaceInfo = new HostPlaceInfo(id,guestNumber,location,houseType,accoType,privateBath,noOfbed,
-                                                        noOfBath,apartmentNo,shouseNo,sroadNo,scityName,szipCode,amenities);
+                //        data send
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(homelist_4.this);
-                builder.setMessage("Do you want to submit?").setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
+                //now get Editor
+                SharedPreferences.Editor editor = sharedPref.edit();
+                //put your value
+                editor.putString("amenities", amenities);
+                //commits your edits
+                editor.apply();
+//        data send
 
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Host Details");
-
-                        String refId = databaseReference.push().getKey();
-
-                        databaseReference.child(refId).setValue(hostPlaceInfo);
-                        Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(homelist_4.this,rentlistsuccess.class));
-                    }
-                }).setNegativeButton("Cancel",null).setCancelable(false);
-
-                AlertDialog alert = builder.create();
-                alert.show();
-//                data send to db
+                startActivity(new Intent(homelist_4.this,MapsActivity.class));
             }
         });
-
-//        data receive
-
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send",MODE_PRIVATE);
-         guestNumber = sharedPref.getString("guestNumber", "");
-         houseType = sharedPref.getString("houseType", "");
-         location = sharedPref.getString("location", "");
-         noOfBath = sharedPref.getString("noOfBath", "");
-         privateBath = sharedPref.getString("privateBath", "");
-         accoType = sharedPref.getString("accoType", "");
-         noOfbed = sharedPref.getString("noOfbed", "");
-         apartmentNo = sharedPref.getString("apartmentNo", "");
-         shouseNo = sharedPref.getString("shouseNo", "");
-         sroadNo = sharedPref.getString("sroadNo", "");
-         scityName = sharedPref.getString("scityName", "");
-         szipCode = sharedPref.getString("szipCode", "");
-
-//        data receive
     }
 }

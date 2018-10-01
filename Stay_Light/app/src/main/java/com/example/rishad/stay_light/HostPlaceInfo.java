@@ -2,12 +2,17 @@ package com.example.rishad.stay_light;
 
 public class HostPlaceInfo {
     String userId,guestNumber,location,houseTypeItem,accoType,privateBath,noOfbed,noOfBath,apartmentNo,shouseNo,sroadNo,scityName,szipCode,
-            amenities;
+            amenities,housePrice;
+    double latitude,lognitude;
 
 
     public HostPlaceInfo () {}
 
-    public HostPlaceInfo(String userId, String guestNumber, String location, String houseTypeItem, String accoType, String privateBath, String noOfbed, String noOfBath, String apartmentNo, String shouseNo, String sroadNo, String scityName, String szipCode, String amenities) {
+    public HostPlaceInfo(String userId, String guestNumber, String location,
+                         String houseTypeItem, String accoType, String privateBath,
+                         String noOfbed, String noOfBath, String apartmentNo, String shouseNo,
+                         String sroadNo, String scityName, String szipCode, String amenities,
+                         String housePrice, double latitude, double lognitude) {
         this.userId = userId;
         this.guestNumber = guestNumber;
         this.location = location;
@@ -22,6 +27,9 @@ public class HostPlaceInfo {
         this.scityName = scityName;
         this.szipCode = szipCode;
         this.amenities = amenities;
+        this.housePrice = housePrice;
+        this.latitude = latitude;
+        this.lognitude = lognitude;
     }
 
     public String getUserId() {
@@ -134,5 +142,29 @@ public class HostPlaceInfo {
 
     public void setAmenities(String amenities) {
         this.amenities = amenities;
+    }
+
+    public String getHousePrice() {
+        return housePrice;
+    }
+
+    public void setHousePrice(String housePrice) {
+        this.housePrice = housePrice;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLognitude() {
+        return lognitude;
+    }
+
+    public void setLognitude(double lognitude) {
+        this.lognitude = lognitude;
     }
 }
