@@ -17,7 +17,7 @@ public class rentlistsuccess extends AppCompatActivity implements View.OnClickLi
         success.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentLoadNewActivity = new Intent(rentlistsuccess.this, HomePage.class);
+                Intent intentLoadNewActivity = new Intent(rentlistsuccess.this, HomePage_Map.class);
                 startActivity(intentLoadNewActivity);
             }
         });

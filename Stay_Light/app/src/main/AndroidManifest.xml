@@ -29,7 +29,6 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".ForgetActivity" />
         <activity android:name=".CustomToast" />
-        <activity android:name=".HomePage" />
         <activity android:name=".homelist_1" />
         <activity android:name=".homelist_2" />
         <activity android:name=".homelist_3" />
@@ -48,8 +47,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity android:name=".MapsActivity" />
         <activity
-            android:name=".MapsActivity"></activity>
+            android:name=".HomePage_Map"
+            android:label="@string/title_activity_home_page__map"></activity>
     </application>
 
 </manifest>
