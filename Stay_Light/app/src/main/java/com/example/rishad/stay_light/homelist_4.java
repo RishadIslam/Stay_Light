@@ -50,7 +50,7 @@ public class homelist_4 extends AppCompatActivity {
 
         finishBtn = findViewById(R.id.finish);
 
-        viewOputPut.setText("Proceed to next page for placing your page in maps.");
+        viewOputPut.setText("Proceed to next page for placing your location in maps.");
 
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override

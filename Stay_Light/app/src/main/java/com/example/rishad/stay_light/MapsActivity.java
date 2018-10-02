@@ -101,10 +101,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Host Details");
+                        DatabaseReference refDatabase = FirebaseDatabase.getInstance().getReference("Host Location");
 
                         String refId = databaseReference.push().getKey();
 
                         databaseReference.child(refId).setValue(hostPlaceInfo);
+                        refDatabase.child(refId).setValue(latitudeAndLongitude);
                         Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
                         startActivity(new Intent(MapsActivity.this,rentlistsuccess.class));
                     }
@@ -229,6 +231,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng position = marker.getPosition(); //
                 latitude = position.latitude;
                 longitude = position.longitude;
+                latitudeAndLongitude = new LatitudeAndLongitude(latitude,longitude);
                 Toast.makeText(
                         MapsActivity.this,
                         "Lat " + latitude + " "
