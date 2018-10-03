@@ -67,8 +67,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener,GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener{
+public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -78,11 +78,11 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     public FirebaseAuth mAuth;
-    private TextView textViewName,textViewemail;
+    private TextView textViewName, textViewemail;
     private FirebaseUser user;
     GoogleApiClient mGoogleApiClient;
     private Button viewDetails;
-    private LatLng latLng;
+    private LatLng latLng, pickLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mDrawerLayout = findViewById(R.id.home_page);
-        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -126,8 +126,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
             // Check if user's email is verified
             boolean emailVerified = user.isEmailVerified();
-            if (emailVerified)
-            {
+            if (emailVerified) {
                 textViewemail.setText(email);
                 textViewName.setText(name);
             }
@@ -158,6 +157,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20.0f));
                 getNearestHouse();
             }
+
             @Override
             public void onError(Status status) {
                 // TODO: Handle the error.
@@ -174,22 +174,22 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
             super.onBackPressed();
         }
     }
+
     //      right corner menu handling
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
-        if (mToggle.onOptionsItemSelected(item))
-        {
+        if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        if (id == R.id.profile)
-        {
+        if (id == R.id.profile) {
             Toast.makeText(getApplicationContext(), "profile", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.drawermenu, menu);
@@ -203,14 +203,11 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
         if (id == R.id.profile_nav) {
             Toast.makeText(getApplicationContext(), "profile", Toast.LENGTH_LONG).show();
-        }
-        else if (id == R.id.nav_logout)
-        {
+        } else if (id == R.id.nav_logout) {
             mAuth.signOut();
-            startActivity(new Intent(HomePage_Map.this,LoginActivity.class));
-        }
-        else if(id == R.id.rent_nav) {
-            Intent rent = new Intent(HomePage_Map.this,homelist_1.class);
+            startActivity(new Intent(HomePage_Map.this, LoginActivity.class));
+        } else if (id == R.id.rent_nav) {
+            Intent rent = new Intent(HomePage_Map.this, homelist_1.class);
             startActivity(rent);
         }
 
@@ -241,7 +238,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
-    protected synchronized void buildGoogleApiClient(){
+    protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -250,11 +247,11 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         mGoogleApiClient.connect();
     }
 
-    LocationCallback mLocationCallback = new LocationCallback(){
+    LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
-            for(Location location : locationResult.getLocations()){
-                if(getApplicationContext()!=null){
+            for (Location location : locationResult.getLocations()) {
+                if (getApplicationContext() != null) {
 
                     mLastLocation = location;
 
@@ -270,7 +267,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     };
 
     private void checkLocationPermission() {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 new AlertDialog.Builder(this)
                         .setTitle("give permission")
@@ -283,8 +280,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
                         })
                         .create()
                         .show();
-            }
-            else{
+            } else {
                 ActivityCompat.requestPermissions(HomePage_Map.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
@@ -293,14 +289,14 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch(requestCode){
-            case 1:{
-                if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
                         mMap.setMyLocationEnabled(true);
                     }
-                } else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Please provide the permission", Toast.LENGTH_LONG).show();
                 }
                 break;
@@ -335,7 +331,8 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     public void onLocationChanged(Location location) {
         mLastLocation = location;
 
-        LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        pickLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
         mMap.addMarker(new MarkerOptions()
                 .position(latLng)
@@ -346,47 +343,50 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+        getNearestHouse();
     }
+
     private void getNearestHouse() {
-        DatabaseReference houseLocation = FirebaseDatabase.getInstance().getReference().child("Host Location");
 
-        houseLocation.addValueEventListener(new ValueEventListener() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Host Location");
+        GeoFire geoFire = new GeoFire(databaseReference);
+
+        final GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(pickLocation.latitude,
+                pickLocation.longitude), 10.00);
+
+        geoQuery.removeAllListeners();
+
+        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int size = (int) dataSnapshot.getChildrenCount();
-                Marker[] allMarkers = new Marker[size];
-                mMap.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    HouseCoordinates houseCoordinates = new HouseCoordinates();
-
-                    for(int cin = 0; cin<=size; cin++) {
-                        try {
-
-                            Double latitude1 = houseCoordinates.getmHouseLatitude();
-                            Double longitude1 = houseCoordinates.getmHouseLongitude();
-
-                            LatLng latLng = new LatLng(latitude1, longitude1);
-
-                            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                            mMap.setTrafficEnabled(true);
-                            mMap.setBuildingsEnabled(true);
-                            mMap.getUiSettings().setZoomControlsEnabled(true);
-
-                            allMarkers[cin] = mMap.addMarker(new MarkerOptions()
-                                    .position(latLng)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-
-                        }catch (Exception ex){
-                        }
-                    }
-                }
+            public void onKeyEntered(String key, GeoLocation location) {
+                LatLng meetLatLng = new LatLng(location.latitude, location.longitude);
+                mMap.addMarker(new MarkerOptions()
+                        .position(meetLatLng)
+                        .title(key)
+                        .draggable(true)
+                        .icon(BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onKeyExited(String key) {
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
 
             }
         });
+
     }
 }
