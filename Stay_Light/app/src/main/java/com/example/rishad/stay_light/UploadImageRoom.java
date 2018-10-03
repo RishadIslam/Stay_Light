@@ -152,16 +152,11 @@ public class UploadImageRoom extends AppCompatActivity {
                                 public void onSuccess(Uri uri) {
                                     Log.d(TAG, "onSuccess: uri= " + uri.toString());
 
-                                    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
-                                    String title = sharedPref.getString("houseTitle", "");
-
-                                    TitleImage titleImage = new TitleImage(title,uri.toString())
 ;                                    Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
                                             uri.toString());
 
                                     String uploadId = mDatabaseRef.push().getKey();
                                     mDatabaseRef.child(uploadId).setValue(upload);
-                                    ref.child(uploadId).setValue(titleImage);
                                 }
                             });
                         }
