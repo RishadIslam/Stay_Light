@@ -67,7 +67,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener,GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener{
 
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -79,7 +80,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     public FirebaseAuth mAuth;
     private TextView textViewName,textViewemail;
     private FirebaseUser user;
-
+    GoogleApiClient mGoogleApiClient;
     private Button viewDetails;
     private LatLng latLng;
 
@@ -94,7 +95,6 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
         mDrawerLayout = findViewById(R.id.home_page);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
@@ -175,7 +175,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
     //      right corner menu handling
-@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
@@ -233,18 +233,21 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-
-            }else{
-                checkLocationPermission();
-            }
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
+        buildGoogleApiClient();
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+    }
+
+    protected synchronized void buildGoogleApiClient(){
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
     }
 
     LocationCallback mLocationCallback = new LocationCallback(){
@@ -304,6 +307,47 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mLastLocation = location;
+
+        LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+
+        mMap.addMarker(new MarkerOptions()
+                .position(latLng)
+                .title("Current")
+                .draggable(true)
+                .icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+    }
     private void getNearestHouse() {
         DatabaseReference houseLocation = FirebaseDatabase.getInstance().getReference().child("Host Location");
 
@@ -318,8 +362,6 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
                     for(int cin = 0; cin<=size; cin++) {
                         try {
-                            houseCoordinates.getmHouseLatitude();
-                            houseCoordinates.getmHouseLongitude();
 
                             Double latitude1 = houseCoordinates.getmHouseLatitude();
                             Double longitude1 = houseCoordinates.getmHouseLongitude();
@@ -332,20 +374,19 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
                             mMap.getUiSettings().setZoomControlsEnabled(true);
 
                             allMarkers[cin] = mMap.addMarker(new MarkerOptions()
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng));
+                                    .position(latLng)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
                         }catch (Exception ex){
                         }
-                        }
                     }
                 }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
-
     }
 }

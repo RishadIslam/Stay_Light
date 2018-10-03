@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -60,7 +63,7 @@ class LatitudeAndLongitude {
     }
 }
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
     static final int REQUEST_LOCATION = 1;
@@ -82,7 +85,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         getLocation();
 
         buttonFinish = findViewById(R.id.finishBtn);
@@ -108,7 +110,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         assert refId != null;
                         databaseReference.child(refId).setValue(hostPlaceInfo);
-                        refDatabase.child(refId).setValue(latitudeAndLongitude);
+//                        refDatabase.child(refId).setValue(latitudeAndLongitude);
+                        GeoFire geoFire = new GeoFire(refDatabase);
+                        geoFire.setLocation(refId, new GeoLocation(latitude, longitude), new GeoFire.CompletionListener() {
+                            @Override
+                            public void onComplete(String key, DatabaseError error) {
+                                Toast.makeText(getApplicationContext(), "Geofire", Toast.LENGTH_LONG).show();
+                            }
+                        });
 
 
                         //        data send to upload image room
@@ -162,9 +171,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
         } else {
-
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            assert locationManager != null;
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if (location != null) {
@@ -218,8 +225,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        latitude = latitudeAndLongitude.latitude;
-        longitude = latitudeAndLongitude.longitude;
+        latitude = latitudeAndLongitude.getLatitude();
+        longitude = latitudeAndLongitude.getLongitude();
         LatLng latLng = new LatLng(latitude, longitude);
 
         mMap.addMarker(new MarkerOptions()
@@ -261,6 +268,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        latitudeAndLongitude = new LatitudeAndLongitude(location.getLatitude(),location.getLongitude());
+        latitudeAndLongitude = new LatitudeAndLongitude(location.getLatitude(), location.getLongitude());
     }
 }
