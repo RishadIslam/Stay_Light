@@ -45,12 +45,14 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCFCH9mw1wXoOnnWfnbgwbaKZbLno8A5C0" />
+            android:value="AIzaSyDE9i61ysbRc59oqISlIfr7mu5roLIe2Wg" />
 
         <activity android:name=".MapsActivity" />
         <activity
             android:name=".HomePage_Map"
-            android:label="@string/title_activity_home_page__map"></activity>
+            android:label="@string/title_activity_home_page__map" />
+        <activity android:name=".UploadImageRoom" />
+        <activity android:name=".ImagesActivity"></activity>
     </application>
 
 </manifest>
