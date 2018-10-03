@@ -52,6 +52,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -71,8 +72,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     private Button viewDetails;
     private LatLng latLng;
 
-    private int radius = 5;
-    private ArrayList<String> houseID = new ArrayList<>();
+    private int radius = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,7 +259,9 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
-                houseID.add(key);
+
+                LatLng houseLatlang = new LatLng(location.latitude, location.longitude);
+                mMap.addMarker(new MarkerOptions().position(houseLatlang));
             }
 
             @Override
