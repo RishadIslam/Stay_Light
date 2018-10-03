@@ -1,11 +1,11 @@
 package com.example.rishad.stay_light;
 
-public class SearchModel {
+public class ListHouse {
     String Title, Image;
 
-    public SearchModel() {}
+    public ListHouse() {}
 
-    public SearchModel(String title, String image, String hDescription) {
+    public ListHouse(String title, String image) {
         Title = title;
         Image = image;
     }

@@ -66,6 +66,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
@@ -82,6 +83,10 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseUser user;
     GoogleApiClient mGoogleApiClient;
     private Button viewDetails;
+    FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    List<ListHouse> list;
+
     private LatLng latLng, pickLocation;
 
     @Override
@@ -108,13 +113,27 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         textViewName = (TextView) hView.findViewById(R.id.personal_name);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Host Details");
 
         viewDetails = findViewById(R.id.details);
 
         viewDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomePage_Map.this, "See The Apartment List", Toast.LENGTH_SHORT).show();
+               databaseReference.addValueEventListener(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        list = new ArrayList<>();
+                       // StringBuffer stringbuffer = new StringBuffer();
+
+                   }
+
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                   }
+               });
             }
         });
 
