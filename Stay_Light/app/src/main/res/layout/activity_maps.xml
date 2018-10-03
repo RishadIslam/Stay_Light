@@ -17,8 +17,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
-        tools:context=".MapsActivity"
-        android:layout_marginLeft="0dp" />
+        tools:context=".MapsActivity" />
 
     <Button
         android:id="@+id/finishBtn"
@@ -26,8 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:text="Finish"
-        tools:ignore="HardcodedText"
-        android:layout_alignParentRight="true" />
+        android:text="Next" />
 
 </RelativeLayout>

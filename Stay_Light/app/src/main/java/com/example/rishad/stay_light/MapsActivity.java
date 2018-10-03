@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -59,7 +60,7 @@ class LatitudeAndLongitude {
     }
 }
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
 
     private GoogleMap mMap;
     static final int REQUEST_LOCATION = 1;
@@ -68,8 +69,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double latitude, longitude;
     private Button buttonFinish;
     private FirebaseAuth mAuth;
-    private String guestNumber,houseType,location,noOfBath,privateBath,accoType,noOfbed,shouseNo,apartmentNo,sroadNo,scityName,
-            szipCode,housePrice,amenities;
+    private String guestNumber, houseType, location, noOfBath, privateBath, accoType, noOfbed, shouseNo, apartmentNo, sroadNo, scityName,
+            szipCode, housePrice, amenities;
     private FirebaseUser user;
     public HostPlaceInfo hostPlaceInfo;
 
@@ -92,8 +93,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //                data send to db
                 user = mAuth.getInstance().getCurrentUser();
                 String id = user.getUid().trim();
-                hostPlaceInfo = new HostPlaceInfo(id,guestNumber,location,houseType,accoType,privateBath,noOfbed,
-                        noOfBath,apartmentNo,shouseNo,sroadNo,scityName,szipCode,amenities,housePrice,latitude,longitude);
+                hostPlaceInfo = new HostPlaceInfo(id, guestNumber, location, houseType, accoType, privateBath, noOfbed,
+                        noOfBath, apartmentNo, shouseNo, sroadNo, scityName, szipCode, amenities, housePrice, latitude, longitude);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                 builder.setMessage("Do you want to submit?").setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -105,12 +106,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         String refId = databaseReference.push().getKey();
 
+                        assert refId != null;
                         databaseReference.child(refId).setValue(hostPlaceInfo);
                         refDatabase.child(refId).setValue(latitudeAndLongitude);
-                        Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(MapsActivity.this,rentlistsuccess.class));
+
+
+                        //        data send to upload image room
+
+                        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
+                        //now get Editor
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        //put your value
+                        editor.putString("refId", refId);
+                        //commits your edits
+                        editor.apply();
+
+                        //        data send to upload image room
+
+
+                        Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MapsActivity.this, UploadImageRoom.class));
                     }
-                }).setNegativeButton("Cancel",null).setCancelable(false);
+                }).setNegativeButton("Cancel", null).setCancelable(false);
 
                 AlertDialog alert = builder.create();
                 alert.show();
@@ -119,7 +136,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         //        data receive
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send",MODE_PRIVATE);
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
         guestNumber = sharedPref.getString("guestNumber", "");
         houseType = sharedPref.getString("houseType", "");
         location = sharedPref.getString("location", "");
@@ -145,6 +162,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
         } else {
+
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            assert locationManager != null;
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if (location != null) {
@@ -152,9 +172,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 double longi = location.getLongitude();
 
                 latitudeAndLongitude = new LatitudeAndLongitude(latti, longi);
-                latitudeAndLongitude.setLatitude(latti);
-                latitudeAndLongitude.setLongitude(longi);
-
             } else {
                 Toast.makeText(getApplicationContext(), "Can not find current locatioin", Toast.LENGTH_LONG).show();
             }
@@ -201,12 +218,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        latitude = latitudeAndLongitude.getLatitude();
-        longitude = latitudeAndLongitude.getLongitude();
+        latitude = latitudeAndLongitude.latitude;
+        longitude = latitudeAndLongitude.longitude;
         LatLng latLng = new LatLng(latitude, longitude);
 
         mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude, longitude))
+                .position(latLng)
                 .title("Marker")
                 .draggable(true)
                 .snippet("Hello")
@@ -219,6 +236,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
+
             }
 
             @Override
@@ -231,7 +249,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng position = marker.getPosition(); //
                 latitude = position.latitude;
                 longitude = position.longitude;
-                latitudeAndLongitude = new LatitudeAndLongitude(latitude,longitude);
+                latitudeAndLongitude = new LatitudeAndLongitude(latitude, longitude);
                 Toast.makeText(
                         MapsActivity.this,
                         "Lat " + latitude + " "
@@ -239,5 +257,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        latitudeAndLongitude = new LatitudeAndLongitude(location.getLatitude(),location.getLongitude());
     }
 }
