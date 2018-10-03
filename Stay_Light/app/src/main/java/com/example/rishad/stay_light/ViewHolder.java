@@ -34,13 +34,13 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         });
     }
     //set details to recycler view row
-    public void setDetails(Context ctx, String title, String description, String image){
-        /*//Views
-        TextView mTitleTv = mView.findViewById(R.id.rTitleTv);
-        ImageView mImageIv = mView.findViewById(R.id.rImageView);
+    public void setDetails(Context ctx, String title, String image){
+
+        TextView mTitleTv = mView.findViewById(R.id.hTitle);
+        ImageView mImageIv = mView.findViewById(R.id.hprofile_image);
         //set data to views
         mTitleTv.setText(title);
-        Picasso.get().load(image).into(mImageIv);*/
+        Picasso.get().load(image).into(mImageIv);
     }
 
     private ViewHolder.ClickListener mClickListener;

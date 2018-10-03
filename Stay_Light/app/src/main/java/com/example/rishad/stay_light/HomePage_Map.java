@@ -86,8 +86,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseUser user;
     GoogleApiClient mGoogleApiClient;
     private Button viewDetails;
-    FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+    private String UserRequest;
     List<ListHouse> list;
 
     private LatLng latLng, pickLocation;
@@ -117,27 +116,14 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         textViewName = (TextView) hView.findViewById(R.id.personal_name);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Host Details");
 
         viewDetails = findViewById(R.id.details);
 
         viewDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               databaseReference.addValueEventListener(new ValueEventListener() {
-                   @Override
-                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        list = new ArrayList<>();
-                       // StringBuffer stringbuffer = new StringBuffer();
-
-                   }
-
-                   @Override
-                   public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                   }
-               });
+               Intent intent = new Intent(HomePage_Map.this, SearchActivity.class);
+               startActivity(intent);
             }
         });
 
@@ -173,11 +159,12 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
                 autocompleteFragment.setFilter(typeFilter);
 
+                UserRequest = place.getName().toString();
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName().toString()));
                 latLng = place.getLatLng();
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20.0f));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 18.0f));
                 getNearestHouse();
             }
 
@@ -257,6 +244,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         }
         buildGoogleApiClient();
         mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
@@ -280,7 +268,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
 
                     getNearestHouse();
                 }

@@ -46,7 +46,6 @@
                         android:id="@+id/hTitle"
                         android:layout_width="254dp"
                         android:layout_height="32dp"
-                        android:text="Jessyka swan"
                         android:textColor="@color/colorLightGray"
                         android:textSize="25dp"
                         android:textStyle="bold"

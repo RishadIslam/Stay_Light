@@ -1,28 +1,28 @@
 package com.example.rishad.stay_light;
 
 public class SearchModel {
-    String Title, Image;
+    String id, url;
 
     public SearchModel() {}
 
-    public SearchModel(String title, String image, String hDescription) {
-        Title = title;
-        Image = image;
+    public SearchModel(String id, String url) {
+        this.id = id;
+        this.url = url;
     }
 
-    public String getTitle() {
-        return Title;
+    public String getId() {
+        return id;
     }
 
-    public void setTitle(String title) {
-        Title = title;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getImage() {
-        return Image;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImage(String image) {
-        Image = image;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
