@@ -35,12 +35,12 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
     //set details to recycler view row
     public void setDetails(Context ctx, String title, String description, String image){
-        //Views
+        /*//Views
         TextView mTitleTv = mView.findViewById(R.id.rTitleTv);
         ImageView mImageIv = mView.findViewById(R.id.rImageView);
         //set data to views
         mTitleTv.setText(title);
-        Picasso.get().load(image).into(mImageIv);
+        Picasso.get().load(image).into(mImageIv);*/
     }
 
     private ViewHolder.ClickListener mClickListener;
