@@ -53,7 +53,8 @@
             android:label="@string/title_activity_home_page__map" />
         <activity android:name=".UploadImageRoom" />
         <activity android:name=".ImagesActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".myprofile"></activity>
     </application>
 
 </manifest>
