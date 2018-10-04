@@ -63,7 +63,7 @@
             android:layout_alignStart="@+id/name"
             android:layout_alignEnd="@+id/name"
             android:layout_alignParentTop="true"
-            android:layout_aligntop="@+id/name"
+            android:layout_below="@+id/name"
             android:layout_marginTop="46dp"
             android:ems="10"
             android:hint="Email Address"

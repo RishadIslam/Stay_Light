@@ -3,6 +3,7 @@
     package="com.example.rishad.stay_light">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -54,7 +55,8 @@
         <activity android:name=".UploadImageRoom" />
         <activity android:name=".ImagesActivity" />
         <activity android:name=".SearchActivity" />
-        <activity android:name=".myprofile"></activity>
+        <activity android:name=".myprofile" />
+        <activity android:name=".mydocuments"></activity>
     </application>
 
 </manifest>
