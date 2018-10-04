@@ -18,11 +18,11 @@ import android.widget.Toast;
 
 public class homelist_1 extends AppCompatActivity  {
 
-    private EditText noOfGuest,houseLocation,textHousePrice;
+    private EditText noOfGuest,houseLocation,textHousePrice, houseTitle;
     private Button nextButton;
     Spinner dropdown;
     private String[] houseType = new String[]{"","Apartment", "Duplex", "Bread And Breakfast"};
-    public String guestNumber,location,houseTypeItem,housePrice;
+    public String guestNumber,location,houseTypeItem,housePrice, housetitle;
     int check_error = 0;
 
     @Override
@@ -31,6 +31,7 @@ public class homelist_1 extends AppCompatActivity  {
         setContentView(R.layout.activity_homelist_1);
 
         houseLocation = findViewById(R.id.location);
+        houseTitle = findViewById(R.id.HouseTitle);
         noOfGuest = findViewById(R.id.noOfguest);
         nextButton = findViewById(R.id.next);
         dropdown = findViewById(R.id.typeofhouse);
@@ -45,9 +46,10 @@ public class homelist_1 extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
 
-                guestNumber = (String)noOfGuest.getText().toString().trim();
+                housetitle = houseTitle.getText().toString().trim();
+                guestNumber = noOfGuest.getText().toString().trim();
                 location = houseLocation.getText().toString().trim();
-                housePrice = (String) textHousePrice.getText().toString().trim();
+                housePrice = textHousePrice.getText().toString().trim();
 
                 if (guestNumber.isEmpty() || location.isEmpty() || housePrice.isEmpty())
                 {
@@ -61,6 +63,7 @@ public class homelist_1 extends AppCompatActivity  {
                     //now get Editor
                     SharedPreferences.Editor editor = sharedPref.edit();
                     //put your value
+                    editor.putString("houseTitle", houseTitle.getText().toString().trim());
                     editor.putString("guestNumber",(String)noOfGuest.getText().toString().trim());
                     editor.putString("housePrice",(String)textHousePrice.getText().toString().trim());
                     editor.putString("houseType", houseTypeItem);

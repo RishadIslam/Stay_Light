@@ -1,11 +1,12 @@
 package com.example.rishad.stay_light;
 
-public class SearchModel {
-    String id, url;
+public class TitleImage {
 
-    public SearchModel() {}
+    String id,url;
 
-    public SearchModel(String id, String url) {
+    public TitleImage () {}
+
+    public TitleImage(String id, String url) {
         this.id = id;
         this.url = url;
     }

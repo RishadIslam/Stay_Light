@@ -43,8 +43,10 @@ public class UploadImageRoom extends AppCompatActivity {
 
     private Uri mImageUri;
 
+    public String id,url;
+
     private StorageReference mStorageRef;
-    private DatabaseReference mDatabaseRef;
+    private DatabaseReference mDatabaseRef,ref;
 
     private StorageTask mUploadTask;
 
@@ -62,10 +64,11 @@ public class UploadImageRoom extends AppCompatActivity {
         mProgressBar = findViewById(R.id.progress_bar);
 
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
-        String id = sharedPref.getString("refId", "");
+        id = sharedPref.getString("refId", "");
 
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads").child(id);
+        ref = FirebaseDatabase.getInstance().getReference("Title Image").child(id);
 
         mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +151,8 @@ public class UploadImageRoom extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     Log.d(TAG, "onSuccess: uri= " + uri.toString());
-                                    Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
+
+;                                    Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
                                             uri.toString());
 
                                     String uploadId = mDatabaseRef.push().getKey();

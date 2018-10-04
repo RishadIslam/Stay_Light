@@ -1,6 +1,9 @@
 package com.example.rishad.stay_light;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.rishad.stay_light.Upload;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +39,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
 
     private List<Upload> mUploads;
 
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +62,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
         mStorage = FirebaseStorage.getInstance();
 
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
-        String id = sharedPref.getString("refId", "");
+        id = sharedPref.getString("refId", "");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads").child(id);
 
         mDBListener = mDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -91,6 +97,28 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
 
     @Override
     public void onWhatEverClick(int position) {
+        final int pos = position;
+        AlertDialog.Builder builder = new AlertDialog.Builder(ImagesActivity.this);
+        builder.setMessage("Do you want to select this image as your HOUSE IMAGE?").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                Upload selectedItem = mUploads.get(pos);
+                String url = selectedItem.getImageUrl();
+
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
+                String title = sharedPref.getString("houseTitle", "");
+
+                TitleImage titleImage = new TitleImage(title,url);
+
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Title Image").child(id);
+                databaseReference.setValue(titleImage);
+            }
+        }).setNegativeButton("Cancel", null).setCancelable(false);
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
         Toast.makeText(this, "Whatever click at position: " + position, Toast.LENGTH_SHORT).show();
     }
 

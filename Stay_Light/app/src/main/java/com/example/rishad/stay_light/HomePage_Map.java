@@ -1,6 +1,7 @@
 package com.example.rishad.stay_light;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -66,6 +67,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.rishad.stay_light.MapsActivity.REQUEST_LOCATION;
 
 public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
@@ -82,6 +86,9 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseUser user;
     GoogleApiClient mGoogleApiClient;
     private Button viewDetails;
+    private String UserRequest;
+    List<ListHouse> list;
+
     private LatLng latLng, pickLocation;
 
     @Override
@@ -95,6 +102,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
         mDrawerLayout = findViewById(R.id.home_page);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
@@ -114,7 +122,8 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         viewDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomePage_Map.this, "See The Apartment List", Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(HomePage_Map.this, SearchActivity.class);
+               startActivity(intent);
             }
         });
 
@@ -150,11 +159,12 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
                 autocompleteFragment.setFilter(typeFilter);
 
+                UserRequest = place.getName().toString();
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName().toString()));
                 latLng = place.getLatLng();
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20.0f));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 18.0f));
                 getNearestHouse();
             }
 
@@ -216,7 +226,6 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         return true;
     }
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -235,6 +244,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         }
         buildGoogleApiClient();
         mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
@@ -258,7 +268,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
 
                     getNearestHouse();
                 }
@@ -333,15 +343,6 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         pickLocation = new LatLng(location.getLatitude(), location.getLongitude());
-
-        mMap.addMarker(new MarkerOptions()
-                .position(latLng)
-                .title("Current")
-                .draggable(true)
-                .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-
-        mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
@@ -367,7 +368,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
                         .title(key)
                         .draggable(true)
                         .icon(BitmapDescriptorFactory
-                                .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                                .fromResource(R.drawable.rsz_marker_icon)));
             }
 
             @Override
@@ -384,7 +385,6 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onGeoQueryError(DatabaseError error) {
-
             }
         });
 
