@@ -28,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +66,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,8 +89,9 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     GoogleApiClient mGoogleApiClient;
     private Button viewDetails;
     private String UserRequest;
-
-    private LatLng latLng, pickLocation;
+    //List<ListHouse> list;
+    private ImageView imageViewUser;
+    private LatLng latLng, pickLocation, userLatLang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         View hView = navigationView.getHeaderView(0);
         textViewemail = (TextView) hView.findViewById(R.id.personal_mail);
         textViewName = (TextView) hView.findViewById(R.id.personal_name);
+        imageViewUser = hView.findViewById(R.id.userImage);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
@@ -121,8 +125,8 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         viewDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(HomePage_Map.this, SearchActivity.class);
-               startActivity(intent);
+                Intent intent = new Intent(HomePage_Map.this, SearchActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -137,6 +141,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
             if (emailVerified) {
                 textViewemail.setText(email);
                 textViewName.setText(name);
+                Picasso.get().load(photoUrl).into(imageViewUser);
             }
             // The user's ID, unique to the Firebase project. Do NOT use this value to
             // authenticate with your backend server, if you have one. Use
@@ -159,6 +164,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
 
                 UserRequest = place.getName().toString();
+                userLatLang = place.getLatLng();
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName().toString()));
                 latLng = place.getLatLng();
@@ -213,6 +219,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
         if (id == R.id.profile_nav) {
             Toast.makeText(getApplicationContext(), "profile", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(HomePage_Map.this, myprofile.class));
         } else if (id == R.id.nav_logout) {
             mAuth.signOut();
             startActivity(new Intent(HomePage_Map.this, LoginActivity.class));
@@ -339,6 +346,8 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onLocationChanged(Location location) {
+
+        mMap.clear();
         mLastLocation = location;
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -351,11 +360,14 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
     private void getNearestHouse() {
 
+        LatLng latLng;
+
+        latLng = pickLocation;
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Host Location");
         GeoFire geoFire = new GeoFire(databaseReference);
 
-        final GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(pickLocation.latitude,
-                pickLocation.longitude), 10.00);
+        final GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(latLng.latitude,
+                latLng.longitude), 10.00);
 
         geoQuery.removeAllListeners();
 

@@ -43,10 +43,10 @@ public class UploadImageRoom extends AppCompatActivity {
 
     private Uri mImageUri;
 
-    public String id,url;
+    public String id, url;
 
     private StorageReference mStorageRef;
-    private DatabaseReference mDatabaseRef,ref;
+    private DatabaseReference mDatabaseRef, ref;
 
     private StorageTask mUploadTask;
 
@@ -152,7 +152,7 @@ public class UploadImageRoom extends AppCompatActivity {
                                 public void onSuccess(Uri uri) {
                                     Log.d(TAG, "onSuccess: uri= " + uri.toString());
 
-;                                    Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
+                                    Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
                                             uri.toString());
 
                                     String uploadId = mDatabaseRef.push().getKey();

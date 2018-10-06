@@ -155,61 +155,63 @@ public class SignupActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             mAuth.createUserWithEmailAndPassword(getEmailId, getPassword).addOnCompleteListener
                     (new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        User user = new User(
-                                getFullName,
-                                getEmailId,
-                                getPassword,
-                                getMobileNumber
-                        );
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
 
-                        FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser()
-                                .getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    userProfile();
-                                    sendEmailVerification();//Will redirect to a browser page
-                                } else {
-                                    Toast.makeText(SignupActivity.this, "Registration not Successful", Toast.LENGTH_SHORT).show();
-                                }
+                                String dob = null, nationality = null, nidNo = null;
+
+                                User user = new User(
+                                        getFullName,
+                                        getEmailId,
+                                        getPassword,
+                                        getMobileNumber,
+                                        dob, nationality, nidNo
+                                );
+
+                                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser()
+                                        .getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        progressBar.setVisibility(View.GONE);
+                                        if (task.isSuccessful()) {
+                                            userProfile();
+                                            sendEmailVerification();//Will redirect to a browser page
+                                        } else {
+                                            Toast.makeText(SignupActivity.this, "Registration not Successful", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+
+                            } else {
+                                Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(SignupActivity.this, SignupActivity.class));
                             }
-                        });
+                        }
 
-                        startActivity(new Intent(SignupActivity.this,LoginActivity.class));
-
-                    } else {
-                        Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(SignupActivity.this, SignupActivity.class));
-                    }
-                }
-
-                private void sendEmailVerification() {
-                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if (firebaseUser != null) {
-                        firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    showCustomToast("Check Your Email To Verify");
-                                    FirebaseAuth.getInstance().signOut();
-                                }
+                        private void sendEmailVerification() {
+                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if (firebaseUser != null) {
+                                firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            showCustomToast("Check Your Email To Verify");
+                                            FirebaseAuth.getInstance().signOut();
+                                        }
+                                    }
+                                });
                             }
-                        });
-                    }
-                }
-            });
+                        }
+                    });
         }
     }
 
-    private void userProfile()
-    {
+    private void userProfile() {
         FirebaseUser user = mAuth.getCurrentUser();
-        if(user!= null)
-        {
+        if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(fullName.getText().toString().trim())
                     //.setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))  // here you can set image link also.
