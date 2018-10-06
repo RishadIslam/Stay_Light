@@ -87,7 +87,6 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     GoogleApiClient mGoogleApiClient;
     private Button viewDetails;
     private String UserRequest;
-    List<ListHouse> list;
 
     private LatLng latLng, pickLocation;
 

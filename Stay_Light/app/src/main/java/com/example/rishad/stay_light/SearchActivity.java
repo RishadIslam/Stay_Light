@@ -4,16 +4,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    RecyclerView mRecyclerView;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    private RecyclerView mRecyclerView;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private List<SearchModel> searchModelList;
+    private houseAdapter mhouseAdapter;
 
 
     @Override
@@ -21,11 +30,15 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        searchModelList = new ArrayList<>();
+
         mRecyclerView = findViewById(R.id.rview);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mRecyclerView.setHasFixedSize(true);
+
+        mhouseAdapter = new houseAdapter(SearchActivity.this, searchModelList);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Title Image");
@@ -34,20 +47,30 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseRecyclerAdapter<SearchModel, ViewHolder> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<SearchModel, ViewHolder>(
-                        SearchModel.class,
-                        R.layout.row,
-                        ViewHolder.class,
-                        databaseReference
-                ) {
-                    @Override
-                    protected void populateViewHolder(ViewHolder viewHolder, SearchModel model, int position) {
-                        viewHolder.setDetails(getApplicationContext(), model.getId(), model.getUrl());
 
-                    }
-                };
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+                //clearing the previous artist list
+                searchModelList.clear();
+
+                //iterating through all the nodes
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //getting artist
+                    SearchModel housefound = postSnapshot.getValue(SearchModel.class);
+                    //adding artist to the list
+                    searchModelList.add(housefound);
+                }
+                mRecyclerView.setAdapter(mhouseAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(SearchActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
