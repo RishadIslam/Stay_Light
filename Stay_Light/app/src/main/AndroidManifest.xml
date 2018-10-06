@@ -56,7 +56,6 @@
         <activity android:name=".ImagesActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".myprofile" />
-        <activity android:name=".mydocuments"></activity>
     </application>
 
 </manifest>

@@ -5,34 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".booking"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    android:background="@drawable/background3">
 
     <EditText
         android:id="@+id/editText9"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/button"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Booking"
+        android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_alignParentLeft="true"
-        android:background="@android:color/holo_red_light"
-        android:textAlignment="center"
         tools:ignore="Autofill,HardcodedText,LabelFor" />
 
     <EditText
         android:id="@+id/checkin"
-        android:layout_width="156dp"
+        android:layout_width="169dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="45dp"
         android:ems="10"
         android:hint="Check In"
         android:inputType="date"
@@ -147,18 +148,18 @@
 
     <EditText
         android:id="@+id/zip"
-        android:layout_width="344dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="188dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginBottom="191dp"
         android:ems="10"
         android:hint="Zip Code"
         android:inputType="textPostalAddress"
-        tools:ignore="Autofill,HardcodedText"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="24dp" />
+        tools:ignore="Autofill,HardcodedText" />
 
     <EditText
         android:id="@+id/country"
@@ -177,13 +178,17 @@
 
     <Button
         android:id="@+id/booking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="163dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="58dp"
-        android:background="@android:color/holo_red_dark"
+        android:layout_marginBottom="52dp"
+        android:background="@drawable/button"
         android:text="Book"
+        android:textAllCaps="true"
+        android:textColor="@color/browser_actions_text_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>

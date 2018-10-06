@@ -2,15 +2,15 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#090305</color>
     <color name="background_color">#009688</color>
-    <color name="white">#FFFFFF</color>
+    <color name="white">#201010</color>
     <color name="black">#000000</color>
     <color name="greeno">#5bbe59</color>
-    <color name="white_greyish">#EEEEEE</color>
+    <color name="white_greyish">#1d0b0b</color>
     <color name="button_selectorcolor">#9E9E9E</color>
-    <color name="colorOrange">#F68159</color>
-    <color name="colorLightGray">#a6abae</color>
+    <color name="colorOrange">#50312e</color>
+    <color name="colorLightGray">#b4d7c7</color>
 
     <color name="colorBackroundWhite">#f0f2ea</color>
 </resources>
