@@ -145,19 +145,19 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
             String uid = user.getUid();
         }
 
-        final PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+                .setCountry("BD")
+                .build();
+        autocompleteFragment.setFilter(typeFilter);
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
-                AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-                        .setCountry("BD")
-                        .build();
 
-
-                autocompleteFragment.setFilter(typeFilter);
 
                 UserRequest = place.getName().toString();
                 mMap.clear();
@@ -171,6 +171,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onError(Status status) {
                 // TODO: Handle the error.
+                Toast.makeText(getApplicationContext(), "Location Error", Toast.LENGTH_SHORT).show();
             }
         });
     }
