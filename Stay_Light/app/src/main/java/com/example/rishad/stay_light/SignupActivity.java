@@ -153,7 +153,8 @@ public class SignupActivity extends AppCompatActivity {
         if (check_error == 0) {
             //insert data into firebase
             progressBar.setVisibility(View.VISIBLE);
-            mAuth.createUserWithEmailAndPassword(getEmailId, getPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            mAuth.createUserWithEmailAndPassword(getEmailId, getPassword).addOnCompleteListener
+                    (new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -177,6 +178,9 @@ public class SignupActivity extends AppCompatActivity {
                                 }
                             }
                         });
+
+                        startActivity(new Intent(SignupActivity.this,LoginActivity.class));
+
                     } else {
                         Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         startActivity(new Intent(SignupActivity.this, SignupActivity.class));

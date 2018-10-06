@@ -99,7 +99,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
     public void onWhatEverClick(int position) {
         final int pos = position;
         AlertDialog.Builder builder = new AlertDialog.Builder(ImagesActivity.this);
-        builder.setMessage("Do you want to select this image as your HOUSE IMAGE?").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setMessage("Do you want to select this image as your HOUSE IMAGE?").setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -114,7 +114,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Title Image").child(id);
                 databaseReference.setValue(titleImage);
             }
-        }).setNegativeButton("Cancel", null).setCancelable(false);
+        }).setNegativeButton("NO", null).setCancelable(false);
 
         AlertDialog alert = builder.create();
         alert.show();
