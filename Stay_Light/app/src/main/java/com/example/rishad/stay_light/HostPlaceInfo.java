@@ -1,18 +1,21 @@
 package com.example.rishad.stay_light;
 
+import java.util.ArrayList;
+
 public class HostPlaceInfo {
-    String userId,guestNumber,location,houseTypeItem,accoType,privateBath,noOfbed,noOfBath,apartmentNo,shouseNo,sroadNo,scityName,szipCode,
-            amenities,housePrice;
-    double latitude,lognitude;
+    String userId, guestNumber, location, houseTypeItem, accoType, privateBath, noOfbed, noOfBath, apartmentNo, shouseNo, sroadNo, scityName, szipCode,
+            housePrice;
+    String amenities;
+    double latitude, lognitude;
 
 
-    public HostPlaceInfo () {}
+    public HostPlaceInfo() {
+    }
 
-    public HostPlaceInfo(String userId, String guestNumber, String location,
-                         String houseTypeItem, String accoType, String privateBath,
-                         String noOfbed, String noOfBath, String apartmentNo, String shouseNo,
-                         String sroadNo, String scityName, String szipCode, String amenities,
-                         String housePrice, double latitude, double lognitude) {
+    public HostPlaceInfo(String userId, String guestNumber, String location, String houseTypeItem, String accoType,
+                         String privateBath, String noOfbed, String noOfBath, String apartmentNo, String shouseNo,
+                         String sroadNo, String scityName, String szipCode, String housePrice, String amenities,
+                         double latitude, double lognitude) {
         this.userId = userId;
         this.guestNumber = guestNumber;
         this.location = location;
@@ -26,8 +29,8 @@ public class HostPlaceInfo {
         this.sroadNo = sroadNo;
         this.scityName = scityName;
         this.szipCode = szipCode;
-        this.amenities = amenities;
         this.housePrice = housePrice;
+        this.amenities = amenities;
         this.latitude = latitude;
         this.lognitude = lognitude;
     }
@@ -136,20 +139,20 @@ public class HostPlaceInfo {
         this.szipCode = szipCode;
     }
 
-    public String getAmenities() {
-        return amenities;
-    }
-
-    public void setAmenities(String amenities) {
-        this.amenities = amenities;
-    }
-
     public String getHousePrice() {
         return housePrice;
     }
 
     public void setHousePrice(String housePrice) {
         this.housePrice = housePrice;
+    }
+
+    public String getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(String amenities) {
+        this.amenities = amenities;
     }
 
     public double getLatitude() {

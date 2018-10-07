@@ -18,14 +18,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class homelist_4 extends AppCompatActivity {
 
-    private TextView viewOputPut;
     private Button finishBtn;
-    public String amenities = "";
-    public String pets, lift, wifi, Parking, laundry, brakfast, tv, kitchen, ac, toilet, fire, desk, firstAid;
     private CheckBox boxPets, boxLift, boxWifi, boxParking, boxLaundry, boxBreakfast, boxTv, boxKitchen, boxAc, boxToilet,
             boxFire, boxDesk, boxFirstAid;
+
+    String amenities;
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,70 +48,76 @@ public class homelist_4 extends AppCompatActivity {
         boxFire = findViewById(R.id.fireExtinguisher);
         boxDesk = findViewById(R.id.deskWork);
         boxFirstAid = findViewById(R.id.firstAid);
-        viewOputPut = findViewById(R.id.output);
 
         finishBtn = findViewById(R.id.finish);
-
-        viewOputPut.setText("Proceed to next page for placing your location in maps.");
 
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (boxPets.isChecked())
-//                    pets = "pets";
-                    amenities = amenities + "pets\n";
-                if (boxLift.isChecked())
-                    //lift = "lift";
-                    amenities = amenities + "lifts\n";
-                if (boxWifi.isChecked())
-//                    wifi = "wifi";
-                    amenities = amenities + "wifi\n";
-                if (boxParking.isChecked())
-//                    Parking = "parking";
-                    amenities = amenities + "parking\n";
-                if (boxLaundry.isChecked())
-//                    laundry = "laundry";
-                    amenities = amenities + "laundry\n";
-                if (boxBreakfast.isChecked())
-//                    brakfast = "breakfast";
-                    amenities = amenities + "breakfast\n";
-                if (boxTv.isChecked())
-//                    tv = "tv";
-                    amenities = amenities + "tv\n";
-                if (boxKitchen.isChecked())
-//                    kitchen = "kitchen items";
-                    amenities = amenities + "kitchen\n";
-                if (boxAc.isChecked())
-//                    ac = "ac";
-                    amenities = amenities + "ac\n";
-                if (boxToilet.isChecked())
-//                    toilet = "toiletries";
-                    amenities = amenities + "toiletries\n";
-                if (boxFire.isChecked())
-//                    fire = "fire extingusher";
-                    amenities = amenities + "fire extinguisher\n";
-                if (boxDesk.isChecked())
-//                    desk = "desk";
-                    amenities = amenities + "desk\n";
-                if (boxFirstAid.isChecked())
-//                    firstAid = "first aid Kit";
-                    amenities = amenities + "first aid kit\n";
+                StringBuilder stringBuilder = new StringBuilder();
 
-//                Toast.makeText(getApplicationContext(),amenities,Toast.LENGTH_LONG).show();
+                if (boxPets.isChecked()) {
+                    stringBuilder.append("pets");
+                    stringBuilder.append(",");
+                }
+                if (boxLift.isChecked()) {
+                    stringBuilder.append("lift");
+                    stringBuilder.append(",");
+                }
+                if (boxWifi.isChecked()) {
+                    stringBuilder.append("wifi");
+                    stringBuilder.append(",");
+                }
+                if (boxParking.isChecked()) {
+                    stringBuilder.append("parking");
+                    stringBuilder.append(",");
+                }
+                if (boxLaundry.isChecked()) {
+                    stringBuilder.append("laundry");
+                    stringBuilder.append(",");
+                }
+                if (boxBreakfast.isChecked()) {
+                    stringBuilder.append("breakfast");
+                    stringBuilder.append(",");
+                }
+                if (boxTv.isChecked()) {
+                    stringBuilder.append("tv");
+                    stringBuilder.append(",");
+                }
+                if (boxKitchen.isChecked()) {
+                    stringBuilder.append("kitchen");
+                    stringBuilder.append(",");
+                }
+                if (boxAc.isChecked()) {
+                    stringBuilder.append("ac");
+                    stringBuilder.append(",");
+                }
+                if (boxToilet.isChecked()) {
+                    stringBuilder.append("toiletries");
+                    stringBuilder.append(",");
+                }
+                if (boxFire.isChecked()) {
+                    stringBuilder.append("fire extinguisher");
+                    stringBuilder.append(",");
+                }
+                if (boxDesk.isChecked()) {
+                    stringBuilder.append("desk");
+                    stringBuilder.append(",");
+                }
+                if (boxFirstAid.isChecked()) {
+                    stringBuilder.append("first aid kit");
+                    stringBuilder.append(",");
+                }
+//                data send
 
-                //        data send
+                stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+                amenities = stringBuilder.toString();
 
-                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
-                //now get Editor
-                SharedPreferences.Editor editor = sharedPref.edit();
-                //put your value
-                editor.putString("amenities", amenities);
-                //commits your edits
-                editor.apply();
+                Intent intent = new Intent(getApplicationContext(), MapPageNavigation.class);
+                intent.putExtra("amenities",amenities);
+                startActivity(intent);
 //        data send
-
-                startActivity(new Intent(homelist_4.this,MapsActivity.class));
             }
         });
     }

@@ -24,11 +24,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,9 +92,9 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     GoogleApiClient mGoogleApiClient;
     private Button viewDetails;
     private String UserRequest;
-    //List<ListHouse> list;
     private ImageView imageViewUser;
     private LatLng latLng, pickLocation, userLatLang;
+    SupportMapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +104,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -253,6 +256,25 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        if (mapFragment != null &&
+                mapFragment.getView().findViewById(Integer.parseInt("1")) != null) {
+            // Get the button view
+            View locationButton = ((View) mapFragment.getView().findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+            RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+            // position on right bottom
+
+
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_END, 0);
+            rlp.addRule(RelativeLayout.ALIGN_END, 0);
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            rlp.setMargins(30, 0, 0, 40);
+        }
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -346,16 +368,31 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onLocationChanged(Location location) {
+        try {
+            if (userLatLang == null) {
+                mMap.clear();
+                mLastLocation = location;
 
-        mMap.clear();
-        mLastLocation = location;
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                pickLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        pickLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-        getNearestHouse();
+                getNearestHouse();
+            } else {
+                mMap.setOnMyLocationClickListener(new GoogleMap.OnMyLocationClickListener() {
+                    @Override
+                    public void onMyLocationClick(@NonNull Location location) {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLang));
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                        userLatLang = null;
+                        getNearestHouse();
+                    }
+                });
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e + "", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void getNearestHouse() {
