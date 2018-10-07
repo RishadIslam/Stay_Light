@@ -2,9 +2,12 @@ package com.example.rishad.stay_light;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,12 +40,11 @@ import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    private  EditText emailid, password;
-    private  Button loginButton;
-    private  TextView forgotPassword, signUp;
-    private  CheckBox show_hide_password;
-    private  LinearLayout loginLayout;
+    private EditText emailid, password;
+    private Button loginButton;
+    private TextView forgotPassword, signUp;
+    private CheckBox show_hide_password;
+    private LinearLayout loginLayout;
     private static Animation shakeAnimation;
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
@@ -68,16 +70,6 @@ public class LoginActivity extends AppCompatActivity {
         shakeAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.shake);
 
-        /*@SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
-        try {
-            ColorStateList csl = ColorStateList.createFromXml(getResources(),
-                    xrp);
-
-            forgotPassword.setTextColor(csl);
-            show_hide_password.setTextColor(csl);
-            signUp.setTextColor(csl);
-        } catch (Exception e) {
-        }*/
         //login button pressed
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,12 +105,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 // If it is checked then show password else hide password
-                if(isChecked) {
+                if (isChecked) {
                     show_hide_password.setText("Hide Password"); //change check box text
                     password.setInputType(InputType.TYPE_CLASS_TEXT);
                     password.setTransformationMethod(HideReturnsTransformationMethod.getInstance()); //show password
-                }
-                else {
+                } else {
                     show_hide_password.setText(R.string.show_pwd); //change checkbox text
                     password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     password.setTransformationMethod(PasswordTransformationMethod.getInstance());
@@ -126,19 +117,36 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+//  check whether the internet is on or not
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!isConnected(getApplicationContext())){
+            Toast.makeText(getApplicationContext(),"Please check your internet.",Toast.LENGTH_LONG).show();
+        }
+    }
 
+    private boolean isConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    //  check whether the internet is on or not
     private void checkValidation() {
         //Get Email Id and password
         String getEmailId = emailid.getText().toString();
         String getPassword = password.getText().toString();
 
         //check for both fields are empty or not
-        if(getEmailId.trim().equals("") || getPassword.trim().equals("")) {
+        if (getEmailId.trim().equals("") || getPassword.trim().equals("")) {
             loginLayout.startAnimation(shakeAnimation);
             ShowToast("Enter both credentials.");
         }
         //check if email id is valid or not
-        else if(!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches()) {
+        else if (!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches()) {
             ShowToast("Your Email Id is invalid");
         }
         //else do login and do your stuff
@@ -153,17 +161,18 @@ public class LoginActivity extends AppCompatActivity {
 
         progressDialog.setMessage("Logging In...");
 
-        mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
-//                    Toast.makeText(getApplicationContext(), "Log In Success! Proceeded to homepage.", Toast.LENGTH_SHORT).show();
-
-                    Intent home = new Intent(LoginActivity.this,HomePage_Map.class);
-                    startActivity(home);
-                }
-                else {
+                    if (user.isEmailVerified()) {
+                        Intent home = new Intent(LoginActivity.this, HomePage_Map.class);
+                        startActivity(home);
+                    }else{
+                        Toast.makeText(LoginActivity.this, "Verify your email.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
                     Toast.makeText(LoginActivity.this, "Login Failure!!!", Toast.LENGTH_SHORT).show();
                 }
                 progressDialog.dismiss();

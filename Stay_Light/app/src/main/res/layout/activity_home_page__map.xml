@@ -10,8 +10,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/home_page"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".HomePage_Map">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -55,7 +54,6 @@
             </android.support.v7.widget.CardView>
         </RelativeLayout>
 
-
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
@@ -66,8 +64,6 @@
             app:itemIconTint="@color/background_color"
             app:itemTextColor="@color/background_color"
             app:menu="@menu/activity_drawer_home">
-
-
         </android.support.design.widget.NavigationView>
 
 

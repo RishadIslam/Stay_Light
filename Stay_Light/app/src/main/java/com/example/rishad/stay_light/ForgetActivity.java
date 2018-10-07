@@ -39,19 +39,6 @@ public class ForgetActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        // Setting text selector over textviews
-        /*@SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
-        try {
-            ColorStateList csl = ColorStateList.createFromXml(getResources(),
-                    xrp);
-
-            back.setTextColor(csl);
-            submit.setTextColor(csl);
-
-        } catch (Exception e) {
-        }*/
-
-        // Set Listeners over buttons
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +74,8 @@ public class ForgetActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                    if (task.isSuccessful()) {
-                       ShowToast("Check Your Email to Reset Password");
+                       Toast.makeText(getApplicationContext(),"Check your email to reset your password.",Toast.LENGTH_LONG).show();
+                       startActivity(new Intent(ForgetActivity.this,LoginActivity.class));
                    }
                    else {
                        Toast.makeText(ForgetActivity.this, "Fail to send reset Password to your Email", Toast.LENGTH_SHORT).show();

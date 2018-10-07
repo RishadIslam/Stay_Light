@@ -14,26 +14,26 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:background="@drawable/background" />
+        android:layout_marginTop="2dp"
+        android:background="@color/greeno" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image"
-        android:layout_width="118dp"
-        android:layout_height="114dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignBottom="@+id/view"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="0dp"
         android:elevation="1dp"
-        android:src="@mipmap/user" />
+        android:src="@drawable/profile" />
 
     <ImageButton
         android:id="@+id/upload"
         android:layout_width="46dp"
         android:layout_height="38dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="-24dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="108dp"
         android:layout_toEndOf="@+id/image"
         android:background="@drawable/upload"
         android:scaleType="fitCenter" />
@@ -45,7 +45,7 @@
         android:layout_below="@+id/image"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="2dp">
+        android:layout_marginTop="1dp">
 
 
         <EditText
@@ -55,7 +55,7 @@
             android:ems="10"
             android:hint="Full Name"
             android:inputType="textPersonName"
-            android:textAlignment="viewStart" />
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/email"
@@ -69,7 +69,7 @@
             android:ems="10"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
-            android:textAlignment="viewStart" />
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/phone"
@@ -82,32 +82,19 @@
             android:ems="10"
             android:hint="Phone/Mobile"
             android:inputType="phone"
-            android:textAlignment="viewStart" />
-
-        <EditText
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/phone"
-            android:layout_alignStart="@+id/name"
-            android:layout_alignEnd="@+id/name"
-            android:layout_alignParentStart="true"
-            android:ems="10"
-            android:hint="Address"
-            android:inputType="textPostalAddress"
-            android:textAlignment="viewStart" />
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/DOB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/address"
+            android:layout_below="@+id/editphone"
             android:layout_alignStart="@+id/name"
             android:layout_alignEnd="@+id/name"
             android:ems="10"
             android:hint="Date of Birth"
             android:inputType="date"
-            android:textAlignment="viewStart" />
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/nationality"
@@ -117,13 +104,13 @@
             android:layout_alignEnd="@+id/name"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="-1dp"
-            android:layout_marginBottom="128dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="185dp"
             android:ems="10"
             android:hint="Nationality"
             android:inputType="textPersonName"
-            android:textAlignment="viewStart" />
+            android:textAlignment="center" />
 
         <Button
             android:id="@+id/save"
@@ -145,19 +132,8 @@
             android:layout_height="47dp"
             android:layout_alignTop="@+id/name"
             android:layout_alignEnd="@+id/name"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="-66dp"
-            android:background="@drawable/edit"
-            android:scaleType="fitCenter" />
-
-        <ImageButton
-            android:id="@+id/editemail"
-            android:layout_width="38dp"
-            android:layout_height="47dp"
-            android:layout_alignTop="@+id/name"
-            android:layout_alignEnd="@+id/name"
-            android:layout_marginTop="46dp"
-            android:layout_marginEnd="-67dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="-38dp"
             android:background="@drawable/edit"
             android:scaleType="fitCenter" />
 
@@ -167,8 +143,8 @@
             android:layout_height="47dp"
             android:layout_alignTop="@+id/name"
             android:layout_alignEnd="@+id/name"
-            android:layout_marginTop="239dp"
-            android:layout_marginEnd="-67dp"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="-37dp"
             android:background="@drawable/edit"
             android:scaleType="fitCenter" />
 
@@ -178,19 +154,8 @@
             android:layout_height="47dp"
             android:layout_alignTop="@+id/name"
             android:layout_alignEnd="@+id/name"
-            android:layout_marginTop="296dp"
-            android:layout_marginEnd="-67dp"
-            android:background="@drawable/edit"
-            android:scaleType="fitCenter" />
-
-        <ImageButton
-            android:id="@+id/editaddress"
-            android:layout_width="38dp"
-            android:layout_height="47dp"
-            android:layout_alignTop="@+id/name"
-            android:layout_alignEnd="@+id/name"
-            android:layout_marginTop="185dp"
-            android:layout_marginEnd="-67dp"
+            android:layout_marginTop="226dp"
+            android:layout_marginEnd="-40dp"
             android:background="@drawable/edit"
             android:scaleType="fitCenter" />
 
@@ -200,8 +165,8 @@
             android:layout_height="47dp"
             android:layout_alignTop="@+id/name"
             android:layout_alignEnd="@+id/name"
-            android:layout_marginTop="140dp"
-            android:layout_marginEnd="-67dp"
+            android:layout_marginTop="136dp"
+            android:layout_marginEnd="-37dp"
             android:background="@drawable/edit"
             android:scaleType="fitCenter" />
 
@@ -211,22 +176,22 @@
             android:layout_height="47dp"
             android:layout_alignTop="@+id/name"
             android:layout_alignEnd="@+id/name"
-            android:layout_marginTop="92dp"
-            android:layout_marginEnd="-67dp"
+            android:layout_marginTop="183dp"
+            android:layout_marginEnd="-38dp"
             android:background="@drawable/edit"
             android:scaleType="fitCenter" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/NID"
             android:layout_width="318dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nationality"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="-122dp"
+            android:layout_marginTop="-180dp"
             android:ems="10"
             android:hint="NID/Passport/Driving License No"
             android:inputType="number"
-            android:textAlignment="viewStart" />
+            android:textAlignment="center"/>
 
     </RelativeLayout>
 

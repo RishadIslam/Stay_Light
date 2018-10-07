@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -78,6 +79,7 @@ public class myprofile extends AppCompatActivity {
         textDob = findViewById(R.id.DOB);
         textNationality = findViewById(R.id.nationality);
         textNid = findViewById(R.id.NID);
+        textDob.setInputType(InputType.TYPE_NULL);
 
         imageButtonUpload = findViewById(R.id.upload);
         imageButtonName = findViewById(R.id.editname);

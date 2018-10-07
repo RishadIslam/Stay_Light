@@ -55,20 +55,16 @@ public class SignupActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
 
-        /*@SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.textview_selector);
-        try {
-            ColorStateList csl = ColorStateList.createFromXml(getResources(),
-                    xrp);
-
-            login.setTextColor(csl);
-            terms_conditions.setTextColor(csl);
-        } catch (Exception e) {
-        }*/
         //sign up button
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkValidation();
+
+                if (terms_conditions.isChecked()) {
+                    checkValidation();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Check terms and condition", Toast.LENGTH_LONG).show();
+                }
             }
         });
         //user already exists
@@ -82,16 +78,6 @@ public class SignupActivity extends AppCompatActivity {
         });
 
     }
-
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-        if (mAuth.getCurrentUser() != null) {
-            Toast.makeText(SignupActivity.this, "User already registered", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-        }
-    }*/
-
 
     private void checkValidation() {
         //get all edittext texts
@@ -152,60 +138,64 @@ public class SignupActivity extends AppCompatActivity {
 
         if (check_error == 0) {
             //insert data into firebase
-            progressBar.setVisibility(View.VISIBLE);
-            mAuth.createUserWithEmailAndPassword(getEmailId, getPassword).addOnCompleteListener
-                    (new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+            try {
+                progressBar.setVisibility(View.VISIBLE);
+                mAuth.createUserWithEmailAndPassword(getEmailId, getPassword).addOnCompleteListener
+                        (new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
 
-                                String dob = null, nationality = null, nidNo = null;
+                                    String dob = null, nationality = null, nidNo = null;
 
-                                User user = new User(
-                                        getFullName,
-                                        getEmailId,
-                                        getPassword,
-                                        getMobileNumber,
-                                        dob, nationality, nidNo
-                                );
+                                    User user = new User(
+                                            getFullName,
+                                            getEmailId,
+                                            getPassword,
+                                            getMobileNumber,
+                                            dob, nationality, nidNo
+                                    );
 
-                                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser()
-                                        .getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        progressBar.setVisibility(View.GONE);
-                                        if (task.isSuccessful()) {
-                                            userProfile();
-                                            sendEmailVerification();//Will redirect to a browser page
-                                        } else {
-                                            Toast.makeText(SignupActivity.this, "Registration not Successful", Toast.LENGTH_SHORT).show();
+                                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser()
+                                            .getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            progressBar.setVisibility(View.GONE);
+                                            if (task.isSuccessful()) {
+                                                userProfile();
+                                                sendEmailVerification();//Will redirect to a browser page
+                                            } else {
+                                                Toast.makeText(SignupActivity.this, "Registration not Successful", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                    }
-                                });
+                                    });
 
-                                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                                    startActivity(new Intent(SignupActivity.this, LoginActivity.class));
 
-                            } else {
-                                Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(SignupActivity.this, SignupActivity.class));
+                                } else {
+                                    Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(SignupActivity.this, SignupActivity.class));
+                                }
                             }
-                        }
 
-                        private void sendEmailVerification() {
-                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                            if (firebaseUser != null) {
-                                firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            showCustomToast("Check Your Email To Verify");
-                                            FirebaseAuth.getInstance().signOut();
+                            private void sendEmailVerification() {
+                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                if (firebaseUser != null) {
+                                    firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                showCustomToast("Check Your Email To Verify");
+                                                FirebaseAuth.getInstance().signOut();
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                }
                             }
-                        }
-                    });
+                        });
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e + "", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
