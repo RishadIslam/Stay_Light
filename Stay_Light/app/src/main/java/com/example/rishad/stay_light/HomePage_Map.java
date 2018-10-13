@@ -91,7 +91,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseUser user;
     GoogleApiClient mGoogleApiClient;
     private Button viewDetails;
-    private String UserRequest;
+    public static String UserRequest;
     private ImageView imageViewUser;
     private LatLng latLng, pickLocation, userLatLang;
     SupportMapFragment mapFragment;
