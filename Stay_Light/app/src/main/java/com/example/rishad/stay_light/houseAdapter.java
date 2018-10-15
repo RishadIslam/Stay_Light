@@ -58,11 +58,13 @@ public class houseAdapter extends RecyclerView.Adapter<houseAdapter.houseViewHol
 
 
 
+
         houseViewHolder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
                 Intent intent = new Intent(mCTX, Details.class);
                 intent.putExtra("HouseID", searchModel.getHouseID());
+                mCTX.startActivity(intent);
             }
         });
 
