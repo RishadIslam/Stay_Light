@@ -130,7 +130,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                         Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(MapsActivity.this, UploadImageRoom.class));
+                        startActivity(new Intent(MapsActivity.this, ImagePageNavigation.class));
                     }
                 }).setNegativeButton("Cancel", null).setCancelable(false);
 
@@ -310,19 +310,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location) {
         if (!checkMarker) {
-            mMap.clear();
-            mLastLocation = location;
+            try {
 
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .title("Current Location")
-                    .draggable(true)
-                    .snippet("Hello")
-                    .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+                mMap.clear();
+                mLastLocation = location;
+
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Current Location")
+                        .draggable(true)
+                        .snippet("Hello")
+                        .icon(BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(),e+"",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
