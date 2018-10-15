@@ -26,7 +26,7 @@ public class SearchActivity extends AppCompatActivity {
     private List<SearchModel> searchModelList;
     private houseAdapter mhouseAdapter;
     private Query query;
-    private String housekey;
+    private String housekey, houseID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,8 @@ public class SearchActivity extends AppCompatActivity {
                         if (postSnapshot.getKey().equals(housekey)) {
                             SearchModel housefound = postSnapshot.getValue(SearchModel.class);
                             searchModelList.add(housefound);
+                            houseID = postSnapshot.getKey();
+                            housefound.setHouseID(houseID);
                         }
                     } else {
                         Toast.makeText(SearchActivity.this, "Database Does not exist", Toast.LENGTH_SHORT).show();
@@ -90,6 +92,7 @@ public class SearchActivity extends AppCompatActivity {
                 mRecyclerView.setAdapter(mhouseAdapter);
 
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

@@ -2,6 +2,7 @@ package com.example.rishad.stay_light;
 
 public class SearchModel {
     String id, url;
+    private transient String houseID;
 
     public SearchModel() {}
 
@@ -10,11 +11,19 @@ public class SearchModel {
         this.url = url;
     }
 
-    public String getId() {
+    public String getid() {
         return id;
     }
 
-    public void setId(String id) {
+    public String getHouseID() {
+        return houseID;
+    }
+
+    public void setHouseID(String houseID) {
+        this.houseID = houseID;
+    }
+
+    public void setid(String id) {
         this.id = id;
     }
 
