@@ -57,7 +57,8 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".myprofile" />
         <activity android:name=".MapPageNavigation" />
-        <activity android:name=".Details"></activity>
+        <activity android:name=".Details" />
+        <activity android:name=".ImagePageNavigation"></activity>
     </application>
 
 </manifest>
