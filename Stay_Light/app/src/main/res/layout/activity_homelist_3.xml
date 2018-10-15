@@ -63,20 +63,6 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="95dp"
-        android:layout_height="47dp"
-        android:layout_below="@+id/textView10"
-        android:layout_alignStart="@+id/textView8"
-        android:layout_alignLeft="@+id/textView8"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="39dp"
-        android:text="@string/city"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView13"
@@ -85,9 +71,9 @@
         android:layout_alignStart="@+id/textView10"
         android:layout_alignLeft="@+id/textView10"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="-1dp"
-        android:layout_marginLeft="-1dp"
-        android:layout_marginBottom="114dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginBottom="210dp"
         android:text="@string/zip_code"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
@@ -133,19 +119,6 @@
         android:hint="@string/house_no"
         android:inputType="text" />
 
-    <EditText
-        android:id="@+id/cityName"
-        android:layout_width="wrap_content"
-        android:layout_height="62dp"
-        android:layout_alignTop="@+id/textView12"
-        android:layout_marginStart="-94dp"
-        android:layout_marginLeft="-94dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/textView12"
-        android:layout_toRightOf="@+id/textView12"
-        android:ems="10"
-        android:hint="@string/ex_dhaka_chittagong"
-        android:inputType="text" />
 
     <EditText
         android:id="@+id/zipCode"
@@ -155,10 +128,10 @@
         android:layout_alignTop="@+id/textView13"
         android:layout_alignEnd="@+id/textView8"
         android:layout_alignRight="@+id/textView8"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="81dp"
-        android:layout_marginRight="81dp"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginRight="82dp"
         android:ems="10"
         android:hint="@string/ex_1216_2020_5400"
         android:inputType="number" />

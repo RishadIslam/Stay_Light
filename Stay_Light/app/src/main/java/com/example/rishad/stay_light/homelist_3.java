@@ -16,8 +16,8 @@ public class homelist_3 extends AppCompatActivity {
 
     int check_error = 0;
     private Button nextBtn;
-    private EditText textApartmentNo,textHouseno,textRoadNo,textCity,textZipCode;
-    public String apartmentNo,shouseNo,sroadNo,scityName,szipCode;
+    private EditText textApartmentNo,textHouseno,textRoadNo,textZipCode;
+    public String apartmentNo,shouseNo,sroadNo,szipCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,6 @@ public class homelist_3 extends AppCompatActivity {
         textApartmentNo = findViewById(R.id.apartment);
         textHouseno = findViewById(R.id.houseNo);
         textRoadNo = findViewById(R.id.roadNo);
-        textCity = findViewById(R.id.cityName);
         textZipCode = findViewById(R.id.zipCode);
         nextBtn = findViewById(R.id.nextPage);
 
@@ -37,10 +36,9 @@ public class homelist_3 extends AppCompatActivity {
                 apartmentNo = textApartmentNo.getText().toString().trim();
                 shouseNo = textHouseno.getText().toString().trim();
                 sroadNo = textRoadNo.getText().toString().trim();
-                scityName = textCity.getText().toString().trim();
                 szipCode = (String) textZipCode.getText().toString().trim();
 
-                if (apartmentNo.isEmpty() || shouseNo.isEmpty() || sroadNo.isEmpty() || scityName.isEmpty() || szipCode.isEmpty())
+                if (apartmentNo.isEmpty() || shouseNo.isEmpty() || sroadNo.isEmpty() || szipCode.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(),"Enter all field",Toast.LENGTH_LONG).show();
                 }
@@ -55,7 +53,6 @@ public class homelist_3 extends AppCompatActivity {
                     editor.putString("apartmentNo",textApartmentNo.getText().toString().trim());
                     editor.putString("shouseNo", textHouseno.getText().toString().trim());
                     editor.putString("sroadNo", textRoadNo.getText().toString().trim());
-                    editor.putString("scityName", textCity.getText().toString().trim());
                     editor.putString("szipCode", (String) textZipCode.getText().toString().trim());
 
                     //commits your edits

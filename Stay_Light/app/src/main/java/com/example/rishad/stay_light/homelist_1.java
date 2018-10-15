@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class homelist_1 extends AppCompatActivity  {
 
-    private EditText noOfGuest,houseLocation,textHousePrice, houseTitle;
+    private EditText noOfGuest,textHousePrice, houseTitle;
     private Button nextButton;
     Spinner dropdown;
     private String[] houseType = new String[]{"","Apartment", "Duplex", "Bread And Breakfast"};
@@ -30,7 +30,6 @@ public class homelist_1 extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homelist_1);
 
-        houseLocation = findViewById(R.id.location);
         houseTitle = findViewById(R.id.HouseTitle);
         noOfGuest = findViewById(R.id.noOfguest);
         nextButton = findViewById(R.id.next);
@@ -49,10 +48,9 @@ public class homelist_1 extends AppCompatActivity  {
 
                 housetitle = houseTitle.getText().toString().trim();
                 guestNumber = noOfGuest.getText().toString().trim();
-                location = houseLocation.getText().toString().trim();
                 housePrice = textHousePrice.getText().toString().trim();
 
-                if (guestNumber.isEmpty() || location.isEmpty() || housePrice.isEmpty())
+                if (guestNumber.isEmpty() || housePrice.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(),"Enter all field",Toast.LENGTH_LONG).show();
                 }
@@ -68,7 +66,6 @@ public class homelist_1 extends AppCompatActivity  {
                     editor.putString("guestNumber",(String)noOfGuest.getText().toString().trim());
                     editor.putString("housePrice",(String)textHousePrice.getText().toString().trim());
                     editor.putString("houseType", houseTypeItem);
-                    editor.putString("location", houseLocation.getText().toString().trim());
 
                     //commits your edits
                     editor.apply();

@@ -16,6 +16,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -26,8 +27,8 @@ public class SearchActivity extends AppCompatActivity {
     private List<SearchModel> searchModelList;
     private houseAdapter mhouseAdapter;
     private Query query;
-    private String housekey;
     private String houseID;
+    ArrayList<String> housekey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,24 @@ public class SearchActivity extends AppCompatActivity {
         mhouseAdapter = new houseAdapter(SearchActivity.this, searchModelList);
 
 
+        housekey = new ArrayList<String>();
+        query = FirebaseDatabase.getInstance().getReference("Host Details")
+                .orderByChild("scityName")
+                .equalTo(HomePage_Map.UserRequest);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot childsnapshot : dataSnapshot.getChildren()) {
+                    housekey.add(childsnapshot.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), "No House Found", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Title Image");
@@ -54,49 +73,41 @@ public class SearchActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        query = (Query) FirebaseDatabase.getInstance().getReference("Host Details")
-                .orderByChild("location")
-                .equalTo(HomePage_Map.UserRequest)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot childsnapshot:dataSnapshot.getChildren()) {
-                            housekey = childsnapshot.getKey();
-                            databaseReference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                    searchModelList.clear();
+                searchModelList.clear();
 
-                                    //iterating through all the nodes
-                                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                        if (postSnapshot.getKey().equals(housekey)) {
-                                            SearchModel housefound = postSnapshot.getValue(SearchModel.class);
-                                            searchModelList.add(housefound);
-                                            houseID = postSnapshot.getKey();
-                                            housefound.setHouseID(houseID);
-                                        }
-                                    }
-                                    mRecyclerView.setAdapter(mhouseAdapter);
+                //iterating through all the nodes
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    if (postSnapshot.exists()) {
+                        Iterator iterator = housekey.iterator();
+                        while (iterator.hasNext()) {
+                            String housekey = (String) iterator.next();
 
-                                }
-
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                    Toast.makeText(SearchActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            if (postSnapshot.getKey().equals(housekey)) {
+                                SearchModel housefound = postSnapshot.getValue(SearchModel.class);
+                                searchModelList.add(housefound);
+                                houseID = postSnapshot.getKey();
+                                housefound.setHouseID(houseID);
+                            }
                         }
+                    } else {
+                        Toast.makeText(SearchActivity.this, "Database Does not exist", Toast.LENGTH_SHORT).show();
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Toast.makeText(getApplicationContext(), "No House Found", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }
+                mRecyclerView.setAdapter(mhouseAdapter);
+
+            }
 
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(SearchActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

@@ -144,7 +144,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
         guestNumber = sharedPref.getString("guestNumber", "");
         houseType = sharedPref.getString("houseType", "");
-        location = sharedPref.getString("location", "");
         noOfBath = sharedPref.getString("noOfBath", "");
         privateBath = sharedPref.getString("privateBath", "");
         accoType = sharedPref.getString("accoType", "");
@@ -152,7 +151,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         apartmentNo = sharedPref.getString("apartmentNo", "");
         shouseNo = sharedPref.getString("shouseNo", "");
         sroadNo = sharedPref.getString("sroadNo", "");
-        scityName = sharedPref.getString("scityName", "");
         szipCode = sharedPref.getString("szipCode", "");
         housePrice = sharedPref.getString("housePrice", "");
         amenities = getIntent().getStringExtra("amenities");
@@ -238,17 +236,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     if (addressList != null && addressList.size() > 0) {
                         Address address = addressList.get(0);
                         StringBuilder sb = new StringBuilder();
+                        StringBuilder builder = new StringBuilder();
                         for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
                             sb.append(address.getAddressLine(i)).append("\n");
                         }
-                        sb.append(address.getLocality()).append("\n");
-                        sb.append(address.getPostalCode()).append("\n");
-                        sb.append(address.getCountryName());
-                        result = sb.toString();
-                        
+                        sb.append(address.getSubLocality());
+                        builder.append(address.getLocality());
+                        location = sb.toString();
+                        scityName = builder.toString();
+
                         Toast.makeText(MapsActivity.this, result, Toast.LENGTH_LONG).show();
                     }
-                }catch (Exception e) {
+                } catch (Exception e) {
                     Toast.makeText(MapsActivity.this, e + "", Toast.LENGTH_LONG).show();
                 }
 

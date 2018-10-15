@@ -24,7 +24,7 @@ public class homelist_2 extends AppCompatActivity {
     Spinner dropdownAccomodation;
     private EditText textBath, textBed;
     private RadioGroup radioGroup;
-    private String[] accoTypeList = new String[]{"", "Entire Place", "Private Room", "Shared Room"};
+    private String[] accoTypeList = new String[]{"","Entire Place", "Private Room", "Shared Room"};
     public String accoType, privateBath, noOfbed, noOfBath;
 
     @Override

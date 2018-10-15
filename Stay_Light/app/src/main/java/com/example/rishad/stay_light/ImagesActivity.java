@@ -113,6 +113,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
 
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Title Image").child(id);
                 databaseReference.setValue(titleImage);
+                startActivity(new Intent(ImagesActivity.this,HomePage_Map.class));
             }
         }).setNegativeButton("NO", null).setCancelable(false);
 
