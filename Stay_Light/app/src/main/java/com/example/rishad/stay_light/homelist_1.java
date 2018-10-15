@@ -34,6 +34,7 @@ public class homelist_1 extends AppCompatActivity  {
         houseTitle = findViewById(R.id.HouseTitle);
         noOfGuest = findViewById(R.id.noOfguest);
         nextButton = findViewById(R.id.next);
+		
         dropdown = findViewById(R.id.typeofhouse);
         textHousePrice = findViewById(R.id.housePriceText);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, houseType);

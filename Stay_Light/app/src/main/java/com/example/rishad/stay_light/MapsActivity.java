@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Looper;
@@ -44,7 +46,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
@@ -214,11 +219,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 latitude = position.latitude;
                 longitude = position.longitude;
 
-                Toast.makeText(
-                        MapsActivity.this,
-                        "Lat " + latitude + " "
-                                + "Long " + longitude,
-                        Toast.LENGTH_LONG).show();
+                /*Toast.makeText(MapsActivity.this, "Lat " + latitude + " "
+                        + "Long " + longitude, Toast.LENGTH_LONG).show();
+*/
+                try {
+
+                    Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
+                    String result = null;
+
+                    List<Address> addressList = null;
+                    try {
+                        addressList = geocoder.getFromLocation(
+                                latitude, longitude, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (addressList != null && addressList.size() > 0) {
+                        Address address = addressList.get(0);
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                            sb.append(address.getAddressLine(i)).append("\n");
+                        }
+                        sb.append(address.getLocality()).append("\n");
+                        sb.append(address.getPostalCode()).append("\n");
+                        sb.append(address.getCountryName());
+                        result = sb.toString();
+                        
+                        Toast.makeText(MapsActivity.this, result, Toast.LENGTH_LONG).show();
+                    }
+                }catch (Exception e) {
+                    Toast.makeText(MapsActivity.this, e + "", Toast.LENGTH_LONG).show();
+                }
 
                 checkMarker = false;
             }
