@@ -6,13 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".Details">
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="fill_parent"
+        android:layout_height="236dp"
+        android:layout_alignParentTop="true" />
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/indicator"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="157dp"
-        android:text="TextView" />
+        android:layout_marginTop="200dp"
+        android:gravity="bottom"
+        android:padding="10dip"
+        app:centered="true"
+        app:fillColor="#ffffff"
+        app:pageColor="#000000"
+        app:snap="false" />
+
 </RelativeLayout>
