@@ -21,7 +21,7 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private FirebaseDatabase firebaseDatabase,mDatabase;
+    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private List<SearchModel> searchModelList;
     private houseAdapter mhouseAdapter;
