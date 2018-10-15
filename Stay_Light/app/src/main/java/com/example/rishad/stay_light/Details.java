@@ -3,16 +3,14 @@ package com.example.rishad.stay_light;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class Details extends AppCompatActivity {
 
-    FirebaseDatabase firebaseDatabase;
-    FirebaseAuth mAuth;
+    String HouseId;
 
+    TextView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +18,17 @@ public class Details extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
         Intent i = this.getIntent();
-        String HouseId = i.getExtras().getString("HouseID");
-        Toast.makeText(this, HouseId, Toast.LENGTH_SHORT).show();
+
+        view = findViewById(R.id.textView7);
+
+        try {
+
+            HouseId = i.getExtras().getString("HouseID");
+            view.setText(HouseId);
+            Toast.makeText(this, HouseId, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+
+            Toast.makeText(this, e + "", Toast.LENGTH_SHORT).show();
+        }
     }
 }

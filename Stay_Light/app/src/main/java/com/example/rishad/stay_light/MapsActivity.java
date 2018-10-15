@@ -200,6 +200,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
+        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+            @Override
+            public void onCameraMove() {
+                checkMarker = true;
+            }
+        });
+
+        mMap.setOnMyLocationClickListener(new GoogleMap.OnMyLocationClickListener() {
+            @Override
+            public void onMyLocationClick(@NonNull Location location) {
+
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Current Location")
+                        .draggable(true)
+                        .snippet("Hello")
+                        .icon(BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+
+                checkMarker = false;
+
+            }
+        });
+
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
@@ -217,9 +244,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 latitude = position.latitude;
                 longitude = position.longitude;
 
-                /*Toast.makeText(MapsActivity.this, "Lat " + latitude + " "
-                        + "Long " + longitude, Toast.LENGTH_LONG).show();
-*/
                 try {
 
                     Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
@@ -245,7 +269,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         location = sb.toString();
                         scityName = builder.toString();
 
-                        Toast.makeText(MapsActivity.this, result, Toast.LENGTH_LONG).show();
+                        Toast.makeText(MapsActivity.this, scityName, Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
                     Toast.makeText(MapsActivity.this, e + "", Toast.LENGTH_LONG).show();

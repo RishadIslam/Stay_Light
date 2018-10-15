@@ -39,6 +39,7 @@ public class houseAdapter extends RecyclerView.Adapter<houseAdapter.houseViewHol
         LayoutInflater layoutInflater = LayoutInflater.from(mCTX);
         View view = layoutInflater.inflate(R.layout.row, null);
         houseViewHolder holder = new houseViewHolder(view, mItemClickListener);
+
         return holder;
     }
 

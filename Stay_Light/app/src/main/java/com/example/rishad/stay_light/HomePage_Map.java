@@ -95,6 +95,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     private ImageView imageViewUser;
     private LatLng latLng, pickLocation, userLatLang;
     SupportMapFragment mapFragment;
+    Boolean checkMarker = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,7 +247,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -256,6 +257,28 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String id = marker.getTitle();
+
+                Intent intent = new Intent(HomePage_Map.this, Details.class);
+                intent.putExtra("HouseID", id);
+                startActivity(intent);
+
+                Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+            @Override
+            public void onCameraMove() {
+                checkMarker = false;
+            }
+        });
+
 
         if (mapFragment != null &&
                 mapFragment.getView().findViewById(Integer.parseInt("1")) != null) {
@@ -369,7 +392,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onLocationChanged(Location location) {
         try {
-            if (userLatLang == null) {
+            if (userLatLang == null && checkMarker) {
                 mMap.clear();
                 mLastLocation = location;
 
@@ -384,8 +407,9 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
                     @Override
                     public void onMyLocationClick(@NonNull Location location) {
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLang));
-                        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
                         userLatLang = null;
+                        checkMarker = true;
                         getNearestHouse();
                     }
                 });
