@@ -62,6 +62,7 @@ public class houseAdapter extends RecyclerView.Adapter<houseAdapter.houseViewHol
             @Override
             public void onItemClick(View v, int pos) {
                 Intent intent = new Intent(mCTX, Details.class);
+                intent.putExtra("HouseID", searchModel.getHouseID());
             }
         });
 
