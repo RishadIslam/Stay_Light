@@ -25,6 +25,7 @@ public class Details extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private Query query;
+    private String OwnerID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,18 @@ public class Details extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),ImageGallary.class));
             }
         });
+
+        ownerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("OwnerID", OwnerID);
+                editor.apply();
+
+                startActivity(new Intent(getApplicationContext(), OwnerDetails.class));
+            }
+        });
     }
 
     @Override
@@ -89,6 +102,7 @@ public class Details extends AppCompatActivity {
                         apartmentType.setText(hostPlaceInfo.getAccoType());
                         price.setText(hostPlaceInfo.getHousePrice());
                         GuestNo.setText(hostPlaceInfo.getGuestNumber());
+                        OwnerID = postsnapshot.child("userId").getValue().toString();
 
                     } else {
                         Toast.makeText(Details.this, "Error!!!", Toast.LENGTH_SHORT).show();

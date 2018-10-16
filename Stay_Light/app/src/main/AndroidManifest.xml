@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -59,7 +60,8 @@
         <activity android:name=".MapPageNavigation" />
         <activity android:name=".ImagePageNavigation" />
         <activity android:name=".Details" />
-        <activity android:name=".ImageGallary"></activity>
+        <activity android:name=".ImageGallary" />
+        <activity android:name=".OwnerDetails"></activity>
     </application>
 
 </manifest>
