@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -90,6 +92,9 @@ public class myprofile extends AppCompatActivity {
 
         imageViewProfile = findViewById(R.id.image);
         buttonSave = findViewById(R.id.save);
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         try {
             mAuth = FirebaseAuth.getInstance();
@@ -357,5 +362,30 @@ public class myprofile extends AppCompatActivity {
         textNationality.setEnabled(false);
         textNid.setEnabled(false);
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.home_nav:
+                    startActivity(new Intent(myprofile.this,HomePage_Map.class));
+                    return true;
+                case R.id.profile_nav:
+                    startActivity(new Intent(myprofile.this,myprofile.class));
+                    return true;
+                case R.id.rent_nav:
+                    startActivity(new Intent(myprofile.this,homelist_1.class));
+                    return true;
+                case R.id.nav_logout:
+                    mAuth.signOut();
+                    startActivity(new Intent(myprofile.this,LoginActivity.class));
+                    return true;
+            }
+            return false;
+        }
+    };
+
 
 }

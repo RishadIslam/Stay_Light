@@ -119,8 +119,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="138dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginStart="293dp"
+            android:layout_marginBottom="76dp"
             android:text="Save"
             android:textAlignment="center"
             android:textSize="18sp"
@@ -192,6 +192,20 @@
             android:hint="NID/Passport/Driving License No"
             android:inputType="number"
             android:textAlignment="center"/>
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="355dp"
+            android:layout_marginEnd="0dp"
+            android:background="?android:attr/windowBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:menu="@menu/activity_drawer_home" />
 
     </RelativeLayout>
 

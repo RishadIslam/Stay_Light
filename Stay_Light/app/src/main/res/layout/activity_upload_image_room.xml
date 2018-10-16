@@ -24,15 +24,15 @@
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="353dp"
-        android:layout_height="263dp"
+        android:layout_height="wrap_content"
         android:layout_above="@id/progress_bar"
         android:layout_below="@id/edit_text_file_name"
         android:layout_alignStart="@+id/progress_bar"
         android:layout_alignEnd="@+id/progress_bar"
         android:layout_marginStart="0dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="-2dp"
-        android:layout_marginBottom="80dp" />
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="6dp" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -44,7 +44,7 @@
         android:layout_alignEnd="@+id/edit_text_file_name"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="59dp" />
+        android:layout_marginBottom="24dp" />
 
     <Button
         android:id="@+id/uploadbutton"
@@ -52,8 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="63dp"
         android:text="Upload" />
 
     <TextView
@@ -77,5 +77,20 @@
         android:layout_alignStart="@+id/edit_text_file_name"
         android:layout_alignTop="@+id/uploadbutton"
         android:text="Finish" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="67dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="484dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/activity_drawer_home"
+        android:backgroundTint="@color/background_color"/>
 
 </RelativeLayout>

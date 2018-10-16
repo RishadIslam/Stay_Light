@@ -31,7 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImagesActivity extends AppCompatActivity implements ImageAdapter.OnItemClickListener {
+public class ImageGallary extends AppCompatActivity implements ImageAdapter.OnItemClickListener {
     private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
 
@@ -62,16 +62,16 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
 
         mUploads = new ArrayList<>();
 
-        mAdapter = new ImageAdapter(ImagesActivity.this, mUploads);
+        mAdapter = new ImageAdapter(ImageGallary.this, mUploads);
 
         mRecyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(ImagesActivity.this);
+        mAdapter.setOnItemClickListener(ImageGallary.this);
 
         mStorage = FirebaseStorage.getInstance();
 
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
-        id = sharedPref.getString("refId", "");
+        id = sharedPref.getString("HouseID", "");
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads").child(id);
 
@@ -94,7 +94,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ImagesActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImageGallary.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
@@ -107,51 +107,16 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
 
     @Override
     public void onWhatEverClick(int position) {
-        final int pos = position;
-        AlertDialog.Builder builder = new AlertDialog.Builder(ImagesActivity.this);
-        builder.setMessage("Do you want to select this image as your HOUSE IMAGE?").setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                Upload selectedItem = mUploads.get(pos);
-                String url = selectedItem.getImageUrl();
-
-                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
-                String title = sharedPref.getString("houseTitle", "");
-
-                TitleImage titleImage = new TitleImage(title, url);
-
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Title Image").child(id);
-                databaseReference.setValue(titleImage);
-                startActivity(new Intent(ImagesActivity.this, UploadImageRoom.class));
-            }
-        }).setNegativeButton("NO", null).setCancelable(false);
-
-        AlertDialog alert = builder.create();
-        alert.show();
-
         Toast.makeText(this, "Whatever click at position: " + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDeleteClick(int position) {
-        Upload selectedItem = mUploads.get(position);
-        final String selectedKey = selectedItem.getKey();
-
-        StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getImageUrl());
-        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                mDatabaseRef.child(selectedKey).removeValue();
-                Toast.makeText(ImagesActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mDatabaseRef.removeEventListener(mDBListener);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

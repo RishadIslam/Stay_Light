@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +19,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class homelist_2 extends AppCompatActivity {
 
@@ -43,6 +48,8 @@ public class homelist_2 extends AppCompatActivity {
         textBath = findViewById(R.id.noofbath);
         textBed = findViewById(R.id.noofbedroom);
 
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 //        radio button
         radioGroup = findViewById(R.id.radioGroup1);
@@ -106,4 +113,29 @@ public class homelist_2 extends AppCompatActivity {
         }
     };
 //    spinner handler
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.home_nav:
+                    startActivity(new Intent(getApplicationContext(),HomePage_Map.class));
+                    return true;
+                case R.id.profile_nav:
+                    startActivity(new Intent(getApplicationContext(),myprofile.class));
+                    return true;
+                case R.id.rent_nav:
+                    startActivity(new Intent(getApplicationContext(),homelist_1.class));
+                    return true;
+                case R.id.nav_logout:
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    return true;
+            }
+            return false;
+        }
+    };
+
 }

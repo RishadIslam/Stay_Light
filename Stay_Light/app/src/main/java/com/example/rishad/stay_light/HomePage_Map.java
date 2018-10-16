@@ -230,6 +230,9 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         } else if (id == R.id.rent_nav) {
             Intent rent = new Intent(HomePage_Map.this, homelist_1.class);
             startActivity(rent);
+        } else if (id == R.id.home_nav) {
+            Intent rent = new Intent(HomePage_Map.this, HomePage_Map.class);
+            startActivity(rent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_page);
@@ -267,7 +270,7 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
                 intent.putExtra("HouseID", id);
                 startActivity(intent);
 
-                Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

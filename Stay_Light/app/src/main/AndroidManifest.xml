@@ -58,7 +58,8 @@
         <activity android:name=".myprofile" />
         <activity android:name=".MapPageNavigation" />
         <activity android:name=".ImagePageNavigation" />
-        <activity android:name=".Details"></activity>
+        <activity android:name=".Details" />
+        <activity android:name=".ImageGallary"></activity>
     </application>
 
 </manifest>

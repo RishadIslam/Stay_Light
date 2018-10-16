@@ -1,9 +1,11 @@
 package com.example.rishad.stay_light;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +50,20 @@ public class Details extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference("Host Details");
         query = firebaseDatabase.getReference("Title Image");
 
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
+                //now get Editor
+                SharedPreferences.Editor editor = sharedPref.edit();
+                //put your value
+                editor.putString("HouseID", HouseID);
+                //commits your edits
+                editor.apply();
+
+                startActivity(new Intent(getApplicationContext(),ImageGallary.class));
+            }
+        });
     }
 
     @Override
@@ -66,16 +82,15 @@ public class Details extends AppCompatActivity {
                         else privateBath = "Shared Bathroom";
                         amenities.setText(hostPlaceInfo.getAmenities());
                         facilities.setText("1." + hostPlaceInfo.getNoOfbed() + "Bedrooms\n" + "2." + hostPlaceInfo.getNoOfBath() + "Bathrooms\n" + "3."
-                        + privateBath + "\n");
-                        address.setText("Apartment No: "+hostPlaceInfo.getApartmentNo()+", House No: "+hostPlaceInfo.getShouseNo()+", Road No: "+
-                        hostPlaceInfo.getSroadNo()+", "+hostPlaceInfo.getLocation()+", "+hostPlaceInfo.getScityName()+", "+hostPlaceInfo.getScityName()+"-"+hostPlaceInfo.getSzipCode());
+                                + privateBath + "\n");
+                        address.setText("Apartment No: " + hostPlaceInfo.getApartmentNo() + ", House No: " + hostPlaceInfo.getShouseNo() + ", Road No: " +
+                                hostPlaceInfo.getSroadNo() + ", " + hostPlaceInfo.getLocation() + ", " + hostPlaceInfo.getScityName() + ", " + hostPlaceInfo.getScityName() + "-" + hostPlaceInfo.getSzipCode());
                         houseType.setText(hostPlaceInfo.getHouseTypeItem());
                         apartmentType.setText(hostPlaceInfo.getAccoType());
                         price.setText(hostPlaceInfo.getHousePrice());
                         GuestNo.setText(hostPlaceInfo.getGuestNumber());
 
-                    }
-                    else {
+                    } else {
                         Toast.makeText(Details.this, "Error!!!", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -91,15 +106,13 @@ public class Details extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if(snapshot.getKey().equals(HouseID)) {
+                    if (snapshot.getKey().equals(HouseID)) {
                         String title = snapshot.child("id").getValue().toString();
                         houseTitle.setText(title);
-                    }
-                    else {
+                    } else {
                         Toast.makeText(Details.this, "Title Error in Database!!!", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
 
             @Override

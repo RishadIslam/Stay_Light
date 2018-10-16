@@ -13,11 +13,13 @@ import android.location.LocationManager;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -84,6 +86,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         buttonFinish = findViewById(R.id.finishBtn);
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         buttonFinish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -354,4 +359,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.home_nav:
+                    startActivity(new Intent(getApplicationContext(),HomePage_Map.class));
+                    return true;
+                case R.id.profile_nav:
+                    startActivity(new Intent(getApplicationContext(),myprofile.class));
+                    return true;
+                case R.id.rent_nav:
+                    startActivity(new Intent(getApplicationContext(),homelist_1.class));
+                    return true;
+                case R.id.nav_logout:
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    return true;
+            }
+            return false;
+        }
+    };
+
 }
