@@ -1,11 +1,10 @@
 package com.example.rishad.stay_light;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,72 +14,69 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.viewpagerindicator.CirclePageIndicator;
-
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Details extends AppCompatActivity {
 
-    String HouseId;
-    private static ViewPager mPager;
-    private static int currentPage = 0, NUM_Pages = 0;
-    private CirclePageIndicator circlePageIndicator;
+    private String HouseID;
+    private TextView houseTitle, amenities, facilities, address, houseType, apartmentType, price, GuestNo;
+    private Button Bookbtn, ownerBtn, galleryBtn;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    ArrayList<String> ImagesArray = new ArrayList<>();
-    private static final ArrayList<String> IMAGES = new ArrayList();
-
-
+    private Query query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        mPager = findViewById(R.id.pager);
-        mPager.setAdapter(new SlidingImage_Adapter(ImagesArray, Details.this ));
+        Intent intent = getIntent();
+        HouseID = intent.getStringExtra("HouseID");
 
-        circlePageIndicator = findViewById(R.id.indicator);
-        circlePageIndicator.setViewPager(mPager);
-
-        final float density = getResources().getDisplayMetrics().density;
-        circlePageIndicator.setRadius(5 * density);
+        houseTitle = findViewById(R.id.Title);
+        amenities = findViewById(R.id.amenities);
+        facilities = findViewById(R.id.facilities);
+        address = findViewById(R.id.address);
+        houseType = findViewById(R.id.houseType);
+        apartmentType = findViewById(R.id.aptType);
+        price = findViewById(R.id.Price);
+        GuestNo = findViewById(R.id.guestNO);
+        Bookbtn = findViewById(R.id.book);
+        ownerBtn = findViewById(R.id.owner);
+        galleryBtn = findViewById(R.id.gallery);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Uploads");
+        databaseReference = firebaseDatabase.getReference("Host Details");
+        query = firebaseDatabase.getReference("Title Image");
 
-        Intent i = this.getIntent();
+    }
 
-        try {
-
-            HouseId = i.getExtras().getString("HouseID");
-            Toast.makeText(this, HouseId, Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-
-            Toast.makeText(this, e + "", Toast.LENGTH_SHORT).show();
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot childsnapshot: dataSnapshot.getChildren()){
-                    if (childsnapshot.getKey().equals(HouseId)) {
-                        Query query = FirebaseDatabase.getInstance().getReference("Uploads").child("imageUrl");
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                String url = dataSnapshot.getValue(String.class);
-                                IMAGES.add(url);
-                            }
+                for (DataSnapshot postsnapshot : dataSnapshot.getChildren()) {
+                    if (postsnapshot.getKey().equals(HouseID)) {
+                        HostPlaceInfo hostPlaceInfo = postsnapshot.getValue(HostPlaceInfo.class);
+                        String privateBath;
+                        if (hostPlaceInfo.getPrivateBath() == "YES")
+                            privateBath = "Private Bathroom";
+                        else privateBath = "Shared Bathroom";
+                        amenities.setText(hostPlaceInfo.getAmenities());
+                        facilities.setText("1." + hostPlaceInfo.getNoOfbed() + "Bedrooms\n" + "2." + hostPlaceInfo.getNoOfBath() + "Bathrooms\n" + "3."
+                        + privateBath + "\n");
+                        address.setText("Apartment No: "+hostPlaceInfo.getApartmentNo()+", House No: "+hostPlaceInfo.getShouseNo()+", Road No: "+
+                        hostPlaceInfo.getSroadNo()+", "+hostPlaceInfo.getLocation()+", "+hostPlaceInfo.getScityName()+", "+hostPlaceInfo.getScityName()+"-"+hostPlaceInfo.getSzipCode());
+                        houseType.setText(hostPlaceInfo.getHouseTypeItem());
+                        apartmentType.setText(hostPlaceInfo.getAccoType());
+                        price.setText(hostPlaceInfo.getHousePrice());
+                        GuestNo.setText(hostPlaceInfo.getGuestNumber());
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
+                    }
+                    else {
+                        Toast.makeText(Details.this, "Error!!!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -90,54 +86,27 @@ public class Details extends AppCompatActivity {
 
             }
         });
-        init();
 
-
-    }
-
-    private void init() {
-
-        for (int i=0; i<IMAGES.size(); i++) {
-            ImagesArray.add(IMAGES.get(i));
-        }
-
-        NUM_Pages = IMAGES.size();
-
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void run() {
-                if (currentPage == NUM_Pages) {
-                    currentPage = 0;
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if(snapshot.getKey().equals(HouseID)) {
+                        String title = snapshot.child("id").getValue().toString();
+                        houseTitle.setText(title);
+                    }
+                    else {
+                        Toast.makeText(Details.this, "Title Error in Database!!!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                mPager.setCurrentItem(currentPage++, true);
-            }
-        };
-
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 3000, 3000);
-
-        //pager listener over indicator
-        circlePageIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
 
             }
 
             @Override
-            public void onPageSelected(int i) {
-                currentPage = i;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
     }
 }
