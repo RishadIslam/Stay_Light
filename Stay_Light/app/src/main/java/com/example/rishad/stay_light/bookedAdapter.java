@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -43,10 +46,12 @@ public class bookedAdapter extends RecyclerView.Adapter<bookedAdapter.bookedView
                 .fit()
                 .centerCrop()
                 .into(bookedViewHolder.b_imageurl);
-
-
-
-
+        bookedViewHolder.checkingout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            }
+        });
     }
 
     @NonNull
@@ -68,6 +73,7 @@ public class bookedAdapter extends RecyclerView.Adapter<bookedAdapter.bookedView
 
         ImageView b_imageurl;
         TextView b_titleid;
+        Button checkingout;
 
 
         public bookedViewHolder(@NonNull View itemView) {
@@ -75,6 +81,7 @@ public class bookedAdapter extends RecyclerView.Adapter<bookedAdapter.bookedView
 
             b_imageurl = itemView.findViewById(R.id.bprofile_image);
             b_titleid = itemView.findViewById(R.id.bTitle);
+            checkingout = itemView.findViewById(R.id.checkoutbtn);
         }
     }
 }
