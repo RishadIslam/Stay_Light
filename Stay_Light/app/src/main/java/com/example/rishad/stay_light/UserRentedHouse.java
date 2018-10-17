@@ -95,6 +95,8 @@ public class UserRentedHouse extends AppCompatActivity {
                             if (postSnapshot.getKey().equals(housekey)) {
                                 SearchModel housefound = postSnapshot.getValue(SearchModel.class);
                                 searchModelList.add(housefound);
+                                houseID = postSnapshot.getKey();
+                                housefound.setHouseID(houseID);
                             }
                         }
                     } else {
