@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,7 +59,7 @@ public class booking extends AppCompatActivity {
     String price;
     int totalGuest;
     String houseId;
-    public DatabaseReference database, reference;
+    public DatabaseReference database, reference,ref;
     public double latitude, longitude;
     TitleImage titleImage;
 
@@ -139,29 +140,20 @@ public class booking extends AppCompatActivity {
                 try {
 
                     database = FirebaseDatabase.getInstance().getReference("Title Image").child(houseId);
-                    database.addValueEventListener(new ValueEventListener() {
+                    ref = FirebaseDatabase.getInstance().getReference("No Title").child(houseId);
+
+                    database.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             titleImage = dataSnapshot.getValue(TitleImage.class);
-                            FirebaseDatabase.getInstance().getReference("No Title").child(houseId).setValue(titleImage);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                    FirebaseDatabase.getInstance().getReference("Title Image")
-                            .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                                if (snapshot.getKey().equals(houseId)){
-                                    snapshot.getRef().removeValue();
+                            ref.setValue(titleImage, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                    if (databaseError == null){
+                                        database.setValue(null);
+                                    }
                                 }
-                            }
+                            });
                         }
 
                         @Override
