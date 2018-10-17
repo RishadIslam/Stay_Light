@@ -33,16 +33,6 @@ public class houseAdapter extends RecyclerView.Adapter<houseAdapter.houseViewHol
         this.searchModelList = searchModelList;
     }
 
-    @NonNull
-    @Override
-    public houseViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater layoutInflater = LayoutInflater.from(mCTX);
-        View view = layoutInflater.inflate(R.layout.row, null);
-        houseViewHolder holder = new houseViewHolder(view, mItemClickListener);
-
-        return holder;
-    }
-
     @Override
     public void onBindViewHolder(@NonNull houseViewHolder houseViewHolder, int i) {
         final SearchModel searchModel = searchModelList.get(i);
@@ -69,6 +59,16 @@ public class houseAdapter extends RecyclerView.Adapter<houseAdapter.houseViewHol
             }
         });
 
+    }
+
+    @NonNull
+    @Override
+    public houseViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        LayoutInflater layoutInflater = LayoutInflater.from(mCTX);
+        View view = layoutInflater.inflate(R.layout.row, null);
+        houseViewHolder holder = new houseViewHolder(view, mItemClickListener);
+
+        return holder;
     }
 
     @Override

@@ -7,14 +7,14 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class rentlistsuccess extends AppCompatActivity implements View.OnClickListener {
-    private ImageButton success;
+    private ImageButton msuccess;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rentlistsuccess);
-        success= (ImageButton) findViewById(R.id.success);
+        msuccess= (ImageButton) findViewById(R.id.success);
 
-        success.setOnClickListener(new View.OnClickListener() {
+        msuccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentLoadNewActivity = new Intent(rentlistsuccess.this, HomePage_Map.class);
