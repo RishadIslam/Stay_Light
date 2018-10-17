@@ -32,17 +32,6 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="55dp">
 
-        <ImageButton
-            android:id="@+id/phoneEdit"
-            android:layout_width="38dp"
-            android:layout_height="47dp"
-            android:layout_alignTop="@+id/mobile"
-            android:layout_alignEnd="@+id/mobile"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="-54dp"
-            android:background="@drawable/edit"
-            android:scaleType="fitCenter" />
-
         <EditText
             android:id="@+id/checkin"
             android:layout_width="188dp"
@@ -131,7 +120,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginBottom="309dp"
+            android:layout_marginBottom="251dp"
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
@@ -139,8 +128,8 @@
 
         <EditText
             android:id="@+id/mobile"
-            android:layout_width="307dp"
-            android:layout_height="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:layout_alignTop="@+id/adults"
             android:layout_alignEnd="@+id/email"
             android:layout_alignParentStart="true"
@@ -148,13 +137,25 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginBottom="262dp"
+            android:layout_marginTop="162dp"
+            android:layout_marginEnd="-7dp"
+            android:layout_marginBottom="203dp"
             android:ems="10"
             android:hint="Mobile No"
             android:inputType="phone"
             tools:ignore="Autofill,HardcodedText" />
+
+        <TextView
+            android:id="@+id/textPrice"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_alignStart="@+id/noofrooms"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="165dp"
+            android:hint="Your Total Fare"
+            android:textAlignment="textStart"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
 
     </RelativeLayout>
 
@@ -165,7 +166,7 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="93dp"
         android:background="@drawable/button"
         android:text="Book"
         android:textAllCaps="true"
@@ -173,5 +174,19 @@
         android:textSize="24sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="511dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/activity_drawer_home" />
 
 </RelativeLayout>

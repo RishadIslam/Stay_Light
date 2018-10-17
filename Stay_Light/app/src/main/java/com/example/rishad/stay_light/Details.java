@@ -3,13 +3,16 @@ package com.example.rishad.stay_light;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +50,9 @@ public class Details extends AppCompatActivity {
         ownerBtn = findViewById(R.id.owner);
         galleryBtn = findViewById(R.id.gallery);
 
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Host Details");
         query = firebaseDatabase.getReference("Title Image");
@@ -77,6 +83,13 @@ public class Details extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), OwnerDetails.class));
             }
         });
+
+        Bookbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),booking.class));
+            }
+        });
     }
 
     @Override
@@ -105,7 +118,7 @@ public class Details extends AppCompatActivity {
                         OwnerID = postsnapshot.child("userId").getValue().toString();
 
                     } else {
-                        Toast.makeText(Details.this, "Error!!!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Details.this, "Error!!!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -124,7 +137,7 @@ public class Details extends AppCompatActivity {
                         String title = snapshot.child("id").getValue().toString();
                         houseTitle.setText(title);
                     } else {
-                        Toast.makeText(Details.this, "Title Error in Database!!!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Details.this, "Title Error in Database!!!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -134,6 +147,29 @@ public class Details extends AppCompatActivity {
 
             }
         });
-
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.home_nav:
+                    startActivity(new Intent(getApplicationContext(),HomePage_Map.class));
+                    return true;
+                case R.id.profile_nav:
+                    startActivity(new Intent(getApplicationContext(),myprofile.class));
+                    return true;
+                case R.id.rent_nav:
+                    startActivity(new Intent(getApplicationContext(),homelist_1.class));
+                    return true;
+                case R.id.nav_logout:
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    return true;
+            }
+            return false;
+        }
+    };
 }

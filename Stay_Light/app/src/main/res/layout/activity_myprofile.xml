@@ -115,13 +115,13 @@
         <Button
             android:id="@+id/save"
             style="@style/FirebaseUI.Button.AccountChooser.PhoneButton"
-            android:layout_width="wrap_content"
+            android:layout_width="117dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="293dp"
+            android:layout_marginStart="267dp"
             android:layout_marginBottom="76dp"
-            android:text="Save"
+            android:text="UPDATE"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold" />

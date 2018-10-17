@@ -111,7 +111,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         assert refId != null;
                         databaseReference.child(refId).setValue(hostPlaceInfo);
-//                        refDatabase.child(refId).setValue(latitudeAndLongitude);
                         GeoFire geoFire = new GeoFire(refDatabase);
                         geoFire.setLocation(refId, new GeoLocation(latitude, longitude), new GeoFire.CompletionListener() {
                             @Override
@@ -331,8 +330,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
 
-            }catch (Exception e){
-                Toast.makeText(getApplicationContext(),e+"",Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e + "", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -367,17 +366,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.home_nav:
-                    startActivity(new Intent(getApplicationContext(),HomePage_Map.class));
+                    startActivity(new Intent(getApplicationContext(), HomePage_Map.class));
                     return true;
                 case R.id.profile_nav:
-                    startActivity(new Intent(getApplicationContext(),myprofile.class));
+                    startActivity(new Intent(getApplicationContext(), myprofile.class));
                     return true;
                 case R.id.rent_nav:
-                    startActivity(new Intent(getApplicationContext(),homelist_1.class));
+                    startActivity(new Intent(getApplicationContext(), homelist_1.class));
                     return true;
                 case R.id.nav_logout:
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     return true;
             }
             return false;

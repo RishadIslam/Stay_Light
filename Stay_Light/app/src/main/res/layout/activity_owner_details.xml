@@ -12,33 +12,47 @@
         android:layout_height="33dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="166dp"
         android:text="Name: "
-        android:textSize="20sp"
+        android:textAlignment="center"
         android:textColor="#000"
-        android:textAlignment="center" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="88dp"
         android:layout_height="33dp"
-        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/textView18"
-        android:layout_marginTop="137dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="221dp"
         android:text="Email: "
         android:textAlignment="center"
         android:textColor="#000"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView9"
-        android:layout_width="361dp"
+        android:id="@+id/textView20"
+        android:layout_width="88dp"
         android:layout_height="33dp"
+        android:layout_alignStart="@+id/textView18"
+        android:layout_alignTop="@+id/textView19"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="44dp"
+        android:text="NID: "
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="382dp"
+        android:layout_height="38dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="187dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="319dp"
         android:drawableLeft="@mipmap/phone"
         android:text="Contact Owner"
         android:textAlignment="center"
@@ -63,6 +77,14 @@
         android:layout_alignTop="@+id/textView19"
         android:textAlignment="center"
         android:textSize="20sp" />
+    <TextView
+        android:id="@+id/ownerNid"
+        android:layout_width="237dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView20"
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/ownerPhone"
@@ -70,7 +92,31 @@
         android:layout_height="30dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="237dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="355dp"
         android:textAlignment="center"
         android:textSize="20sp" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="71dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="476dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/activity_drawer_home"
+        android:backgroundTint="@color/background_color"/>
+
+    <ImageView
+        android:id="@+id/imageViewUser"
+        android:layout_width="109dp"
+        android:layout_height="111dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        tools:srcCompat="@tools:sample/avatars" />
 </RelativeLayout>
