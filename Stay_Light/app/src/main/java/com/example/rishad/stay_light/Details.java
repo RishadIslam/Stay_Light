@@ -93,6 +93,7 @@ public class Details extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 //put your value
                 editor.putString("HouseID", HouseID);
+                editor.putString("OwnerID", OwnerID);
                 //commits your edits
                 editor.apply();
 
