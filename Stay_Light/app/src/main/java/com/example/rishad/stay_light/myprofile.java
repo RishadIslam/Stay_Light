@@ -390,22 +390,26 @@ public class myprofile extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.home_nav:
-                    startActivity(new Intent(myprofile.this,HomePage_Map.class));
+                    startActivity(new Intent(getApplicationContext(),HomePage_Map.class));
                     return true;
                 case R.id.profile_nav:
-                    startActivity(new Intent(myprofile.this,myprofile.class));
+                    startActivity(new Intent(getApplicationContext(),myprofile.class));
                     return true;
                 case R.id.rent_nav:
-                    startActivity(new Intent(myprofile.this,homelist_1.class));
+                    startActivity(new Intent(getApplicationContext(),homelist_1.class));
                     return true;
                 case R.id.nav_logout:
-                    mAuth.signOut();
-                    startActivity(new Intent(myprofile.this,LoginActivity.class));
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    return true;
+                case R.id.booked_nav:
+                    startActivity(new Intent(getApplicationContext(),UserRentedHouse.class));
                     return true;
             }
             return false;
         }
     };
+
 
 
 }

@@ -147,8 +147,12 @@ public class homelist_4 extends AppCompatActivity {
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     return true;
+                case R.id.booked_nav:
+                    startActivity(new Intent(getApplicationContext(),UserRentedHouse.class));
+                    return true;
             }
             return false;
         }
     };
+
 }

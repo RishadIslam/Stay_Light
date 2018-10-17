@@ -6,41 +6,19 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
-
-public class MapPageNavigation extends AppCompatActivity {
-
-    TextView viewMap;
-    Button buttonMap;
-    String amenities;
+public class UserRentedHouse extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_page_navigation);
+        setContentView(R.layout.activity_user_rented_house);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        viewMap = findViewById(R.id.mapTextVew);
-        buttonMap = findViewById(R.id.mapNextButton);
-
-        amenities = getIntent().getStringExtra("amenities");
-        viewMap.setText("Place your place in map.");
-        buttonMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                intent.putExtra("amenities",amenities);
-                startActivity(intent);
-            }
-        });
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -69,6 +47,4 @@ public class MapPageNavigation extends AppCompatActivity {
             return false;
         }
     };
-
-
 }

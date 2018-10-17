@@ -61,7 +61,8 @@
         <activity android:name=".ImagePageNavigation" />
         <activity android:name=".Details" />
         <activity android:name=".ImageGallary" />
-        <activity android:name=".OwnerDetails"></activity>
+        <activity android:name=".OwnerDetails" />
+        <activity android:name=".UserRentedHouse"></activity>
     </application>
 
 </manifest>

@@ -233,6 +233,9 @@ public class HomePage_Map extends AppCompatActivity implements OnMapReadyCallbac
         } else if (id == R.id.home_nav) {
             Intent rent = new Intent(HomePage_Map.this, HomePage_Map.class);
             startActivity(rent);
+        }else if (id == R.id.booked_nav) {
+            Intent rent = new Intent(HomePage_Map.this, UserRentedHouse.class);
+            startActivity(rent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_page);

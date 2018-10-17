@@ -18,6 +18,10 @@
             android:icon="@drawable/rent"
             android:title="Host a place" />
         <item
+            android:id="@+id/booked_nav"
+            android:icon="@drawable/rsz_marker_icon"
+            android:title="Booked Houses" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="Log out" />
