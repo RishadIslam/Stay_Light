@@ -87,6 +87,15 @@ public class Details extends AppCompatActivity {
         Bookbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
+                //now get Editor
+                SharedPreferences.Editor editor = sharedPref.edit();
+                //put your value
+                editor.putString("HouseID", HouseID);
+                //commits your edits
+                editor.apply();
+
                 startActivity(new Intent(getApplicationContext(),booking.class));
             }
         });

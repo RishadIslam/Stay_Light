@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +20,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.LocationCallback;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
@@ -44,12 +50,17 @@ public class booking extends AppCompatActivity {
     public Calendar calendar;
     static final int dID = 0;
 
-    String checkIn, checkOut;
+    String checkIn, checkOut, titleId, titleUrl;
     int checkDate;
     Date dateCheckIn, dateCheckout;
 
     String id;
-    int price, totalGuest;
+    String price;
+    int totalGuest;
+    String houseId;
+    public DatabaseReference database, reference;
+    public double latitude, longitude;
+    TitleImage titleImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +82,7 @@ public class booking extends AppCompatActivity {
 
         viewPrice = findViewById(R.id.textPrice);
 
+        buttonBook = findViewById(R.id.booking);
         textCheckIn.setInputType(InputType.TYPE_NULL);
         textCheckOut.setInputType(InputType.TYPE_NULL);
 
@@ -84,6 +96,11 @@ public class booking extends AppCompatActivity {
         showDialogOnButtonClick();
 
 //        date selection
+
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
+        houseId = sharedPref.getString("HouseID", "");
+
+        Toast.makeText(getApplicationContext(), houseId, Toast.LENGTH_LONG).show();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -114,6 +131,89 @@ public class booking extends AppCompatActivity {
             // FirebaseUser.getIdToken() instead.
         }
 
+        buttonBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                try {
+
+                    database = FirebaseDatabase.getInstance().getReference("Title Image").child(houseId);
+                    database.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            titleImage = dataSnapshot.getValue(TitleImage.class);
+                            FirebaseDatabase.getInstance().getReference("No Title").child(houseId).setValue(titleImage);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    FirebaseDatabase.getInstance().getReference("Title Image")
+                            .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                                if (snapshot.getKey().equals(houseId)){
+                                    snapshot.getRef().removeValue();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    reference = FirebaseDatabase.getInstance().getReference("Booked House").child(houseId);
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
+                    String ownerId = sharedPreferences.getString("OwnerID", "");
+
+                    int adults = Integer.parseInt(textAdult.getText().toString());
+                    int children = Integer.parseInt(textChildren.getText().toString());
+
+                    BookingHouse bookingHouse = new BookingHouse(ownerId, user.getUid(), adults, children, dateCheckIn, dateCheckout);
+                    reference.setValue(bookingHouse);
+
+                    GeoFire geoFire = new GeoFire(FirebaseDatabase.getInstance().getReference("Host Location"));
+                    geoFire.getLocation(houseId, new LocationCallback() {
+                        @Override
+                        public void onLocationResult(String key, GeoLocation location) {
+                            if (location != null) {
+                                latitude = location.latitude;
+                                longitude = location.longitude;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    geoFire.removeLocation(houseId, new GeoFire.CompletionListener() {
+                        @Override
+                        public void onComplete(String key, DatabaseError error) {
+                            GeoFire fire = new GeoFire(FirebaseDatabase.getInstance().getReference("Not Available Host Location"));
+                            fire.setLocation(houseId, new GeoLocation(latitude, longitude), new GeoFire.CompletionListener() {
+                                @Override
+                                public void onComplete(String key, DatabaseError error) {
+                                    Toast.makeText(getApplicationContext(), "Not Available Transfered", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    });
+                    startActivity(new Intent(booking.this, HomePage_Map.class));
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), e + "", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     //  date selection handler
@@ -174,6 +274,7 @@ public class booking extends AppCompatActivity {
             year = i;
             month = i1 + 1;
             day = i2;
+
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
 
             if (checkDate == 1) {
@@ -193,19 +294,22 @@ public class booking extends AppCompatActivity {
 
                 }
                 textCheckOut.setText(checkOut);
+                Toast.makeText(getApplicationContext(), dateFormat.format(dateCheckout), Toast.LENGTH_SHORT).show();
+            }
 
+            if (dateCheckIn != null && dateCheckout != null) {
+
+                int total = Integer.parseInt(price);
                 Long mil1 = dateCheckIn.getTime();
                 Long mil2 = dateCheckout.getTime();
-
                 Long diff = (mil2 - mil1) / (24 * 60 * 60 * 1000);
-
-                viewPrice.setText("Total fare for " + diff + " days is " + diff * price + "taka");
-
+                viewPrice.setText("Total fare for " + diff + " days is " + diff * total + "taka");
                 Toast.makeText(getApplicationContext(), dateFormat.format(dateCheckout), Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(), price + "", Toast.LENGTH_SHORT).show();
             }
         }
     };
+
 //  date handler
 
 
@@ -214,18 +318,17 @@ public class booking extends AppCompatActivity {
         super.onStart();
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("Data Send", MODE_PRIVATE);
         id = sharedPref.getString("HouseID", "");
-
         FirebaseDatabase.getInstance().getReference("Host Details").child(id).
                 addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         HostPlaceInfo hostPlaceInfo = dataSnapshot.getValue(HostPlaceInfo.class);
-                        price = Integer.parseInt(hostPlaceInfo.getHousePrice());
+                        price = hostPlaceInfo.getHousePrice();
+                        Toast.makeText(getApplicationContext(), price, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
                     }
                 });
     }
