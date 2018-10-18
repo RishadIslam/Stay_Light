@@ -50,7 +50,7 @@
 
         <EditText
             android:id="@+id/name"
-            android:layout_width="317dp"
+            android:layout_width="325dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Full Name"
@@ -128,19 +128,19 @@
 
         <ImageButton
             android:id="@+id/editname"
-            android:layout_width="38dp"
-            android:layout_height="47dp"
+            android:layout_width="45dp"
+            android:layout_height="36dp"
             android:layout_alignTop="@+id/name"
             android:layout_alignEnd="@+id/name"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="-38dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="-35dp"
             android:background="@drawable/edit"
             android:scaleType="fitCenter" />
 
         <ImageButton
             android:id="@+id/editphone"
-            android:layout_width="38dp"
-            android:layout_height="47dp"
+            android:layout_width="45dp"
+            android:layout_height="36dp"
             android:layout_alignTop="@+id/name"
             android:layout_alignEnd="@+id/name"
             android:layout_marginTop="92dp"
@@ -150,8 +150,8 @@
 
         <ImageButton
             android:id="@+id/nidedit"
-            android:layout_width="38dp"
-            android:layout_height="47dp"
+            android:layout_width="45dp"
+            android:layout_height="36dp"
             android:layout_alignTop="@+id/name"
             android:layout_alignEnd="@+id/name"
             android:layout_marginTop="226dp"
@@ -161,8 +161,8 @@
 
         <ImageButton
             android:id="@+id/editdob"
-            android:layout_width="38dp"
-            android:layout_height="47dp"
+            android:layout_width="45dp"
+            android:layout_height="36dp"
             android:layout_alignTop="@+id/name"
             android:layout_alignEnd="@+id/name"
             android:layout_marginTop="136dp"
@@ -172,8 +172,8 @@
 
         <ImageButton
             android:id="@+id/editnationality"
-            android:layout_width="38dp"
-            android:layout_height="47dp"
+            android:layout_width="45dp"
+            android:layout_height="36dp"
             android:layout_alignTop="@+id/name"
             android:layout_alignEnd="@+id/name"
             android:layout_marginTop="183dp"

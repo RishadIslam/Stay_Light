@@ -18,8 +18,8 @@
 
     <EditText
         android:id="@+id/fullName"
-        android:layout_width="346dp"
-        android:layout_height="wrap_content"
+        android:layout_width="342dp"
+        android:layout_height="62dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
         android:drawableLeft="@mipmap/user"
@@ -79,10 +79,11 @@
         android:layout_width="fill_parent"
         android:layout_height="1px"
         android:background="@color/white_greyish" />
+
     <EditText
         android:id="@+id/password"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="342dp"
+        android:layout_height="64dp"
         android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
         android:drawableLeft="@mipmap/password"
@@ -99,10 +100,11 @@
         android:layout_width="fill_parent"
         android:layout_height="1px"
         android:background="@color/white_greyish" />
+
     <EditText
         android:id="@+id/confirmPassword"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="346dp"
+        android:layout_height="62dp"
         android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
         android:drawableLeft="@mipmap/confirm_password"

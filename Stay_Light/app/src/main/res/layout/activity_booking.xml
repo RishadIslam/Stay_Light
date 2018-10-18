@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".booking"
     tools:layout_editor_absoluteY="25dp"
-    android:background="@drawable/background3">
+    android:background="@drawable/background13">
 
     <EditText
         android:id="@+id/editText9"

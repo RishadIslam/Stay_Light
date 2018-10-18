@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OwnerDetails">
+    tools:context=".OwnerDetails"
+    android:background="@drawable/house2">
 
     <TextView
         android:id="@+id/textView18"
@@ -17,7 +18,8 @@
         android:text="Name: "
         android:textAlignment="center"
         android:textColor="#000"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@color/colorLightGray"/>
 
     <TextView
         android:id="@+id/textView19"
@@ -30,7 +32,8 @@
         android:text="Email: "
         android:textAlignment="center"
         android:textColor="#000"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@color/colorLightGray"/>
 
     <TextView
         android:id="@+id/textView20"
@@ -43,7 +46,8 @@
         android:text="NID: "
         android:textAlignment="center"
         android:textColor="#000"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@color/colorLightGray"/>
 
     <TextView
         android:id="@+id/textView9"
@@ -57,7 +61,8 @@
         android:text="Contact Owner"
         android:textAlignment="center"
         android:textColor="#000"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@color/greeno"/>
 
     <TextView
         android:id="@+id/ownerName"
@@ -67,7 +72,8 @@
         android:layout_alignTop="@+id/textView18"
         android:layout_marginStart="147dp"
         android:textSize="20sp"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        />
 
     <TextView
         android:id="@+id/ownerEmail"
@@ -95,7 +101,8 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="355dp"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@color/colorLightGray"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
